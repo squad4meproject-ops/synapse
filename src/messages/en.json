@@ -1,0 +1,75 @@
+{
+  "navigation": {
+    "home": "Home",
+    "articles": "Articles",
+    "tools": "AI Tools",
+    "about": "About"
+  },
+  "home": {
+    "title": "Synapse",
+    "subtitle": "The Global AI Community",
+    "heroDescription": "Discover, learn, and connect with the worldwide artificial intelligence community. Explore cutting-edge tools, read insightful articles, and join the conversation.",
+    "featuredTools": "Featured AI Tools",
+    "latestArticles": "Latest Articles",
+    "viewAllTools": "View All Tools",
+    "viewAllArticles": "View All Articles",
+    "getStarted": "Get Started",
+    "exploreTools": "Explore Tools"
+  },
+  "articles": {
+    "title": "Articles",
+    "description": "Insights, tutorials, and analysis from the AI community.",
+    "readMore": "Read more",
+    "publishedOn": "Published on",
+    "by": "by",
+    "noArticles": "No articles found.",
+    "backToArticles": "Back to Articles"
+  },
+  "tools": {
+    "title": "AI Tools Directory",
+    "description": "Discover the best artificial intelligence tools for every use case.",
+    "visitTool": "Visit Tool",
+    "category": "Category",
+    "free": "Free",
+    "freemium": "Freemium",
+    "paid": "Paid",
+    "allCategories": "All Categories",
+    "noTools": "No tools found.",
+    "backToTools": "Back to Tools"
+  },
+  "about": {
+    "title": "About Synapse",
+    "description": "We are building the largest open community for artificial intelligence enthusiasts, researchers, and practitioners worldwide.",
+    "mission": "Our Mission",
+    "missionText": "To democratize access to AI knowledge and tools, making artificial intelligence accessible and understandable for everyone, regardless of their background or location.",
+    "community": "Global Community",
+    "communityText": "Synapse brings together AI enthusiasts from around the world. We believe in the power of shared knowledge and collaborative learning.",
+    "openSource": "Open & Transparent",
+    "openSourceText": "We are committed to transparency and openness. Our platform is built on open standards and promotes free access to information."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "notFound": "Page Not Found",
+    "notFoundDescription": "The page you are looking for does not exist or has been moved.",
+    "backToHome": "Back to Home",
+    "search": "Search...",
+    "language": "Language"
+  },
+  "seo": {
+    "homeTitle": "Synapse - The Global AI Community",
+    "homeDescription": "Discover AI tools, read insightful articles, and connect with the global artificial intelligence community.",
+    "articlesTitle": "Articles - Synapse",
+    "articlesDescription": "Insights, tutorials, and analysis from the AI community.",
+    "toolsTitle": "AI Tools Directory - Synapse",
+    "toolsDescription": "Discover the best artificial intelligence tools for every use case.",
+    "aboutTitle": "About - Synapse",
+    "aboutDescription": "Learn about Synapse, the global AI community platform."
+  },
+  "footer": {
+    "copyright": "© {year} Synapse. All rights reserved.",
+    "tagline": "The Global AI Community Platform",
+    "privacyPolicy": "Privacy Policy",
+    "terms": "Terms of Service"
+  }
+}

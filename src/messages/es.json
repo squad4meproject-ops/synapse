@@ -1,0 +1,75 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "articles": "Artículos",
+    "tools": "Herramientas IA",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Synapse",
+    "subtitle": "La comunidad global de IA",
+    "heroDescription": "Descubre, aprende y conéctate con la comunidad mundial de inteligencia artificial. Explora herramientas de vanguardia, lee artículos perspicaces y únete a la conversación.",
+    "featuredTools": "Herramientas IA destacadas",
+    "latestArticles": "Últimos artículos",
+    "viewAllTools": "Ver todas las herramientas",
+    "viewAllArticles": "Ver todos los artículos",
+    "getStarted": "Comenzar",
+    "exploreTools": "Explorar herramientas"
+  },
+  "articles": {
+    "title": "Artículos",
+    "description": "Análisis, tutoriales y perspectivas de la comunidad de IA.",
+    "readMore": "Leer más",
+    "publishedOn": "Publicado el",
+    "by": "por",
+    "noArticles": "No se encontraron artículos.",
+    "backToArticles": "Volver a artículos"
+  },
+  "tools": {
+    "title": "Directorio de herramientas IA",
+    "description": "Descubre las mejores herramientas de inteligencia artificial para cada caso de uso.",
+    "visitTool": "Visitar herramienta",
+    "category": "Categoría",
+    "free": "Gratis",
+    "freemium": "Freemium",
+    "paid": "De pago",
+    "allCategories": "Todas las categorías",
+    "noTools": "No se encontraron herramientas.",
+    "backToTools": "Volver a herramientas"
+  },
+  "about": {
+    "title": "Acerca de Synapse",
+    "description": "Estamos construyendo la mayor comunidad abierta para entusiastas, investigadores y profesionales de la inteligencia artificial en todo el mundo.",
+    "mission": "Nuestra misión",
+    "missionText": "Democratizar el acceso al conocimiento y las herramientas de IA, haciendo la inteligencia artificial accesible y comprensible para todos, independientemente de su origen o ubicación.",
+    "community": "Comunidad global",
+    "communityText": "Synapse reúne a entusiastas de la IA de todo el mundo. Creemos en el poder del conocimiento compartido y el aprendizaje colaborativo.",
+    "openSource": "Abierto y transparente",
+    "openSourceText": "Estamos comprometidos con la transparencia y la apertura. Nuestra plataforma está construida sobre estándares abiertos y promueve el libre acceso a la información."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "notFound": "Página no encontrada",
+    "notFoundDescription": "La página que buscas no existe o ha sido movida.",
+    "backToHome": "Volver al inicio",
+    "search": "Buscar...",
+    "language": "Idioma"
+  },
+  "seo": {
+    "homeTitle": "Synapse - La comunidad global de IA",
+    "homeDescription": "Descubre herramientas de IA, lee artículos perspicaces y conéctate con la comunidad global de inteligencia artificial.",
+    "articlesTitle": "Artículos - Synapse",
+    "articlesDescription": "Análisis, tutoriales y perspectivas de la comunidad de IA.",
+    "toolsTitle": "Directorio de herramientas IA - Synapse",
+    "toolsDescription": "Descubre las mejores herramientas de inteligencia artificial para cada caso de uso.",
+    "aboutTitle": "Acerca de - Synapse",
+    "aboutDescription": "Conoce Synapse, la plataforma comunitaria global de IA."
+  },
+  "footer": {
+    "copyright": "© {year} Synapse. Todos los derechos reservados.",
+    "tagline": "La plataforma comunitaria global de IA",
+    "privacyPolicy": "Política de privacidad",
+    "terms": "Términos de servicio"
+  }
+}
