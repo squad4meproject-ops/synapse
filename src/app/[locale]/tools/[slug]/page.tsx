@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getToolBySlug } from "@/lib/queries/tools";
 import { Container } from "@/components/ui/Container";
@@ -32,6 +32,7 @@ export default async function ToolDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "tools" });
 
   let tool: AiTool | null = null;

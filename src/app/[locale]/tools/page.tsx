@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getTools, getToolCategories } from "@/lib/queries/tools";
 import { Container } from "@/components/ui/Container";
@@ -30,6 +30,7 @@ export default async function ToolsPage({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const { category } = await searchParams;
   const t = await getTranslations({ locale, namespace: "tools" });
 

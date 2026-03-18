@@ -2,11 +2,12 @@
 
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 
 const localeLabels: Record<string, string> = {
   en: "English",
-  fr: "Francais",
-  es: "Espanol",
+  fr: "Français",
+  es: "Español",
 };
 
 export function LocaleSwitcher() {
@@ -15,7 +16,17 @@ export function LocaleSwitcher() {
   const pathname = usePathname();
 
   function onChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    router.replace(pathname, { locale: e.target.value });
+    const newLocale = e.target.value;
+    // usePathname from next-intl/routing should return path without locale prefix
+    // but we sanitize just in case to avoid /fr/fr double-prefix bug
+    let cleanPath = pathname;
+    for (const loc of routing.locales) {
+      if (cleanPath === `/${loc}` || cleanPath.startsWith(`/${loc}/`)) {
+        cleanPath = cleanPath.slice(`/${loc}`.length) || "/";
+        break;
+      }
+    }
+    router.replace(cleanPath, { locale: newLocale });
   }
 
   return (

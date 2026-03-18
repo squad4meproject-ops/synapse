@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getArticles } from "@/lib/queries/articles";
 import { getFeaturedTools } from "@/lib/queries/tools";
@@ -29,6 +29,7 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   let articles: Awaited<ReturnType<typeof getArticles>> = [];
   let tools: Awaited<ReturnType<typeof getFeaturedTools>> = [];
