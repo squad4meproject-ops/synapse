@@ -95,7 +95,16 @@
     "save": "Guardar cambios",
     "saving": "Guardando...",
     "saved": "¡Perfil actualizado con éxito!",
-    "usernameTaken": "Este nombre de usuario ya está en uso."
+    "usernameTaken": "Este nombre de usuario ya está en uso.",
+    "showEmail": "Mostrar email públicamente",
+    "showEmailDescription": "Si está activado, tu email será visible en tu perfil público.",
+    "socialLinks": "Enlaces sociales",
+    "addLink": "Agregar enlace",
+    "noLinks": "Aún no hay enlaces sociales.",
+    "linkLabel": "Etiqueta",
+    "linkUrl": "URL",
+    "linkLabelPlaceholder": "ej: Twitter",
+    "linkUrlPlaceholder": "https://..."
   },
   "footer": {
     "copyright": "© {year} Synapse. Todos los derechos reservados.",

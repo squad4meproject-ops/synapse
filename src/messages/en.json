@@ -95,7 +95,16 @@
     "save": "Save changes",
     "saving": "Saving...",
     "saved": "Profile updated successfully!",
-    "usernameTaken": "This username is already taken."
+    "usernameTaken": "This username is already taken.",
+    "showEmail": "Show email publicly",
+    "showEmailDescription": "When enabled, your email will be visible on your public profile.",
+    "socialLinks": "Social links",
+    "addLink": "Add link",
+    "noLinks": "No social links added yet.",
+    "linkLabel": "Label",
+    "linkUrl": "URL",
+    "linkLabelPlaceholder": "e.g. Twitter",
+    "linkUrlPlaceholder": "https://..."
   },
   "footer": {
     "copyright": "© {year} Synapse. All rights reserved.",

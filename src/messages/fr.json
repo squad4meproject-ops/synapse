@@ -95,7 +95,16 @@
     "save": "Enregistrer",
     "saving": "Enregistrement...",
     "saved": "Profil mis à jour avec succès !",
-    "usernameTaken": "Ce nom d'utilisateur est déjà pris."
+    "usernameTaken": "Ce nom d'utilisateur est déjà pris.",
+    "showEmail": "Afficher l'email publiquement",
+    "showEmailDescription": "Si activé, votre email sera visible sur votre profil public.",
+    "socialLinks": "Liens sociaux",
+    "addLink": "Ajouter un lien",
+    "noLinks": "Aucun lien social ajouté.",
+    "linkLabel": "Libellé",
+    "linkUrl": "URL",
+    "linkLabelPlaceholder": "ex : Twitter",
+    "linkUrlPlaceholder": "https://..."
   },
   "footer": {
     "copyright": "© {year} Synapse. Tous droits réservés.",
