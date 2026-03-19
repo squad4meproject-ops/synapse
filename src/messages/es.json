@@ -106,6 +106,66 @@
     "linkLabelPlaceholder": "ej: Twitter",
     "linkUrlPlaceholder": "https://..."
   },
+  "feed": {
+    "title": "Feed de la comunidad",
+    "newPost": "Comparte algo...",
+    "categories": {
+      "all": "Todo",
+      "creation": "Creaciones IA",
+      "prompt": "Prompts",
+      "question": "Preguntas",
+      "discussion": "Discusiones",
+      "tool_review": "Reseñas de herramientas"
+    },
+    "post": {
+      "like": "Me gusta",
+      "liked": "Te gusta",
+      "save": "Guardar",
+      "saved": "Guardado",
+      "comment": "Comentar",
+      "comments": "Comentarios",
+      "share": "Compartir",
+      "copyPrompt": "Copiar prompt",
+      "promptCopied": "¡Prompt copiado!",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Estás seguro de que quieres eliminar este post?",
+      "edit": "Editar",
+      "report": "Reportar",
+      "viewMore": "Ver más"
+    },
+    "composer": {
+      "placeholder": "¿Qué hay de nuevo en el mundo de la IA?",
+      "categorySelect": "Elige una categoría",
+      "addImage": "Añadir imágenes",
+      "addLink": "Añadir un enlace",
+      "addPrompt": "Compartir un prompt",
+      "promptPlaceholder": "Pega tu prompt aquí...",
+      "linkPlaceholder": "https://...",
+      "publish": "Publicar",
+      "publishing": "Publicando...",
+      "maxImages": "Cuenta gratuita: hasta 4 imágenes. Hazte Premium para 10.",
+      "loginToPost": "Inicia sesión para compartir con la comunidad"
+    },
+    "comments": {
+      "placeholder": "Escribe un comentario...",
+      "replyPlaceholder": "Escribe una respuesta...",
+      "reply": "Responder",
+      "replies": "respuestas",
+      "showReplies": "Mostrar respuestas",
+      "hideReplies": "Ocultar respuestas",
+      "loginToComment": "Inicia sesión para comentar"
+    },
+    "empty": {
+      "title": "Sin publicaciones aún",
+      "description": "¡Sé el primero en compartir algo con la comunidad!",
+      "filtered": "Sin publicaciones en esta categoría aún."
+    },
+    "sidebar": {
+      "trending": "Herramientas en tendencia",
+      "latestArticles": "Últimos artículos",
+      "topContributors": "Top contribuidores"
+    }
+  },
   "footer": {
     "copyright": "© {year} Synapse. Todos los derechos reservados.",
     "tagline": "La plataforma comunitaria global de IA",

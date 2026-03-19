@@ -106,6 +106,66 @@
     "linkLabelPlaceholder": "e.g. Twitter",
     "linkUrlPlaceholder": "https://..."
   },
+  "feed": {
+    "title": "Community Feed",
+    "newPost": "Share something...",
+    "categories": {
+      "all": "All",
+      "creation": "AI Creations",
+      "prompt": "Prompts",
+      "question": "Questions",
+      "discussion": "Discussions",
+      "tool_review": "Tool Reviews"
+    },
+    "post": {
+      "like": "Like",
+      "liked": "Liked",
+      "save": "Save",
+      "saved": "Saved",
+      "comment": "Comment",
+      "comments": "Comments",
+      "share": "Share",
+      "copyPrompt": "Copy prompt",
+      "promptCopied": "Prompt copied!",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this post?",
+      "edit": "Edit",
+      "report": "Report",
+      "viewMore": "View more"
+    },
+    "composer": {
+      "placeholder": "What's on your mind about AI?",
+      "categorySelect": "Choose a category",
+      "addImage": "Add images",
+      "addLink": "Add a link",
+      "addPrompt": "Share a prompt",
+      "promptPlaceholder": "Paste your prompt here...",
+      "linkPlaceholder": "https://...",
+      "publish": "Post",
+      "publishing": "Posting...",
+      "maxImages": "Free accounts: up to 4 images. Upgrade to Premium for up to 10.",
+      "loginToPost": "Log in to share with the community"
+    },
+    "comments": {
+      "placeholder": "Write a comment...",
+      "replyPlaceholder": "Write a reply...",
+      "reply": "Reply",
+      "replies": "replies",
+      "showReplies": "Show replies",
+      "hideReplies": "Hide replies",
+      "loginToComment": "Log in to comment"
+    },
+    "empty": {
+      "title": "No posts yet",
+      "description": "Be the first to share something with the community!",
+      "filtered": "No posts in this category yet."
+    },
+    "sidebar": {
+      "trending": "Trending Tools",
+      "latestArticles": "Latest Articles",
+      "topContributors": "Top Contributors"
+    }
+  },
   "footer": {
     "copyright": "© {year} Synapse. All rights reserved.",
     "tagline": "The Global AI Community Platform",
