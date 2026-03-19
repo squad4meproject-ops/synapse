@@ -39,7 +39,7 @@ export default async function ToolsPage({
 
   try {
     [tools, categories] = await Promise.all([
-      getTools(category),
+      getTools(locale, category),
       getToolCategories(),
     ]);
   } catch {

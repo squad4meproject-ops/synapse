@@ -37,7 +37,7 @@ export default async function HomePage({
   try {
     [articles, tools] = await Promise.all([
       getArticles(locale),
-      getFeaturedTools(),
+      getFeaturedTools(locale),
     ]);
   } catch {
     // Supabase not configured yet — render page without data

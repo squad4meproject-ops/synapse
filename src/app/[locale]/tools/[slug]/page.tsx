@@ -14,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const tool = await getToolBySlug(slug).catch(() => null);
+  const tool = await getToolBySlug(slug, locale).catch(() => null);
 
   if (!tool) return {};
 
@@ -37,7 +37,7 @@ export default async function ToolDetailPage({
 
   let tool: AiTool | null = null;
   try {
-    tool = await getToolBySlug(slug);
+    tool = await getToolBySlug(slug, locale);
   } catch {
     notFound();
   }
