@@ -16,6 +16,9 @@ export interface Database {
           display_name: string | null;
           avatar_url: string | null;
           bio: string | null;
+          username: string | null;
+          role: string;
+          auth_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -24,6 +27,9 @@ export interface Database {
           display_name?: string | null;
           avatar_url?: string | null;
           bio?: string | null;
+          username?: string | null;
+          role?: string;
+          auth_id?: string | null;
           created_at?: string;
         };
         Update: {
@@ -32,6 +38,9 @@ export interface Database {
           display_name?: string | null;
           avatar_url?: string | null;
           bio?: string | null;
+          username?: string | null;
+          role?: string;
+          auth_id?: string | null;
           created_at?: string;
         };
       };

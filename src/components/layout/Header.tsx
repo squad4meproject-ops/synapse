@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Container } from "@/components/ui/Container";
+import { AuthButton } from "@/components/auth/AuthButton";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileNav } from "./MobileNav";
 
@@ -36,6 +37,7 @@ export function Header() {
 
           <div className="hidden items-center space-x-4 md:flex">
             <LocaleSwitcher />
+            <AuthButton />
           </div>
 
           <MobileNav />

@@ -66,6 +66,37 @@
     "aboutTitle": "About - Synapse",
     "aboutDescription": "Learn about Synapse, the global AI community platform."
   },
+  "auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "displayName": "Display name",
+    "loading": "Loading...",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGitHub": "Continue with GitHub",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "checkEmail": "Check your email",
+    "confirmationSent": "We've sent you a confirmation link. Please check your inbox and click the link to activate your account.",
+    "callbackError": "Authentication failed. Please try again.",
+    "profile": "Profile"
+  },
+  "profile": {
+    "title": "My Profile",
+    "displayName": "Display name",
+    "username": "Username",
+    "usernamePlaceholder": "Choose a unique username",
+    "email": "Email",
+    "bio": "Bio",
+    "bioPlaceholder": "Tell us about yourself...",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "saved": "Profile updated successfully!",
+    "usernameTaken": "This username is already taken."
+  },
   "footer": {
     "copyright": "© {year} Synapse. All rights reserved.",
     "tagline": "The Global AI Community Platform",

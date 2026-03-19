@@ -66,6 +66,37 @@
     "aboutTitle": "Acerca de - Synapse",
     "aboutDescription": "Conoce Synapse, la plataforma comunitaria global de IA."
   },
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Registrarse",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "displayName": "Nombre para mostrar",
+    "loading": "Cargando...",
+    "or": "o",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithGitHub": "Continuar con GitHub",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?",
+    "checkEmail": "Revisa tu correo",
+    "confirmationSent": "Te hemos enviado un enlace de confirmación. Revisa tu bandeja de entrada y haz clic en el enlace para activar tu cuenta.",
+    "callbackError": "La autenticación falló. Por favor, inténtalo de nuevo.",
+    "profile": "Perfil"
+  },
+  "profile": {
+    "title": "Mi perfil",
+    "displayName": "Nombre para mostrar",
+    "username": "Nombre de usuario",
+    "usernamePlaceholder": "Elige un nombre de usuario único",
+    "email": "Correo electrónico",
+    "bio": "Biografía",
+    "bioPlaceholder": "Cuéntanos sobre ti...",
+    "save": "Guardar cambios",
+    "saving": "Guardando...",
+    "saved": "¡Perfil actualizado con éxito!",
+    "usernameTaken": "Este nombre de usuario ya está en uso."
+  },
   "footer": {
     "copyright": "© {year} Synapse. Todos los derechos reservados.",
     "tagline": "La plataforma comunitaria global de IA",
