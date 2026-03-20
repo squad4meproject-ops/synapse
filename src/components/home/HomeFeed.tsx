@@ -31,9 +31,9 @@ export function HomeFeed({
 
       {/* Posts */}
       {posts.length > 0 ? (
-        <div className="divide-y divide-gray-200">
+        <div className="space-y-4 p-4">
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard key={post.id} post={post} isLoggedIn={isLoggedIn} />
           ))}
         </div>
       ) : (

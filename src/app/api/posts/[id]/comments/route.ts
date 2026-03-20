@@ -1,5 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
+
+// GET /api/posts/[id]/comments — Récupérer les commentaires
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id: postId } = await params;
+    const service = createServiceClient();
+
+    const { data, error } = await service
+      .from('comments')
+      .select(`
+        *,
+        author:users!comments_author_id_fkey(id, display_name, username, avatar_url)
+      `)
+      .eq('post_id', postId)
+      .order('created_at', { ascending: true });
+
+    if (error) throw error;
+    return NextResponse.json(data || []);
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    return NextResponse.json([], { status: 500 });
+  }
+}
 
 // POST /api/posts/[id]/comments — Ajouter un commentaire
 export async function POST(
@@ -8,9 +35,9 @@ export async function POST(
 ) {
   try {
     const { id: postId } = await params;
+
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -18,26 +45,28 @@ export async function POST(
     const body = await request.json();
     const { content, parent_id } = body;
 
-    if (!content) {
+    if (!content?.trim()) {
       return NextResponse.json({ error: 'Content is required' }, { status: 400 });
     }
 
-    const { data: userData } = await supabase
+    const service = createServiceClient();
+
+    const { data: userData } = await service
       .from('users')
       .select('id')
       .eq('auth_id', user.id)
-      .single() as { data: { id: string } | null };
+      .single();
 
     if (!userData) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: comment, error } = await (supabase.from('comments') as any)
+    const { data: comment, error } = await service
+      .from('comments')
       .insert({
         post_id: postId,
         author_id: userData.id,
-        content,
+        content: content.trim(),
         parent_id: parent_id || null,
       })
       .select(`
@@ -46,7 +75,10 @@ export async function POST(
       `)
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error creating comment:', error);
+      return NextResponse.json({ error: 'Failed to comment' }, { status: 500 });
+    }
     return NextResponse.json(comment, { status: 201 });
   } catch (error) {
     console.error('Error creating comment:', error);

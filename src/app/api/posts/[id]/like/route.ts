@@ -1,56 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 
-// POST /api/posts/[id]/like — Toggle like sur un post
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id: postId } = await params;
+
+    // 1. Vérifier l'auth avec le client normal (cookies)
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-
     if (authError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Trouver l'ID utilisateur interne
-    const { data: userData } = await supabase
+    // 2. Utiliser le service client pour les mutations (bypass RLS)
+    const service = createServiceClient();
+
+    // 3. Trouver l'utilisateur interne
+    const { data: userData } = await service
       .from('users')
       .select('id')
       .eq('auth_id', user.id)
-      .single() as { data: { id: string } | null };
+      .single();
 
     if (!userData) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Vérifier si déjà liké
-    const { data: existingLike } = await supabase
+    // 4. Vérifier si déjà liké
+    const { data: existingLike } = await service
       .from('likes')
       .select('id')
       .eq('user_id', userData.id)
       .eq('post_id', postId)
-      .maybeSingle() as { data: { id: string } | null };
+      .maybeSingle();
 
     if (existingLike) {
-      // Unlike — supprimer le like
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error: deleteError } = await (supabase.from('likes') as any).delete().eq('id', existingLike.id);
+      // Unlike
+      const { error: deleteError } = await service
+        .from('likes')
+        .delete()
+        .eq('id', existingLike.id);
+
       if (deleteError) {
         console.error('Error deleting like:', deleteError);
         return NextResponse.json({ error: 'Failed to unlike' }, { status: 500 });
       }
       return NextResponse.json({ liked: false });
     } else {
-      // Like — créer le like
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { error: insertError } = await (supabase.from('likes') as any).insert({
-        user_id: userData.id,
-        post_id: postId,
-      });
+      // Like
+      const { error: insertError } = await service
+        .from('likes')
+        .insert({ user_id: userData.id, post_id: postId });
+
       if (insertError) {
+        // Si déjà liké (constraint unique), traiter comme un unlike
+        if (insertError.code === '23505') {
+          await service.from('likes').delete()
+            .eq('user_id', userData.id)
+            .eq('post_id', postId);
+          return NextResponse.json({ liked: false });
+        }
         console.error('Error inserting like:', insertError);
         return NextResponse.json({ error: 'Failed to like' }, { status: 500 });
       }
