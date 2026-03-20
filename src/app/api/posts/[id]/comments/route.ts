@@ -25,15 +25,15 @@ export async function POST(
     const { data: userData } = await supabase
       .from('users')
       .select('id')
-      .or(`auth_id.eq.${user.id},email.eq.${user.email}`)
-      .single();
+      .eq('auth_id', user.id)
+      .single() as { data: { id: string } | null };
 
     if (!userData) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    const { data: comment, error } = await supabase
-      .from('comments')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: comment, error } = await (supabase.from('comments') as any)
       .insert({
         post_id: postId,
         author_id: userData.id,

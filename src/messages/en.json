@@ -15,7 +15,8 @@
     "viewAllTools": "View All Tools",
     "viewAllArticles": "View All Articles",
     "getStarted": "Get Started",
-    "exploreTools": "Explore Tools"
+    "exploreTools": "Explore Tools",
+    "topContributors": "Top Contributors"
   },
   "articles": {
     "title": "Articles",
@@ -165,7 +166,8 @@
       "trending": "Trending Tools",
       "latestArticles": "Latest Articles",
       "topContributors": "Top Contributors"
-    }
+    },
+    "viewAll": "View all posts"
   },
   "footer": {
     "copyright": "© {year} Synapse. All rights reserved.",

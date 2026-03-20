@@ -1,12 +1,19 @@
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getArticles } from "@/lib/queries/articles";
 import { getFeaturedTools } from "@/lib/queries/tools";
-import { HeroSection } from "@/components/home/HeroSection";
-import { FeaturedTools } from "@/components/home/FeaturedTools";
-import { LatestArticles } from "@/components/home/LatestArticles";
+import { getPosts } from "@/lib/queries/posts";
+import { createClient } from "@/lib/supabase/server";
+import { HeroCompact } from "@/components/home/HeroCompact";
+import { HomeFeed } from "@/components/home/HomeFeed";
+import { TrendingTools } from "@/components/home/TrendingTools";
+import { RecentArticles } from "@/components/home/RecentArticles";
+import { TopContributors } from "@/components/home/TopContributors";
+import { Container } from "@/components/ui/Container";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
+import type { PostCategory } from "@/types/database";
 
 export async function generateMetadata({
   params,
@@ -25,22 +32,44 @@ export async function generateMetadata({
 
 export default async function HomePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ category?: string }>;
 }) {
   const { locale } = await params;
+  const search = await searchParams;
   setRequestLocale(locale);
+
+  // Check if user is logged in
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  let userId: string | undefined;
+  if (user) {
+    const { data: userData } = await supabase
+      .from("users")
+      .select("id")
+      .eq("auth_id", user.id)
+      .single() as { data: { id: string } | null };
+    userId = userData?.id;
+  }
+
+  // Fetch all data in parallel
+  const category = search.category as PostCategory | undefined;
 
   let articles: Awaited<ReturnType<typeof getArticles>> = [];
   let tools: Awaited<ReturnType<typeof getFeaturedTools>> = [];
+  let postsData = { posts: [] as Awaited<ReturnType<typeof getPosts>>["posts"], total: 0 };
 
   try {
-    [articles, tools] = await Promise.all([
+    [articles, tools, postsData] = await Promise.all([
       getArticles(locale),
       getFeaturedTools(locale),
+      getPosts({ page: 1, limit: 10, category, userId }),
     ]);
   } catch {
-    // Supabase not configured yet — render page without data
+    // fail gracefully
   }
 
   return (
@@ -55,9 +84,34 @@ export default async function HomePage({
             "The global AI community platform for tools, articles, and collaboration.",
         }}
       />
-      <HeroSection />
-      <FeaturedTools tools={tools} />
-      <LatestArticles articles={articles} locale={locale} />
+
+      {/* Compact Hero */}
+      <HeroCompact />
+
+      {/* Main content: Feed + Sidebar */}
+      <div className="bg-gray-50 py-6 sm:py-8">
+        <Container>
+          <div className="flex flex-col gap-6 lg:flex-row">
+            {/* Main column: Feed */}
+            <main className="min-w-0 flex-1">
+              <HomeFeed
+                posts={postsData.posts}
+                locale={locale}
+                isLoggedIn={!!user}
+              />
+            </main>
+
+            {/* Sidebar */}
+            <aside className="w-full space-y-6 lg:w-80 lg:flex-shrink-0">
+              <TrendingTools tools={tools} />
+              <RecentArticles articles={articles} locale={locale} />
+              <Suspense fallback={null}>
+                <TopContributors />
+              </Suspense>
+            </aside>
+          </div>
+        </Container>
+      </div>
     </>
   );
 }

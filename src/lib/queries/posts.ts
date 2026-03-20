@@ -63,8 +63,8 @@ export async function getPosts({
           .in('post_id', postIds),
       ]);
 
-      const likedPostIds = new Set((likesResult.data || []).map(l => l.post_id));
-      const savedPostIds = new Set((bookmarksResult.data || []).map(b => b.post_id));
+      const likedPostIds = new Set(((likesResult.data || []) as { post_id: string }[]).map(l => l.post_id));
+      const savedPostIds = new Set(((bookmarksResult.data || []) as { post_id: string }[]).map(b => b.post_id));
 
       posts = posts.map(post => ({
         ...post,
@@ -166,7 +166,7 @@ export async function getComments(postId: string, userId?: string): Promise<Comm
         .eq('user_id', userId)
         .in('comment_id', commentIds);
 
-      const likedCommentIds = new Set((likesData || []).map(l => l.comment_id));
+      const likedCommentIds = new Set(((likesData || []) as { comment_id: string }[]).map(l => l.comment_id));
       comments = comments.map(c => ({
         ...c,
         is_liked: likedCommentIds.has(c.id),

@@ -23,22 +23,22 @@ export async function POST(request: NextRequest) {
       .from('users')
       .select('id')
       .eq('auth_id', user.id)
-      .single();
+      .single() as { data: { id: string } | null };
 
     if (!userData) {
       // Fallback: chercher par email
       const { data: userByEmail } = await supabase
         .from('users')
         .select('id')
-        .eq('email', user.email)
-        .single();
+        .eq('email', user.email!)
+        .single() as { data: { id: string } | null };
 
       if (!userByEmail) {
         return NextResponse.json({ error: 'User profile not found' }, { status: 404 });
       }
 
-      const { data: post, error } = await supabase
-        .from('posts')
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data: post, error } = await (supabase.from('posts') as any)
         .insert({
           author_id: userByEmail.id,
           category,
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(post, { status: 201 });
     }
 
-    const { data: post, error } = await supabase
-      .from('posts')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: post, error } = await (supabase.from('posts') as any)
       .insert({
         author_id: userData.id,
         category,

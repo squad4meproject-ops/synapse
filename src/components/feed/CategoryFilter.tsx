@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { PostCategory } from "@/types/database";
 
 const categoryOptions: { value: string; icon: string }[] = [
   { value: "all", icon: "📋" },

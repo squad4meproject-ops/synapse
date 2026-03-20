@@ -149,6 +149,183 @@ export interface Database {
           created_at?: string;
         };
       };
+      posts: {
+        Row: {
+          id: string;
+          author_id: string;
+          category: string;
+          content: string;
+          prompt_content: string | null;
+          link_url: string | null;
+          link_preview: Json | null;
+          tool_id: string | null;
+          locale: string;
+          likes_count: number;
+          comments_count: number;
+          saves_count: number;
+          is_pinned: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          author_id: string;
+          category: string;
+          content: string;
+          prompt_content?: string | null;
+          link_url?: string | null;
+          link_preview?: Json | null;
+          tool_id?: string | null;
+          locale?: string;
+          likes_count?: number;
+          comments_count?: number;
+          saves_count?: number;
+          is_pinned?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          author_id?: string;
+          category?: string;
+          content?: string;
+          prompt_content?: string | null;
+          link_url?: string | null;
+          link_preview?: Json | null;
+          tool_id?: string | null;
+          locale?: string;
+          likes_count?: number;
+          comments_count?: number;
+          saves_count?: number;
+          is_pinned?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      post_images: {
+        Row: {
+          id: string;
+          post_id: string;
+          image_url: string;
+          position: number;
+          alt_text: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          image_url: string;
+          position?: number;
+          alt_text?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          post_id?: string;
+          image_url?: string;
+          position?: number;
+          alt_text?: string | null;
+          created_at?: string;
+        };
+      };
+      comments: {
+        Row: {
+          id: string;
+          post_id: string;
+          author_id: string;
+          parent_id: string | null;
+          content: string;
+          likes_count: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          author_id: string;
+          parent_id?: string | null;
+          content: string;
+          likes_count?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          post_id?: string;
+          author_id?: string;
+          parent_id?: string | null;
+          content?: string;
+          likes_count?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      likes: {
+        Row: {
+          id: string;
+          user_id: string;
+          post_id: string | null;
+          comment_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          post_id?: string | null;
+          comment_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          post_id?: string | null;
+          comment_id?: string | null;
+          created_at?: string;
+        };
+      };
+      bookmarks: {
+        Row: {
+          id: string;
+          user_id: string;
+          post_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          post_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          post_id?: string;
+          created_at?: string;
+        };
+      };
+      tool_translations: {
+        Row: {
+          id: string;
+          tool_id: string;
+          locale: string;
+          name: string;
+          description: string;
+        };
+        Insert: {
+          id?: string;
+          tool_id: string;
+          locale: string;
+          name: string;
+          description: string;
+        };
+        Update: {
+          id?: string;
+          tool_id?: string;
+          locale?: string;
+          name?: string;
+          description?: string;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

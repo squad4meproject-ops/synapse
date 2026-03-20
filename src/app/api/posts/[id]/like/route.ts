@@ -19,8 +19,8 @@ export async function POST(
     const { data: userData } = await supabase
       .from('users')
       .select('id')
-      .or(`auth_id.eq.${user.id},email.eq.${user.email}`)
-      .single();
+      .eq('auth_id', user.id)
+      .single() as { data: { id: string } | null };
 
     if (!userData) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -32,15 +32,17 @@ export async function POST(
       .select('id')
       .eq('user_id', userData.id)
       .eq('post_id', postId)
-      .maybeSingle();
+      .maybeSingle() as { data: { id: string } | null };
 
     if (existingLike) {
       // Unlike
-      await supabase.from('likes').delete().eq('id', existingLike.id);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase.from('likes') as any).delete().eq('id', existingLike.id);
       return NextResponse.json({ liked: false });
     } else {
       // Like
-      await supabase.from('likes').insert({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase.from('likes') as any).insert({
         user_id: userData.id,
         post_id: postId,
       });
