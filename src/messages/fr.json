@@ -200,7 +200,13 @@
       "latestArticles": "Derniers articles",
       "topContributors": "Top contributeurs"
     },
-    "viewAll": "Voir tous les posts"
+    "viewAll": "Voir tous les posts",
+    "languages": {
+      "all": "Toutes les langues",
+      "fr": "Français",
+      "en": "English",
+      "es": "Español"
+    }
   },
   "legal": {
     "legalNotice": "Mentions Légales",

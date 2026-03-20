@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1', 10);
     const category = searchParams.get('category') as PostCategory | undefined;
     const limit = Math.min(parseInt(searchParams.get('limit') || '10', 10), 50);
+    const lang = searchParams.get('lang') || undefined;
 
     // Check user
     const supabase = await createClient();
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest) {
       userId = userData?.id;
     }
 
-    const { posts, total } = await getPosts({ page, limit, category, userId });
+    const { posts, total } = await getPosts({ page, limit, category, locale: lang, userId });
 
     return NextResponse.json({
       posts,

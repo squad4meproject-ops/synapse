@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
 import { PostComposer } from "@/components/feed/PostComposer";
 import { CategoryFilter } from "@/components/feed/CategoryFilter";
+import { LanguageFilter } from "@/components/feed/LanguageFilter";
 import { LoadMoreButton } from "@/components/feed/LoadMoreButton";
 import type { PostCategory } from "@/types/database";
 
@@ -31,13 +32,14 @@ export default async function FeedPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; page?: string }>;
+  searchParams: Promise<{ category?: string; page?: string; lang?: string }>;
 }) {
   const { locale } = await params;
   const search = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "feed" });
+  const lang = search.lang;
 
   // Check if user is logged in
   const supabase = await createClient();
@@ -58,7 +60,7 @@ export default async function FeedPage({
 
   let postsData = { posts: [] as Awaited<ReturnType<typeof getPosts>>["posts"], total: 0 };
   try {
-    postsData = await getPosts({ page, category, userId });
+    postsData = await getPosts({ page, category, locale: lang, userId });
   } catch {
     // fail gracefully
   }
@@ -75,6 +77,11 @@ export default async function FeedPage({
             <CategoryFilter />
           </Suspense>
 
+          {/* Language Filter */}
+          <Suspense fallback={null}>
+            <LanguageFilter />
+          </Suspense>
+
           {/* Posts Feed */}
           {postsData.posts.length > 0 ? (
             <div className="space-y-4 p-4">
@@ -86,6 +93,7 @@ export default async function FeedPage({
                 total={postsData.total}
                 limit={20}
                 category={category}
+                lang={lang}
                 isLoggedIn={!!user}
                 currentUserId={userId}
               />

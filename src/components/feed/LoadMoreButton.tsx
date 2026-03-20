@@ -9,6 +9,7 @@ export function LoadMoreButton({
   total,
   limit,
   category,
+  lang,
   isLoggedIn,
   currentUserId,
 }: {
@@ -16,6 +17,7 @@ export function LoadMoreButton({
   total: number;
   limit: number;
   category?: string;
+  lang?: string;
   isLoggedIn: boolean;
   currentUserId?: string;
 }) {
@@ -36,6 +38,7 @@ export function LoadMoreButton({
         limit: limit.toString(),
       });
       if (category) params.set('category', category);
+      if (lang) params.set('lang', lang);
 
       const res = await fetch(`/api/posts/feed?${params}`);
       if (res.ok) {
