@@ -25,7 +25,7 @@ export function HomeFeed({
   const t = useTranslations("feed");
 
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card">
       {/* Composer */}
       <PostComposer locale={locale} isLoggedIn={isLoggedIn} />
 
@@ -36,31 +36,44 @@ export function HomeFeed({
 
       {/* Posts */}
       {posts.length > 0 ? (
-        <div className="space-y-4 p-4">
+        <div className="divide-y divide-gray-100 px-1">
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} isLoggedIn={isLoggedIn} currentUserId={currentUserId} />
+            <div key={post.id} className="p-3 sm:p-4">
+              <PostCard post={post} isLoggedIn={isLoggedIn} currentUserId={currentUserId} />
+            </div>
           ))}
-          <LoadMoreButton
-            initialPage={1}
-            total={total}
-            limit={10}
-            isLoggedIn={isLoggedIn}
-            currentUserId={currentUserId}
-          />
+          <div className="p-4">
+            <LoadMoreButton
+              initialPage={1}
+              total={total}
+              limit={10}
+              isLoggedIn={isLoggedIn}
+              currentUserId={currentUserId}
+            />
+          </div>
         </div>
       ) : (
-        <div className="px-6 py-12 text-center">
-          <p className="text-sm text-gray-500">{t("empty.title")}</p>
+        <div className="px-6 py-16 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-100">
+            <svg className="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </div>
+          <p className="text-sm font-medium text-gray-900">{t("empty.title")}</p>
+          <p className="mt-1 text-xs text-gray-500">{t("empty.description")}</p>
         </div>
       )}
 
       {/* View all link */}
-      <div className="border-t border-gray-200 p-4 text-center">
+      <div className="border-t border-gray-100 bg-gray-50/50 p-4 text-center">
         <Link
           href="/feed"
-          className="text-sm font-medium text-primary-600 hover:text-primary-700"
+          className="inline-flex items-center gap-1 text-sm font-semibold text-primary-600 transition-colors hover:text-primary-700"
         >
-          {t("viewAll")} →
+          {t("viewAll")}
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
         </Link>
       </div>
     </div>

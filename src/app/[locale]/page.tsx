@@ -89,7 +89,7 @@ export default async function HomePage({
       <HeroCompact />
 
       {/* Main content: Feed + Sidebar */}
-      <div className="bg-gray-50 py-6 sm:py-8">
+      <div className="bg-gradient-to-b from-gray-50 to-white py-6 sm:py-8">
         <Container>
           <div className="flex flex-col gap-6 lg:flex-row">
             {/* Main column: Feed */}

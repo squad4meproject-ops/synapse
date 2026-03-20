@@ -22,28 +22,31 @@ export async function TopContributors() {
   if (!contributors.length) return null;
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-4">
-      <h3 className="text-sm font-bold text-gray-900">Top Contributors</h3>
-      <div className="mt-3 space-y-3">
+    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover">
+      <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900">
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-yellow-100 text-xs">👑</span>
+        Top Contributors
+      </h3>
+      <div className="mt-4 space-y-2">
         {contributors.map((user) => (
-          <div key={user.id} className="flex items-center gap-3">
+          <div key={user.id} className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-gray-50">
             {user.avatar_url ? (
               <img
                 src={user.avatar_url}
                 alt={user.display_name || ""}
-                className="h-8 w-8 rounded-full object-cover"
+                className="h-9 w-9 rounded-full object-cover ring-2 ring-primary-100"
               />
             ) : (
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-xs font-bold text-white">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-accent-500 text-xs font-bold text-white ring-2 ring-primary-100">
                 {(user.display_name || user.username || "?").charAt(0).toUpperCase()}
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-gray-900">
+              <p className="truncate text-sm font-semibold text-gray-900">
                 {user.display_name || user.username || "Anonymous"}
               </p>
               {user.username && (
-                <p className="truncate text-xs text-gray-500">@{user.username}</p>
+                <p className="truncate text-xs text-gray-400">@{user.username}</p>
               )}
             </div>
           </div>

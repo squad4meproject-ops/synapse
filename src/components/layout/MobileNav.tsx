@@ -11,11 +11,12 @@ export function MobileNav() {
   const t = useTranslations("navigation");
 
   const links = [
-    { href: "/", label: t("home") },
-    { href: "/feed", label: t("community") },
-    { href: "/articles", label: t("articles") },
-    { href: "/tools", label: t("tools") },
-    { href: "/about", label: t("about") },
+    { href: "/", label: t("home"), icon: "🏠" },
+    { href: "/feed", label: t("community"), icon: "💬" },
+    { href: "/articles", label: t("articles"), icon: "📰" },
+    { href: "/tools", label: t("tools"), icon: "🛠️" },
+    { href: "/messages", label: t("messages"), icon: "✉️" },
+    { href: "/about", label: t("about"), icon: "ℹ️" },
   ] as const;
 
   return (
@@ -24,7 +25,7 @@ export function MobileNav() {
         <AuthButton />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100"
+          className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-700"
           aria-label="Toggle menu"
           aria-expanded={isOpen}
         >
@@ -41,19 +42,20 @@ export function MobileNav() {
       </div>
 
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full z-50 border-b border-gray-200 bg-white shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-50 animate-fade-in border-b border-gray-200 bg-white/95 shadow-soft backdrop-blur-lg">
           <nav className="flex flex-col space-y-1 px-4 py-3">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-primary-600"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
               >
+                <span className="text-lg">{link.icon}</span>
                 {link.label}
               </Link>
             ))}
-            <div className="border-t border-gray-200 pt-2 mt-2">
+            <div className="border-t border-gray-200 pt-3 mt-2">
               <div className="px-3 py-2">
                 <LocaleSwitcher />
               </div>
