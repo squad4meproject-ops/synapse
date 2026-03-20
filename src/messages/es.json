@@ -174,7 +174,10 @@
       "report": "Reportar",
       "viewMore": "Ver más",
       "translate": "Traducir a {lang}",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "pin": "Fijar",
+      "unpin": "Desfijar",
+      "pinned": "Fijado"
     },
     "composer": {
       "placeholder": "¿Qué hay de nuevo en el mundo de la IA?",
@@ -210,6 +213,10 @@
       "topContributors": "Top contribuidores"
     },
     "viewAll": "Ver todas las publicaciones",
+    "trending": {
+      "title": "Tendencias",
+      "noTrending": "Sin tendencias"
+    },
     "languages": {
       "all": "Todos los idiomas",
       "fr": "Français",

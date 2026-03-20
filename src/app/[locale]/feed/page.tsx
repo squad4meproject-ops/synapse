@@ -9,6 +9,7 @@ import { PostComposer } from "@/components/feed/PostComposer";
 import { CategoryFilter } from "@/components/feed/CategoryFilter";
 import { LanguageFilter } from "@/components/feed/LanguageFilter";
 import { LoadMoreButton } from "@/components/feed/LoadMoreButton";
+import { TrendingPosts } from "@/components/feed/TrendingPosts";
 import type { PostCategory } from "@/types/database";
 
 export async function generateMetadata({
@@ -67,45 +68,55 @@ export default async function FeedPage({
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
-      <Container className="max-w-2xl py-0 sm:py-4">
-        <div className="overflow-hidden bg-white shadow sm:rounded-xl dark:bg-gray-900">
-          {/* Composer */}
-          <PostComposer locale={locale} isLoggedIn={!!user} />
+      <Container>
+        <div className="flex flex-col gap-6 py-4 lg:flex-row">
+          {/* Main column: Feed */}
+          <main className="min-w-0 flex-1">
+            <div className="overflow-hidden bg-white shadow sm:rounded-xl dark:bg-gray-900">
+              {/* Composer */}
+              <PostComposer locale={locale} isLoggedIn={!!user} />
 
-          {/* Category Filter */}
-          <Suspense fallback={null}>
-            <CategoryFilter />
-          </Suspense>
+              {/* Category Filter */}
+              <Suspense fallback={null}>
+                <CategoryFilter />
+              </Suspense>
 
-          {/* Language Filter */}
-          <Suspense fallback={null}>
-            <LanguageFilter />
-          </Suspense>
+              {/* Language Filter */}
+              <Suspense fallback={null}>
+                <LanguageFilter />
+              </Suspense>
 
-          {/* Posts Feed */}
-          {postsData.posts.length > 0 ? (
-            <div className="space-y-4 p-4">
-              {postsData.posts.map((post) => (
-                <PostCard key={post.id} post={post} isLoggedIn={!!user} currentUserId={userId} />
-              ))}
-              <LoadMoreButton
-                initialPage={page}
-                total={postsData.total}
-                limit={20}
-                category={category}
-                lang={lang}
-                isLoggedIn={!!user}
-                currentUserId={userId}
-              />
+              {/* Posts Feed */}
+              {postsData.posts.length > 0 ? (
+                <div className="space-y-4 p-4">
+                  {postsData.posts.map((post) => (
+                    <PostCard key={post.id} post={post} isLoggedIn={!!user} currentUserId={userId} />
+                  ))}
+                  <LoadMoreButton
+                    initialPage={page}
+                    total={postsData.total}
+                    limit={20}
+                    category={category}
+                    lang={lang}
+                    isLoggedIn={!!user}
+                    currentUserId={userId}
+                  />
+                </div>
+              ) : (
+                <div className="px-6 py-16 text-center">
+                  <p className="text-lg font-medium text-gray-900 dark:text-gray-100">{t("empty.title")}</p>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    {category ? t("empty.filtered") : t("empty.description")}
+                  </p>
+                </div>
+              )}
             </div>
-          ) : (
-            <div className="px-6 py-16 text-center">
-              <p className="text-lg font-medium text-gray-900">{t("empty.title")}</p>
-              <p className="mt-1 text-sm text-gray-500">
-                {category ? t("empty.filtered") : t("empty.description")}
-              </p>
-            </div>
-          )}
+          </main>
+
+          {/* Sidebar */}
+          <aside className="w-full space-y-6 lg:w-80 lg:flex-shrink-0">
+            <TrendingPosts />
+          </aside>
         </div>
       </Container>
     </div>

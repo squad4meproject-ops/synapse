@@ -174,7 +174,10 @@
       "report": "Report",
       "viewMore": "View more",
       "translate": "Translate to {lang}",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "pin": "Pin to profile",
+      "unpin": "Unpin",
+      "pinned": "Pinned"
     },
     "composer": {
       "placeholder": "What's on your mind about AI?",
@@ -210,6 +213,10 @@
       "topContributors": "Top Contributors"
     },
     "viewAll": "View all posts",
+    "trending": {
+      "title": "Trending",
+      "noTrending": "No trending posts yet"
+    },
     "languages": {
       "all": "All languages",
       "fr": "Français",

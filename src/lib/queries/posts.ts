@@ -29,6 +29,7 @@ export async function getPosts({
         images:post_images(id, image_url, position, alt_text),
         tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url)
       `, { count: 'exact' })
+      .order('is_pinned', { ascending: false })
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
 

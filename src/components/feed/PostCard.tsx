@@ -85,8 +85,26 @@ export function PostCard({
   const [translateError, setTranslateError] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [pinned, setPinned] = useState(post.is_pinned || false);
+  const [pinLoading, setPinLoading] = useState(false);
 
   const isOwner = currentUserId && post.author_id === currentUserId;
+
+  const handlePin = async () => {
+    if (pinLoading) return;
+    setPinLoading(true);
+    try {
+      const res = await fetch(`/api/posts/${post.id}/pin`, { method: 'POST' });
+      if (res.ok) {
+        const data = await res.json();
+        setPinned(data.pinned);
+      }
+    } catch {
+      // fail silently
+    } finally {
+      setPinLoading(false);
+    }
+  };
 
   const handleDelete = async () => {
     if (deleteLoading) return;
@@ -184,6 +202,13 @@ export function PostCard({
 
   return (
     <article className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800">
+      {/* Pinned badge */}
+      {pinned && (
+        <div className="mb-2 flex items-center gap-1 text-xs font-medium text-amber-600 dark:text-amber-400">
+          <span>📌</span> {t("post.pinned") || "Pinned"}
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-start gap-3">
         {authorAvatar ? (
@@ -219,15 +244,28 @@ export function PostCard({
         {isOwner && (
           <div className="relative ml-auto">
             {!showDeleteConfirm ? (
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-                aria-label="More options"
-              >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                </svg>
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handlePin}
+                  disabled={pinLoading}
+                  className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-amber-600 disabled:opacity-50 dark:hover:bg-gray-700"
+                  aria-label={pinned ? "Unpin" : "Pin"}
+                  title={pinned ? (t("post.unpin") || "Unpin") : (t("post.pin") || "Pin")}
+                >
+                  <svg className={`h-4 w-4 ${pinned ? "text-amber-500" : ""}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setShowDeleteConfirm(true)}
+                  className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-700"
+                  aria-label="More options"
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                  </svg>
+                </button>
+              </div>
             ) : (
               <div className="flex items-center gap-2">
                 <button
