@@ -209,6 +209,27 @@ export function PostCard({
         </div>
       )}
 
+      {/* Sponsored badge */}
+      {post.is_sponsored && (
+        <div className="mb-2 flex items-center gap-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+            💰 {t("post.sponsored") || "Sponsored"}
+          </span>
+          {post.sponsor_label && post.sponsor_url ? (
+            <a
+              href={post.sponsor_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] font-medium text-amber-700 hover:underline dark:text-amber-400"
+            >
+              {post.sponsor_label}
+            </a>
+          ) : post.sponsor_label ? (
+            <span className="text-[10px] font-medium text-amber-700 dark:text-amber-400">{post.sponsor_label}</span>
+          ) : null}
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-start gap-3">
         {authorAvatar ? (

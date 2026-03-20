@@ -177,7 +177,8 @@
       "cancel": "Cancel",
       "pin": "Pin to profile",
       "unpin": "Unpin",
-      "pinned": "Pinned"
+      "pinned": "Pinned",
+      "sponsored": "Sponsored"
     },
     "composer": {
       "placeholder": "What's on your mind about AI?",

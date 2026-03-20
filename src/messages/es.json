@@ -177,7 +177,8 @@
       "cancel": "Cancelar",
       "pin": "Fijar",
       "unpin": "Desfijar",
-      "pinned": "Fijado"
+      "pinned": "Fijado",
+      "sponsored": "Patrocinado"
     },
     "composer": {
       "placeholder": "¿Qué hay de nuevo en el mundo de la IA?",

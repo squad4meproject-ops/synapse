@@ -167,6 +167,10 @@ export interface Database {
           comments_count: number;
           saves_count: number;
           is_pinned: boolean;
+          is_sponsored: boolean;
+          sponsor_label: string | null;
+          sponsor_url: string | null;
+          sponsored_until: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -362,6 +366,10 @@ export interface Post {
   comments_count: number;
   saves_count: number;
   is_pinned: boolean;
+  is_sponsored: boolean;
+  sponsor_label: string | null;
+  sponsor_url: string | null;
+  sponsored_until: string | null;
   created_at: string;
   updated_at: string;
   // Joined data
