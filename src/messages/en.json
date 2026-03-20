@@ -114,7 +114,18 @@
     "deleteAccountWarning": "This action is irreversible. All your posts, comments, likes, and bookmarks will be permanently deleted.",
     "deleteAccountConfirm": "Type DELETE to confirm",
     "deleteAccountButton": "Permanently delete my account",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "preferences": "Preferences",
+    "defaultPostLanguage": "Default post language",
+    "defaultPostLanguageDesc": "Language used by default when creating new posts",
+    "publicProfile": "Public profile",
+    "publicProfileDesc": "Allow others to see your profile when they click your name",
+    "emailNotifications": "Email notifications",
+    "emailNotificationsDesc": "Get notified about replies and likes (coming soon)",
+    "savePreferences": "Save preferences",
+    "savedPosts": "Saved Posts",
+    "noSavedPosts": "No saved posts yet",
+    "noSavedPostsDesc": "Posts you save will appear here. Tap the bookmark icon on any post to save it."
   },
   "feed": {
     "title": "Community Feed",

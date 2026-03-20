@@ -31,24 +31,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
     }
 
-    // 3. Upload vers Supabase Storage
+    // 3. Convertir le File en Buffer (fix compatibilité Node.js / Supabase SDK)
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // 4. Upload vers Supabase Storage
     const serviceClient = createServiceClient();
-    const ext = file.name.split('.').pop() || 'jpg';
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${ext}`;
 
     const { error: uploadError } = await serviceClient.storage
       .from('post-images')
-      .upload(fileName, file, {
+      .upload(fileName, buffer, {
         contentType: file.type,
         upsert: false,
       });
 
     if (uploadError) {
       console.error('Upload error:', uploadError);
-      return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+      return NextResponse.json({ error: `Upload failed: ${uploadError.message}` }, { status: 500 });
     }
 
-    // 4. Construire l'URL publique
+    // 5. Construire l'URL publique
     const { data: { publicUrl } } = serviceClient.storage
       .from('post-images')
       .getPublicUrl(fileName);

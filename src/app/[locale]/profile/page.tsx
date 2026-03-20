@@ -20,6 +20,11 @@ interface Profile {
   bio: string | null;
   show_email: boolean;
   social_links: SocialLink[];
+  preferences: {
+    default_post_locale?: string;
+    profile_visible?: boolean;
+    email_notifications?: boolean;
+  } | null;
 }
 
 export default function ProfilePage() {
@@ -45,6 +50,9 @@ export default function ProfilePage() {
   const [bio, setBio] = useState("");
   const [showEmail, setShowEmail] = useState(false);
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+  const [defaultPostLocale, setDefaultPostLocale] = useState("en");
+  const [profileVisible, setProfileVisible] = useState(true);
+  const [emailNotifications, setEmailNotifications] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -70,6 +78,10 @@ export default function ProfilePage() {
         setBio(profile.bio ?? "");
         setShowEmail(profile.show_email ?? false);
         setSocialLinks(profile.social_links ?? []);
+        const prefs = profile.preferences || {};
+        setDefaultPostLocale(prefs.default_post_locale || 'en');
+        setProfileVisible(prefs.profile_visible !== false);
+        setEmailNotifications(prefs.email_notifications || false);
       }
 
       setLoading(false);
@@ -85,14 +97,19 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage(null);
 
-    const { error } = await supabase
-      .from("users")
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from("users") as any)
       .update({
         display_name: displayName,
         username: username || null,
         bio: bio || null,
         show_email: showEmail,
         social_links: socialLinks,
+        preferences: {
+          default_post_locale: defaultPostLocale,
+          profile_visible: profileVisible,
+          email_notifications: emailNotifications,
+        },
       })
       .eq("auth_id", user.id);
 
@@ -328,6 +345,80 @@ export default function ProfilePage() {
           {saving ? t("saving") : t("save")}
         </button>
       </form>
+
+      {/* Preferences */}
+      <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-gray-900">Preferences</h2>
+
+        {/* Default post language */}
+        <div className="mt-4">
+          <label className="mb-1 block text-sm font-medium">Default post language</label>
+          <select
+            value={defaultPostLocale}
+            onChange={(e) => setDefaultPostLocale(e.target.value)}
+            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+          </select>
+          <p className="mt-1 text-xs text-gray-500">Language used by default when creating new posts</p>
+        </div>
+
+        {/* Profile visibility toggle */}
+        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
+          <div>
+            <p className="text-sm font-medium">Public profile</p>
+            <p className="text-xs text-gray-500">Allow others to see your profile when they click your name</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={profileVisible}
+            onClick={() => setProfileVisible(!profileVisible)}
+            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
+              profileVisible ? "bg-blue-600" : "bg-gray-200"
+            }`}
+          >
+            <span
+              className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform ${
+                profileVisible ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Email notifications toggle */}
+        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
+          <div>
+            <p className="text-sm font-medium">Email notifications</p>
+            <p className="text-xs text-gray-500">Get notified about replies and likes (coming soon)</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={emailNotifications}
+            onClick={() => setEmailNotifications(!emailNotifications)}
+            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
+              emailNotifications ? "bg-blue-600" : "bg-gray-200"
+            }`}
+          >
+            <span
+              className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition-transform ${
+                emailNotifications ? "translate-x-5" : "translate-x-0"
+              }`}
+            />
+          </button>
+        </div>
+
+        <button
+          onClick={(e) => handleSave(e as unknown as React.FormEvent)}
+          disabled={saving}
+          className="mt-4 rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+        >
+          {saving ? t("saving") : "Save preferences"}
+        </button>
+      </div>
 
       {/* Danger Zone */}
       <div className="mt-12 rounded-lg border-2 border-red-200 bg-red-50 p-6">

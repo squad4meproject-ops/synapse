@@ -114,7 +114,18 @@
     "deleteAccountWarning": "Esta acción es irreversible. Todas tus publicaciones, comentarios, likes y favoritos serán eliminados permanentemente.",
     "deleteAccountConfirm": "Escribe ELIMINAR para confirmar",
     "deleteAccountButton": "Eliminar permanentemente mi cuenta",
-    "deleting": "Eliminando..."
+    "deleting": "Eliminando...",
+    "preferences": "Preferencias",
+    "defaultPostLanguage": "Idioma predeterminado de publicaciones",
+    "defaultPostLanguageDesc": "Idioma utilizado por defecto al crear nuevas publicaciones",
+    "publicProfile": "Perfil público",
+    "publicProfileDesc": "Permitir que otros vean tu perfil cuando hagan clic en tu nombre",
+    "emailNotifications": "Notificaciones por email",
+    "emailNotificationsDesc": "Recibir notificaciones sobre respuestas y likes (próximamente)",
+    "savePreferences": "Guardar preferencias",
+    "savedPosts": "Posts guardados",
+    "noSavedPosts": "No hay posts guardados",
+    "noSavedPostsDesc": "Los posts que guardes aparecerán aquí. Toca el icono de favorito en cualquier post."
   },
   "feed": {
     "title": "Feed de la comunidad",

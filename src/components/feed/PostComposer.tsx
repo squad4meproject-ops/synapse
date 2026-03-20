@@ -26,6 +26,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isLoggedIn) {
@@ -67,6 +68,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
   const handleSubmit = async () => {
     if (!content.trim() || submitting) return;
     setSubmitting(true);
+    setError(null);
 
     try {
       // Upload des images d'abord
@@ -86,6 +88,11 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         const results = await Promise.all(uploadPromises);
         imageUrls = results.filter(Boolean) as string[];
         setUploading(false);
+
+        // Si certains uploads ont échoué
+        if (imageUrls.length < images.length) {
+          console.warn(`Only ${imageUrls.length}/${images.length} images uploaded successfully`);
+        }
       }
 
       const res = await fetch("/api/posts", {
@@ -112,7 +119,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         router.refresh();
       }
     } catch {
-      // silently fail
+      setError('Failed to publish. Please try again.');
     } finally {
       setSubmitting(false);
       setUploading(false);
@@ -138,6 +145,13 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           </button>
         ))}
       </div>
+
+      {/* Error message */}
+      {error && (
+        <div className="mb-3 rounded-md bg-red-50 p-2 text-xs text-red-600">
+          {error}
+        </div>
+      )}
 
       {/* Text area */}
       <textarea

@@ -186,3 +186,68 @@ export async function getComments(postId: string, userId?: string): Promise<Comm
     return [];
   }
 }
+
+// ============================================================
+// GET BOOKMARKED POSTS (pour un utilisateur)
+// ============================================================
+export async function getBookmarkedPosts(userId: string, page = 1, limit = 20) {
+  try {
+    const supabase = await createClient();
+    const offset = (page - 1) * limit;
+
+    // Récupérer les post_ids des bookmarks
+    const { data: bookmarks, error: bError } = await supabase
+      .from('bookmarks')
+      .select('post_id')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    if (bError || !bookmarks || bookmarks.length === 0) {
+      return { posts: [] as Post[], total: 0 };
+    }
+
+    const postIds = bookmarks.map(b => (b as { post_id: string }).post_id);
+
+    // Récupérer les posts complets
+    const { data, error, count } = await supabase
+      .from('posts')
+      .select(`
+        *,
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+        images:post_images(id, image_url, position, alt_text)
+      `, { count: 'exact' })
+      .in('id', postIds)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    // Marquer tous comme saved puisque c'est la page bookmarks
+    const posts = (data || []).map(p => {
+      const post = p as Post;
+      return {
+        ...post,
+        is_saved: true,
+        images: (post.images || []).sort((a, b) => a.position - b.position),
+      };
+    }) as Post[];
+
+    // Vérifier les likes
+    if (posts.length > 0) {
+      const pIds = posts.map(p => p.id);
+      const { data: likesData } = await supabase
+        .from('likes')
+        .select('post_id')
+        .eq('user_id', userId)
+        .in('post_id', pIds);
+
+      const likedIds = new Set(((likesData || []) as { post_id: string }[]).map(l => l.post_id));
+      posts.forEach(p => { p.is_liked = likedIds.has(p.id); });
+    }
+
+    return { posts, total: count || postIds.length };
+  } catch (error) {
+    console.error('Error fetching bookmarked posts:', error);
+    return { posts: [] as Post[], total: 0 };
+  }
+}

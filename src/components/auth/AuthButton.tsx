@@ -114,6 +114,14 @@ export function AuthButton() {
             {t("profile")}
           </Link>
 
+          <Link
+            href="/bookmarks"
+            onClick={() => setMenuOpen(false)}
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            Saved Posts
+          </Link>
+
           <button
             onClick={handleLogout}
             className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"

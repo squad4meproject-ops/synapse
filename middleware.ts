@@ -6,7 +6,7 @@ import { routing } from "@/i18n/routing";
 const intlMiddleware = createIntlMiddleware(routing);
 
 // Routes that require authentication (without locale prefix)
-const protectedPaths = ["/profile"];
+const protectedPaths = ["/profile", "/bookmarks"];
 
 function isProtectedPath(pathname: string): boolean {
   // Strip locale prefix (e.g. /en/profile -> /profile)

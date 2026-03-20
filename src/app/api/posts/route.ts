@@ -56,18 +56,26 @@ export async function POST(request: NextRequest) {
 
     if (error) throw error;
 
-    // Insérer les images si présentes
+    // Insérer les images si présentes (non-bloquant si erreur)
     const { image_urls } = body;
     if (image_urls && Array.isArray(image_urls) && image_urls.length > 0 && post) {
-      const imageInserts = image_urls.map((url: string, index: number) => ({
-        post_id: post.id,
-        image_url: url,
-        position: index,
-      }));
+      try {
+        const imageInserts = image_urls.map((url: string, index: number) => ({
+          post_id: post.id,
+          image_url: url,
+          position: index,
+        }));
 
-      const { createServiceClient } = await import('@/lib/supabase/service');
-      const serviceClient = createServiceClient();
-      await serviceClient.from('post_images').insert(imageInserts);
+        const { createServiceClient } = await import('@/lib/supabase/service');
+        const serviceClient = createServiceClient();
+        const { error: imgError } = await serviceClient.from('post_images').insert(imageInserts);
+        if (imgError) {
+          console.error('Error inserting post images:', imgError);
+        }
+      } catch (imgErr) {
+        console.error('Error inserting post images:', imgErr);
+        // On ne fait PAS échouer la création du post pour ça
+      }
     }
 
     return NextResponse.json(post, { status: 201 });

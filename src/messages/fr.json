@@ -114,7 +114,18 @@
     "deleteAccountWarning": "Cette action est irréversible. Tous vos posts, commentaires, likes et favoris seront définitivement supprimés.",
     "deleteAccountConfirm": "Tapez SUPPRIMER pour confirmer",
     "deleteAccountButton": "Supprimer définitivement mon compte",
-    "deleting": "Suppression..."
+    "deleting": "Suppression...",
+    "preferences": "Préférences",
+    "defaultPostLanguage": "Langue par défaut des posts",
+    "defaultPostLanguageDesc": "Langue utilisée par défaut lors de la création de nouveaux posts",
+    "publicProfile": "Profil public",
+    "publicProfileDesc": "Permettre aux autres de voir votre profil quand ils cliquent sur votre nom",
+    "emailNotifications": "Notifications par email",
+    "emailNotificationsDesc": "Être notifié des réponses et des likes (bientôt disponible)",
+    "savePreferences": "Enregistrer les préférences",
+    "savedPosts": "Posts sauvegardés",
+    "noSavedPosts": "Aucun post sauvegardé",
+    "noSavedPostsDesc": "Les posts que vous sauvegardez apparaîtront ici. Appuyez sur l'icône favori sur n'importe quel post."
   },
   "feed": {
     "title": "Fil d'actualité",

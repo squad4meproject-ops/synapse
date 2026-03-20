@@ -20,6 +20,7 @@ export interface Database {
           role: string;
           auth_id: string | null;
           is_premium: boolean;
+          preferences: Json;
           created_at: string;
         };
         Insert: {
@@ -32,6 +33,7 @@ export interface Database {
           role?: string;
           auth_id?: string | null;
           is_premium?: boolean;
+          preferences?: Json;
           created_at?: string;
         };
         Update: {
@@ -44,6 +46,7 @@ export interface Database {
           role?: string;
           auth_id?: string | null;
           is_premium?: boolean;
+          preferences?: Json;
           created_at?: string;
         };
       };
