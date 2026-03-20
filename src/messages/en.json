@@ -170,6 +170,12 @@
     },
     "viewAll": "View all posts"
   },
+  "legal": {
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "lastUpdated": "Last updated: {date}",
+    "backToHome": "Back to Home"
+  },
   "footer": {
     "copyright": "© {year} Synapse. All rights reserved.",
     "tagline": "The Global AI Community Platform",

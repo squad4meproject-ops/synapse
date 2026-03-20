@@ -45,10 +45,14 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-gray-900">Legal</h3>
             <ul className="mt-3 space-y-2">
               <li>
-                <span className="text-sm text-gray-600">{t("privacyPolicy")}</span>
+                <Link href="/legal" className="text-sm text-gray-600 hover:text-primary-600">
+                  {t("privacyPolicy")}
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-gray-600">{t("terms")}</span>
+                <Link href="/privacy" className="text-sm text-gray-600 hover:text-primary-600">
+                  {t("terms")}
+                </Link>
               </li>
             </ul>
           </div>

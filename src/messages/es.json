@@ -170,6 +170,12 @@
     },
     "viewAll": "Ver todas las publicaciones"
   },
+  "legal": {
+    "legalNotice": "Aviso Legal",
+    "privacyPolicy": "Política de Privacidad",
+    "lastUpdated": "Última actualización: {date}",
+    "backToHome": "Volver al inicio"
+  },
   "footer": {
     "copyright": "© {year} Synapse. Todos los derechos reservados.",
     "tagline": "La plataforma comunitaria global de IA",
