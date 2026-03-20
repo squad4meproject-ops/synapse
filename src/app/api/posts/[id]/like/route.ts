@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createNotification } from '@/lib/notifications/create';
+import { checkAndAwardBadges } from '@/lib/badges/check';
 
 export async function POST(
   request: NextRequest,
@@ -82,6 +83,11 @@ export async function POST(
           type: 'like',
           postId,
         });
+      }
+
+      // Check badges for post author (fire-and-forget)
+      if (post) {
+        checkAndAwardBadges(post.author_id).catch(() => {});
       }
 
       return NextResponse.json({ liked: true });

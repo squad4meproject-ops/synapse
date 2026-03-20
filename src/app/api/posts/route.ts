@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
+import { checkAndAwardBadges } from '@/lib/badges/check';
 
 // POST /api/posts — Créer un nouveau post
 export async function POST(request: NextRequest) {
@@ -81,6 +82,9 @@ export async function POST(request: NextRequest) {
         console.error('Error inserting post images:', imgErr);
       }
     }
+
+    // Check badges (fire-and-forget)
+    checkAndAwardBadges(authorId).catch(() => {});
 
     return NextResponse.json(post, { status: 201 });
   } catch (error) {

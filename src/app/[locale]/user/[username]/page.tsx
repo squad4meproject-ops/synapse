@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
-import { getUserByUsername, getUserPosts, getUserStats, getUserLikedPosts, getFollowStats } from "@/lib/queries/users";
+import { getUserByUsername, getUserPosts, getUserStats, getUserLikedPosts, getFollowStats, getUserBadges } from "@/lib/queries/users";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
@@ -61,11 +61,12 @@ export default async function UserProfilePage({
   const activeTab = search.tab || "posts";
 
   // Fetch data based on active tab
-  const [stats, postsData, likedData, followStats] = await Promise.all([
+  const [stats, postsData, likedData, followStats, badges] = await Promise.all([
     getUserStats(user.id),
     activeTab === "posts" ? getUserPosts(user.id) : Promise.resolve({ posts: [], total: 0 }),
     activeTab === "likes" ? getUserLikedPosts(user.id) : Promise.resolve({ posts: [], total: 0 }),
     getFollowStats(user.id, viewerId),
+    getUserBadges(user.id),
   ]);
 
   const displayPosts = activeTab === "posts" ? postsData.posts : likedData.posts;
@@ -126,6 +127,27 @@ export default async function UserProfilePage({
               {user.username && (
                 <p className="text-sm text-gray-500">@{user.username}</p>
               )}
+
+              {/* Badges */}
+              {badges.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {badges.slice(0, 5).map((ub) => {
+                    const badge = ub.badge;
+                    const name = locale === "fr" ? badge.name_fr : locale === "es" ? badge.name_es : badge.name_en;
+                    const desc = locale === "fr" ? badge.description_fr : locale === "es" ? badge.description_es : badge.description_en;
+                    return (
+                      <span
+                        key={ub.id}
+                        title={desc}
+                        className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium text-white ${badge.color}`}
+                      >
+                        {badge.icon} {name}
+                      </span>
+                    );
+                  })}
+                </div>
+              )}
+
               {user.bio && (
                 <p className="mt-2 text-sm text-gray-700">{user.bio}</p>
               )}

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createNotification } from '@/lib/notifications/create';
+import { checkAndAwardBadges } from '@/lib/badges/check';
 
 // GET /api/posts/[id]/comments — Récupérer les commentaires
 export async function GET(
@@ -116,6 +117,9 @@ export async function POST(
         });
       }
     }
+
+    // Check badges for commenter (fire-and-forget)
+    checkAndAwardBadges(userData.id).catch(() => {});
 
     return NextResponse.json(comment, { status: 201 });
   } catch (error) {

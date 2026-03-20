@@ -147,3 +147,36 @@ export async function getFollowStats(userId: string, viewerId?: string) {
     isFollowing,
   };
 }
+
+export interface UserBadge {
+  id: string;
+  awarded_at: string;
+  badge: {
+    id: string;
+    slug: string;
+    name_en: string;
+    name_fr: string;
+    name_es: string;
+    description_en: string;
+    description_fr: string;
+    description_es: string;
+    icon: string;
+    color: string;
+  };
+}
+
+export async function getUserBadges(userId: string): Promise<UserBadge[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('user_badges')
+    .select(`
+      id, awarded_at,
+      badge:badges!user_badges_badge_id_fkey(id, slug, name_en, name_fr, name_es, description_en, description_fr, description_es, icon, color)
+    `)
+    .eq('user_id', userId)
+    .order('awarded_at', { ascending: false });
+
+  if (error || !data) return [];
+  return data as unknown as UserBadge[];
+}
