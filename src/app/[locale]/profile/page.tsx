@@ -35,6 +35,9 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   // Form state
   const [displayName, setDisplayName] = useState("");
@@ -105,6 +108,26 @@ export default function ProfilePage() {
     }
 
     setSaving(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      const response = await fetch('/api/account/delete', {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        await supabase.auth.signOut();
+        router.push('/');
+      } else {
+        const data = await response.json();
+        setMessage({ type: 'error', text: data.error || 'Failed to delete account' });
+      }
+    } catch {
+      setMessage({ type: 'error', text: 'Failed to delete account' });
+    }
+    setDeleting(false);
   };
 
   const addSocialLink = () => {
@@ -305,6 +328,50 @@ export default function ProfilePage() {
           {saving ? t("saving") : t("save")}
         </button>
       </form>
+
+      {/* Danger Zone */}
+      <div className="mt-12 rounded-lg border-2 border-red-200 bg-red-50 p-6">
+        <h2 className="text-lg font-semibold text-red-700">{t("deleteAccount")}</h2>
+        <p className="mt-2 text-sm text-red-600">{t("deleteAccountWarning")}</p>
+
+        {!showDeleteConfirm ? (
+          <button
+            type="button"
+            onClick={() => setShowDeleteConfirm(true)}
+            className="mt-4 rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+          >
+            {t("deleteAccount")}
+          </button>
+        ) : (
+          <div className="mt-4 space-y-3">
+            <p className="text-sm font-medium text-red-700">{t("deleteAccountConfirm")}</p>
+            <input
+              type="text"
+              value={deleteConfirmText}
+              onChange={(e) => setDeleteConfirmText(e.target.value)}
+              className="w-full rounded-md border border-red-300 px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
+              placeholder="DELETE"
+            />
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={handleDeleteAccount}
+                disabled={deleteConfirmText !== "DELETE" || deleting}
+                className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
+              >
+                {deleting ? t("deleting") : t("deleteAccountButton")}
+              </button>
+              <button
+                type="button"
+                onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText(""); }}
+                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

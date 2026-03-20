@@ -106,7 +106,12 @@
     "linkLabel": "Etiqueta",
     "linkUrl": "URL",
     "linkLabelPlaceholder": "ej: Twitter",
-    "linkUrlPlaceholder": "https://..."
+    "linkUrlPlaceholder": "https://...",
+    "deleteAccount": "Eliminar mi cuenta",
+    "deleteAccountWarning": "Esta acción es irreversible. Todas tus publicaciones, comentarios, likes y favoritos serán eliminados permanentemente.",
+    "deleteAccountConfirm": "Escribe ELIMINAR para confirmar",
+    "deleteAccountButton": "Eliminar permanentemente mi cuenta",
+    "deleting": "Eliminando..."
   },
   "feed": {
     "title": "Feed de la comunidad",

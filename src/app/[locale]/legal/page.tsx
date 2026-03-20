@@ -36,7 +36,7 @@ export default async function LegalNoticePage({
         <h1 className="text-3xl font-bold text-gray-900">{t("legalNotice")}</h1>
         <p className="mt-2 text-sm text-gray-500">{t("lastUpdated", { date: "20/03/2026" })}</p>
 
-        <div className="prose prose-gray mt-8 max-w-none">
+        <div className="prose prose-gray mt-8 max-w-none prose-ul:list-disc prose-ul:pl-6 prose-li:my-1">
           <h2>1. Éditeur du site</h2>
           <p>
             Le site <strong>Synapse</strong> (accessible à l&apos;adresse <a href="https://synapse-ecru-ten.vercel.app" target="_blank" rel="noopener noreferrer">synapse-ecru-ten.vercel.app</a>) est édité par :
@@ -44,7 +44,7 @@ export default async function LegalNoticePage({
           <ul>
             <li><strong>Nom :</strong> Benjamin Martin</li>
             <li><strong>Statut :</strong> Micro-entrepreneur (Profession Libérale Non Réglementée)</li>
-            <li><strong>SIRET :</strong> 53700000546100579</li>
+            <li><strong>SIRET :</strong> 99490599000010</li>
             <li><strong>SIREN :</strong> 994905990</li>
             <li><strong>Code NAF :</strong> 6201Z — Programmation informatique</li>
             <li><strong>Adresse :</strong> 1 La Bande Neuve, 56220 Malansac, France</li>

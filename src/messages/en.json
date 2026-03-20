@@ -106,7 +106,12 @@
     "linkLabel": "Label",
     "linkUrl": "URL",
     "linkLabelPlaceholder": "e.g. Twitter",
-    "linkUrlPlaceholder": "https://..."
+    "linkUrlPlaceholder": "https://...",
+    "deleteAccount": "Delete my account",
+    "deleteAccountWarning": "This action is irreversible. All your posts, comments, likes, and bookmarks will be permanently deleted.",
+    "deleteAccountConfirm": "Type DELETE to confirm",
+    "deleteAccountButton": "Permanently delete my account",
+    "deleting": "Deleting..."
   },
   "feed": {
     "title": "Community Feed",

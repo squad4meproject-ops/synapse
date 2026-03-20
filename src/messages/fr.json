@@ -106,7 +106,12 @@
     "linkLabel": "Libellé",
     "linkUrl": "URL",
     "linkLabelPlaceholder": "ex : Twitter",
-    "linkUrlPlaceholder": "https://..."
+    "linkUrlPlaceholder": "https://...",
+    "deleteAccount": "Supprimer mon compte",
+    "deleteAccountWarning": "Cette action est irréversible. Tous vos posts, commentaires, likes et favoris seront définitivement supprimés.",
+    "deleteAccountConfirm": "Tapez SUPPRIMER pour confirmer",
+    "deleteAccountButton": "Supprimer définitivement mon compte",
+    "deleting": "Suppression..."
   },
   "feed": {
     "title": "Fil d'actualité",
