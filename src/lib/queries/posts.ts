@@ -25,7 +25,7 @@ export async function getPosts({
       .from('posts')
       .select(`
         *,
-        author:users!posts_author_id_fkey(id, name, username, avatar_url),
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
         images:post_images(id, image_url, position, alt_text),
         tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url)
       `, { count: 'exact' })
@@ -92,7 +92,7 @@ export async function getPostById(postId: string, userId?: string): Promise<Post
       .from('posts')
       .select(`
         *,
-        author:users!posts_author_id_fkey(id, name, username, avatar_url),
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
         images:post_images(id, image_url, position, alt_text),
         tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url)
       `)
@@ -147,7 +147,7 @@ export async function getComments(postId: string, userId?: string): Promise<Comm
       .from('comments')
       .select(`
         *,
-        author:users!comments_author_id_fkey(id, name, username, avatar_url)
+        author:users!comments_author_id_fkey(id, display_name, username, avatar_url)
       `)
       .eq('post_id', postId)
       .order('created_at', { ascending: true });

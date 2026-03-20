@@ -10,6 +10,7 @@ export function Header() {
 
   const links = [
     { href: "/", label: t("home") },
+    { href: "/feed", label: t("community") },
     { href: "/articles", label: t("articles") },
     { href: "/tools", label: t("tools") },
     { href: "/about", label: t("about") },
