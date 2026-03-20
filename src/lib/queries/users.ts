@@ -28,6 +28,7 @@ interface PublicProfile {
   show_email: boolean;
   email: string | null;
   is_premium: boolean;
+  banner_url: string | null;
   social_links: SocialLink[];
 }
 
@@ -36,7 +37,7 @@ export async function getUserByUsername(username: string): Promise<PublicProfile
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (supabase.from('users') as any)
-    .select('id, display_name, username, avatar_url, bio, created_at, show_email, email, is_premium, social_links')
+    .select('id, display_name, username, avatar_url, banner_url, bio, created_at, show_email, email, is_premium, social_links')
     .eq('username', username)
     .single();
 

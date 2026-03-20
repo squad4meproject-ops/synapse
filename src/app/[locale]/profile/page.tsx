@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createBrowserClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
+import { AvatarUpload } from "@/components/profile/AvatarUpload";
 
 interface SocialLink {
   label: string;
@@ -17,6 +18,7 @@ interface Profile {
   username: string | null;
   email: string;
   avatar_url: string | null;
+  banner_url: string | null;
   bio: string | null;
   show_email: boolean;
   social_links: SocialLink[];
@@ -174,29 +176,26 @@ export default function ProfilePage() {
   if (!profile) return null;
 
   const avatarUrl = profile.avatar_url || user?.user_metadata?.avatar_url;
-  const initial = (displayName || profile.email).charAt(0).toUpperCase();
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
       <h1 className="mb-8 text-3xl font-bold">{t("title")}</h1>
 
-      {/* Avatar */}
-      <div className="mb-8 flex items-center gap-4">
-        {avatarUrl ? (
-          <img
-            src={avatarUrl}
-            alt={displayName}
-            className="h-20 w-20 rounded-full object-cover"
-          />
-        ) : (
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-600 text-2xl font-bold text-white">
-            {initial}
-          </div>
-        )}
-        <div>
-          <p className="text-lg font-medium">{displayName || profile.email}</p>
-          <p className="text-sm text-gray-500">{profile.email}</p>
-        </div>
+      {/* Avatar & Banner Upload */}
+      <AvatarUpload
+        avatarUrl={avatarUrl}
+        bannerUrl={profile.banner_url}
+        displayName={displayName}
+        onAvatarChange={(url) => {
+          setProfile(prev => prev ? { ...prev, avatar_url: url } : prev);
+        }}
+        onBannerChange={(url) => {
+          setProfile(prev => prev ? { ...prev, banner_url: url } : prev);
+        }}
+      />
+      <div className="mb-4">
+        <p className="text-lg font-medium">{displayName || profile.email}</p>
+        <p className="text-sm text-gray-500">{profile.email}</p>
       </div>
 
       {/* Stats */}

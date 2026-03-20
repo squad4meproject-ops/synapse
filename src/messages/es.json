@@ -136,7 +136,11 @@
     "likesReceived": "Likes recibidos",
     "deleteConfirmPlaceholder": "ELIMINAR",
     "cancelAction": "Cancelar",
-    "deleteFailed": "Error al eliminar la cuenta"
+    "deleteFailed": "Error al eliminar la cuenta",
+    "changeAvatar": "Cambiar foto",
+    "changeBanner": "Cambiar banner",
+    "uploading": "Subiendo...",
+    "uploadError": "Error al subir"
   },
   "feed": {
     "title": "Feed de la comunidad",

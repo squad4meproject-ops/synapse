@@ -136,7 +136,11 @@
     "likesReceived": "Likes received",
     "deleteConfirmPlaceholder": "DELETE",
     "cancelAction": "Cancel",
-    "deleteFailed": "Failed to delete account"
+    "deleteFailed": "Failed to delete account",
+    "changeAvatar": "Change photo",
+    "changeBanner": "Change banner",
+    "uploading": "Uploading...",
+    "uploadError": "Upload failed"
   },
   "feed": {
     "title": "Community Feed",

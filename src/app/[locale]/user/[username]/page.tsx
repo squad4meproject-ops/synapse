@@ -86,19 +86,30 @@ export default async function UserProfilePage({
         </Link>
 
         {/* Profile header */}
-        <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-card">
-          <div className="flex items-start gap-4">
-            {user.avatar_url ? (
-              <img
-                src={user.avatar_url}
-                alt={user.display_name || username}
-                className="h-20 w-20 rounded-full object-cover ring-2 ring-primary-100"
-              />
-            ) : (
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-accent-500 text-2xl font-bold text-white ring-2 ring-primary-100">
-                {initial}
-              </div>
-            )}
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card">
+          {/* Banner */}
+          {user.banner_url ? (
+            <img src={user.banner_url} alt="" className="h-48 w-full object-cover" />
+          ) : (
+            <div className="h-48 w-full bg-gradient-to-r from-primary-500 to-accent-500" />
+          )}
+
+          <div className="relative px-6 pb-6">
+            {/* Avatar overlapping banner */}
+            <div className="-mt-12 mb-3">
+              {user.avatar_url ? (
+                <img
+                  src={user.avatar_url}
+                  alt={user.display_name || username}
+                  className="h-24 w-24 rounded-full border-4 border-white object-cover shadow-md"
+                />
+              ) : (
+                <div className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-primary-500 to-accent-500 text-3xl font-bold text-white shadow-md">
+                  {initial}
+                </div>
+              )}
+            </div>
+
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <h1 className="text-xl font-bold text-gray-900">

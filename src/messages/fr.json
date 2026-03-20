@@ -136,7 +136,11 @@
     "likesReceived": "Likes reçus",
     "deleteConfirmPlaceholder": "SUPPRIMER",
     "cancelAction": "Annuler",
-    "deleteFailed": "Échec de la suppression du compte"
+    "deleteFailed": "Échec de la suppression du compte",
+    "changeAvatar": "Changer la photo",
+    "changeBanner": "Changer la bannière",
+    "uploading": "Envoi en cours...",
+    "uploadError": "Échec de l'envoi"
   },
   "feed": {
     "title": "Fil d'actualité",
