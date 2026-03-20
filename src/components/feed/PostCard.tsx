@@ -183,7 +183,7 @@ export function PostCard({
   };
 
   return (
-    <article className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+    <article className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6 dark:border-gray-700 dark:bg-gray-800">
       {/* Header */}
       <div className="flex items-start gap-3">
         {authorAvatar ? (
@@ -251,7 +251,7 @@ export function PostCard({
 
       {/* Content */}
       <div className="mt-3 pl-13">
-        <p className="whitespace-pre-wrap text-gray-900">{post.content}</p>
+        <p className="whitespace-pre-wrap text-gray-900 dark:text-gray-100">{post.content}</p>
 
         {/* Translated text (inline) */}
         {translatedText && (

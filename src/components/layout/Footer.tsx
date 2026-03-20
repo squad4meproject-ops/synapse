@@ -8,7 +8,7 @@ export function Footer() {
   const nav = useTranslations("navigation");
 
   return (
-    <footer className="border-t border-gray-200 bg-white">
+    <footer className="border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
       <Container className="py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -18,11 +18,11 @@ export function Footer() {
                 Synapse
               </span>
             </div>
-            <p className="mt-3 text-sm text-gray-500">{t("tagline")}</p>
+            <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">{t("tagline")}</p>
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Navigation</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Navigation</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <Link href="/" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
@@ -48,7 +48,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Legal</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Legal</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <Link href="/legal" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
@@ -64,7 +64,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400">Community</h3>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Community</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <span className="text-sm text-gray-600">GitHub</span>
@@ -79,7 +79,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-100 pt-6">
+        <div className="mt-10 border-t border-gray-100 pt-6 dark:border-gray-800">
           <p className="text-center text-xs text-gray-400">
             {t("copyright", { year: new Date().getFullYear() })}
           </p>

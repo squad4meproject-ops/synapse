@@ -25,7 +25,7 @@ export function HomeFeed({
   const t = useTranslations("feed");
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card">
+    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-card dark:border-gray-700 dark:bg-gray-900">
       {/* Composer */}
       <PostComposer locale={locale} isLoggedIn={isLoggedIn} />
 

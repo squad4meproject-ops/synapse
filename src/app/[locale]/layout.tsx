@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
@@ -38,12 +39,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
+      <body className="flex min-h-screen flex-col font-sans antialiased bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CookieBanner />
+          <ThemeProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CookieBanner />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

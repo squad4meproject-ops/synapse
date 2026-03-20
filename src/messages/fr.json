@@ -264,6 +264,10 @@
     "filterComments": "Commentaires",
     "filterMessages": "Messages"
   },
+  "theme": {
+    "light": "Mode clair",
+    "dark": "Mode sombre"
+  },
   "search": {
     "placeholder": "Rechercher...",
     "noResults": "Aucun résultat pour \"{query}\"",

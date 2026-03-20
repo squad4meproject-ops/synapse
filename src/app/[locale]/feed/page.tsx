@@ -66,9 +66,9 @@ export default async function FeedPage({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Container className="max-w-2xl py-0 sm:py-4">
-        <div className="overflow-hidden bg-white shadow sm:rounded-xl">
+        <div className="overflow-hidden bg-white shadow sm:rounded-xl dark:bg-gray-900">
           {/* Composer */}
           <PostComposer locale={locale} isLoggedIn={!!user} />
 

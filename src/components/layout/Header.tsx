@@ -7,6 +7,7 @@ import { MobileNav } from "./MobileNav";
 import { Logo } from "@/components/ui/Logo";
 import { NotificationBellWrapper } from "@/components/notifications/NotificationBellWrapper";
 import { SearchBar } from "@/components/search/SearchBar";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function Header() {
   const t = useTranslations("navigation");
@@ -21,7 +22,7 @@ export function Header() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/80 backdrop-blur-xl dark:border-gray-700/80 dark:bg-gray-900/80">
       <Container>
         <div className="relative flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
@@ -36,7 +37,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-primary-50 hover:text-primary-700"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-all hover:bg-primary-50 hover:text-primary-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary-400"
               >
                 {link.label}
               </Link>
@@ -45,6 +46,7 @@ export function Header() {
 
           <div className="hidden items-center gap-3 md:flex">
             <SearchBar />
+            <ThemeToggle />
             <NotificationBellWrapper />
             <LocaleSwitcher />
             <AuthButton />
