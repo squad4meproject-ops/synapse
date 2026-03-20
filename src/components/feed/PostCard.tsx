@@ -241,7 +241,7 @@ export function PostCard({
                   onClick={() => setShowDeleteConfirm(false)}
                   className="rounded-md border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
                 >
-                  Cancel
+                  {t("post.cancel") || "Cancel"}
                 </button>
               </div>
             )}

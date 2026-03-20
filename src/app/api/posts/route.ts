@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 
 // POST /api/posts — Créer un nouveau post
 export async function POST(request: NextRequest) {
   try {
+    // 1. Vérifier l'auth avec le client normal
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
@@ -12,28 +14,31 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { category, content, prompt_content, link_url, locale } = body;
+    const { category, content, prompt_content, link_url, locale, image_urls } = body;
 
     if (!content || !category) {
       return NextResponse.json({ error: 'Content and category are required' }, { status: 400 });
     }
 
+    // 2. Utiliser le service client pour bypasser RLS
+    const serviceClient = createServiceClient();
+
     // Trouver l'ID de l'utilisateur dans notre table users
-    const { data: userData } = await supabase
+    const { data: userData } = await serviceClient
       .from('users')
       .select('id')
       .eq('auth_id', user.id)
-      .single() as { data: { id: string } | null };
+      .single();
 
     let authorId = userData?.id;
 
     if (!authorId) {
       // Fallback: chercher par email
-      const { data: userByEmail } = await supabase
+      const { data: userByEmail } = await serviceClient
         .from('users')
         .select('id')
         .eq('email', user.email!)
-        .single() as { data: { id: string } | null };
+        .single();
 
       if (!userByEmail) {
         return NextResponse.json({ error: 'User profile not found' }, { status: 404 });
@@ -41,8 +46,9 @@ export async function POST(request: NextRequest) {
       authorId = userByEmail.id;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: post, error } = await (supabase.from('posts') as any)
+    // 3. Insérer le post avec le service client
+    const { data: post, error } = await serviceClient
+      .from('posts')
       .insert({
         author_id: authorId,
         category,
@@ -54,10 +60,12 @@ export async function POST(request: NextRequest) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error creating post:', error);
+      return NextResponse.json({ error: `Failed to create post: ${error.message}` }, { status: 500 });
+    }
 
-    // Insérer les images si présentes (non-bloquant si erreur)
-    const { image_urls } = body;
+    // 4. Insérer les images si présentes (non-bloquant si erreur)
     if (image_urls && Array.isArray(image_urls) && image_urls.length > 0 && post) {
       try {
         const imageInserts = image_urls.map((url: string, index: number) => ({
@@ -65,16 +73,12 @@ export async function POST(request: NextRequest) {
           image_url: url,
           position: index,
         }));
-
-        const { createServiceClient } = await import('@/lib/supabase/service');
-        const serviceClient = createServiceClient();
         const { error: imgError } = await serviceClient.from('post_images').insert(imageInserts);
         if (imgError) {
           console.error('Error inserting post images:', imgError);
         }
       } catch (imgErr) {
         console.error('Error inserting post images:', imgErr);
-        // On ne fait PAS échouer la création du post pour ça
       }
     }
 

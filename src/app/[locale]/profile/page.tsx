@@ -141,10 +141,10 @@ export default function ProfilePage() {
         router.push('/');
       } else {
         const data = await response.json();
-        setMessage({ type: 'error', text: data.error || 'Failed to delete account' });
+        setMessage({ type: 'error', text: data.error || t("deleteFailed") });
       }
     } catch {
-      setMessage({ type: 'error', text: 'Failed to delete account' });
+      setMessage({ type: 'error', text: t("deleteFailed") });
     }
     setDeleting(false);
   };
@@ -459,13 +459,13 @@ export default function ProfilePage() {
               value={deleteConfirmText}
               onChange={(e) => setDeleteConfirmText(e.target.value)}
               className="w-full rounded-md border border-red-300 px-3 py-2 text-sm focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500"
-              placeholder="DELETE"
+              placeholder={t("deleteConfirmPlaceholder")}
             />
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={handleDeleteAccount}
-                disabled={deleteConfirmText !== "DELETE" || deleting}
+                disabled={(deleteConfirmText !== "DELETE" && deleteConfirmText !== "SUPPRIMER" && deleteConfirmText !== "ELIMINAR") || deleting}
                 className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 disabled:opacity-50"
               >
                 {deleting ? t("deleting") : t("deleteAccountButton")}
@@ -475,7 +475,7 @@ export default function ProfilePage() {
                 onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText(""); }}
                 className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                Cancel
+                {t("cancelAction")}
               </button>
             </div>
           </div>

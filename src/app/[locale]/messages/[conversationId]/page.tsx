@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
 interface Message {
@@ -23,6 +24,7 @@ function formatTime(dateString: string): string {
 
 export default function ChatPage() {
   const params = useParams();
+  const t = useTranslations("messages");
   const conversationId = params.conversationId as string;
   const [messages, setMessages] = useState<Message[]>([]);
   const [myUserId, setMyUserId] = useState<string>("");
@@ -85,7 +87,7 @@ export default function ChatPage() {
 
   // Trouver le nom de l'autre participant
   const otherUser = messages.find(m => m.sender_id !== myUserId)?.sender;
-  const otherName = otherUser?.display_name || otherUser?.username || "User";
+  const otherName = otherUser?.display_name || otherUser?.username || t("unknown");
 
   if (loading) {
     return (
@@ -148,7 +150,7 @@ export default function ChatPage() {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-            placeholder="Type a message..."
+            placeholder={t("typeMessage")}
             className="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
           />
           <button

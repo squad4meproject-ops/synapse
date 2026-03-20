@@ -127,7 +127,7 @@ export function CommentSection({
 
           {/* Comments list */}
           {loading ? (
-            <div className="p-4 text-center text-xs text-gray-400">Loading...</div>
+            <div className="p-4 text-center text-xs text-gray-400">{t("comments.loading") || "..."}</div>
           ) : comments.length > 0 ? (
             <div className="max-h-64 divide-y divide-gray-200 overflow-y-auto">
               {comments.map((comment) => {

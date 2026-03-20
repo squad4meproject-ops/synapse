@@ -56,7 +56,8 @@
     "notFoundDescription": "La página que buscas no existe o ha sido movida.",
     "backToHome": "Volver al inicio",
     "search": "Buscar...",
-    "language": "Idioma"
+    "language": "Idioma",
+    "cancel": "Cancelar"
   },
   "seo": {
     "homeTitle": "Synapse - La comunidad global de IA",
@@ -131,7 +132,10 @@
     "backToFeed": "Volver al feed",
     "postsCount": "Publicaciones",
     "commentsCount": "Comentarios",
-    "likesReceived": "Likes recibidos"
+    "likesReceived": "Likes recibidos",
+    "deleteConfirmPlaceholder": "ELIMINAR",
+    "cancelAction": "Cancelar",
+    "deleteFailed": "Error al eliminar la cuenta"
   },
   "feed": {
     "title": "Feed de la comunidad",
@@ -159,7 +163,8 @@
       "edit": "Editar",
       "report": "Reportar",
       "viewMore": "Ver más",
-      "translate": "Traducir a {lang}"
+      "translate": "Traducir a {lang}",
+      "cancel": "Cancelar"
     },
     "composer": {
       "placeholder": "¿Qué hay de nuevo en el mundo de la IA?",
@@ -181,7 +186,8 @@
       "replies": "respuestas",
       "showReplies": "Mostrar respuestas",
       "hideReplies": "Ocultar respuestas",
-      "loginToComment": "Inicia sesión para comentar"
+      "loginToComment": "Inicia sesión para comentar",
+      "loading": "Cargando..."
     },
     "empty": {
       "title": "Sin publicaciones aún",
@@ -212,6 +218,8 @@
     "noMessages": "Sin mensajes todavía",
     "noMessagesDesc": "Inicia una conversación visitando el perfil de alguien y haciendo clic en \"Mensaje\".",
     "typeMessage": "Escribe un mensaje...",
-    "send": "Enviar"
+    "send": "Enviar",
+    "backToMessages": "Volver",
+    "unknown": "Desconocido"
   }
 }

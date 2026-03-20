@@ -56,7 +56,8 @@
     "notFoundDescription": "The page you are looking for does not exist or has been moved.",
     "backToHome": "Back to Home",
     "search": "Search...",
-    "language": "Language"
+    "language": "Language",
+    "cancel": "Cancel"
   },
   "seo": {
     "homeTitle": "Synapse - The Global AI Community",
@@ -131,7 +132,10 @@
     "backToFeed": "Back to feed",
     "postsCount": "Posts",
     "commentsCount": "Comments",
-    "likesReceived": "Likes received"
+    "likesReceived": "Likes received",
+    "deleteConfirmPlaceholder": "DELETE",
+    "cancelAction": "Cancel",
+    "deleteFailed": "Failed to delete account"
   },
   "feed": {
     "title": "Community Feed",
@@ -159,7 +163,8 @@
       "edit": "Edit",
       "report": "Report",
       "viewMore": "View more",
-      "translate": "Translate to {lang}"
+      "translate": "Translate to {lang}",
+      "cancel": "Cancel"
     },
     "composer": {
       "placeholder": "What's on your mind about AI?",
@@ -181,7 +186,8 @@
       "replies": "replies",
       "showReplies": "Show replies",
       "hideReplies": "Hide replies",
-      "loginToComment": "Log in to comment"
+      "loginToComment": "Log in to comment",
+      "loading": "Loading..."
     },
     "empty": {
       "title": "No posts yet",
@@ -212,6 +218,8 @@
     "noMessages": "No messages yet",
     "noMessagesDesc": "Start a conversation by visiting someone's profile and clicking \"Message\".",
     "typeMessage": "Type a message...",
-    "send": "Send"
+    "send": "Send",
+    "backToMessages": "Back",
+    "unknown": "Unknown"
   }
 }

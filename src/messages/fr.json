@@ -56,7 +56,8 @@
     "notFoundDescription": "La page que vous recherchez n'existe pas ou a été déplacée.",
     "backToHome": "Retour à l'accueil",
     "search": "Rechercher...",
-    "language": "Langue"
+    "language": "Langue",
+    "cancel": "Annuler"
   },
   "seo": {
     "homeTitle": "Synapse - La communauté mondiale de l'IA",
@@ -131,7 +132,10 @@
     "backToFeed": "Retour au fil",
     "postsCount": "Publications",
     "commentsCount": "Commentaires",
-    "likesReceived": "Likes reçus"
+    "likesReceived": "Likes reçus",
+    "deleteConfirmPlaceholder": "SUPPRIMER",
+    "cancelAction": "Annuler",
+    "deleteFailed": "Échec de la suppression du compte"
   },
   "feed": {
     "title": "Fil d'actualité",
@@ -159,7 +163,8 @@
       "edit": "Modifier",
       "report": "Signaler",
       "viewMore": "Voir plus",
-      "translate": "Traduire en {lang}"
+      "translate": "Traduire en {lang}",
+      "cancel": "Annuler"
     },
     "composer": {
       "placeholder": "Quoi de neuf dans le monde de l'IA ?",
@@ -181,7 +186,8 @@
       "replies": "réponses",
       "showReplies": "Afficher les réponses",
       "hideReplies": "Masquer les réponses",
-      "loginToComment": "Connectez-vous pour commenter"
+      "loginToComment": "Connectez-vous pour commenter",
+      "loading": "Chargement..."
     },
     "empty": {
       "title": "Aucun post pour le moment",
@@ -212,6 +218,8 @@
     "noMessages": "Aucun message pour le moment",
     "noMessagesDesc": "Commencez une conversation en visitant le profil de quelqu'un et en cliquant sur \"Message\".",
     "typeMessage": "Écrivez un message...",
-    "send": "Envoyer"
+    "send": "Envoyer",
+    "backToMessages": "Retour",
+    "unknown": "Inconnu"
   }
 }
