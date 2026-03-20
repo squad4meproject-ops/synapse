@@ -84,7 +84,9 @@
     "checkEmail": "Vérifiez votre email",
     "confirmationSent": "Nous vous avons envoyé un lien de confirmation. Veuillez vérifier votre boîte de réception et cliquer sur le lien pour activer votre compte.",
     "callbackError": "L'authentification a échoué. Veuillez réessayer.",
-    "profile": "Profil"
+    "profile": "Profil",
+    "savedPosts": "Posts sauvegardés",
+    "messages": "Messages"
   },
   "profile": {
     "title": "Mon profil",
@@ -125,7 +127,11 @@
     "savePreferences": "Enregistrer les préférences",
     "savedPosts": "Posts sauvegardés",
     "noSavedPosts": "Aucun post sauvegardé",
-    "noSavedPostsDesc": "Les posts que vous sauvegardez apparaîtront ici. Appuyez sur l'icône favori sur n'importe quel post."
+    "noSavedPostsDesc": "Les posts que vous sauvegardez apparaîtront ici. Appuyez sur l'icône favori sur n'importe quel post.",
+    "backToFeed": "Retour au fil",
+    "postsCount": "Publications",
+    "commentsCount": "Commentaires",
+    "likesReceived": "Likes reçus"
   },
   "feed": {
     "title": "Fil d'actualité",
@@ -200,5 +206,12 @@
     "tagline": "La plateforme communautaire mondiale de l'IA",
     "privacyPolicy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "Aucun message pour le moment",
+    "noMessagesDesc": "Commencez une conversation en visitant le profil de quelqu'un et en cliquant sur \"Message\".",
+    "typeMessage": "Écrivez un message...",
+    "send": "Envoyer"
   }
 }

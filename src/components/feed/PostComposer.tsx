@@ -82,8 +82,15 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           if (res.ok) {
             const data = await res.json();
             return data.url;
+          } else {
+            try {
+              const errData = await res.json();
+              console.error('Upload failed:', errData.error);
+            } catch {
+              console.error('Upload failed with status:', res.status);
+            }
+            return null;
           }
-          return null;
         });
         const results = await Promise.all(uploadPromises);
         imageUrls = results.filter(Boolean) as string[];
@@ -117,6 +124,13 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         setImages([]);
         setImagePreviews([]);
         router.refresh();
+      } else {
+        try {
+          const data = await res.json();
+          setError(data.error || `Publication failed (status ${res.status})`);
+        } catch {
+          setError(`Publication failed (status ${res.status})`);
+        }
       }
     } catch {
       setError('Failed to publish. Please try again.');

@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getUserByUsername, getUserPosts } from "@/lib/queries/users";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
+import { MessageButton } from "@/components/feed/MessageButton";
 import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
 
@@ -34,12 +35,24 @@ export default async function UserProfilePage({
   const { locale, username } = await params;
   setRequestLocale(locale);
 
+  const t = await getTranslations({ locale, namespace: "profile" });
+
   const user = await getUserByUsername(username);
   if (!user) notFound();
 
   // Check if viewer is logged in
   const supabase = await createClient();
   const { data: { user: viewer } } = await supabase.auth.getUser();
+
+  let viewerId: string | undefined;
+  if (viewer) {
+    const { data: viewerData } = await supabase
+      .from("users")
+      .select("id")
+      .eq("auth_id", viewer.id)
+      .single() as { data: { id: string } | null };
+    viewerId = viewerData?.id;
+  }
 
   const { posts } = await getUserPosts(user.id);
   const initial = (user.display_name || username).charAt(0).toUpperCase();
@@ -56,7 +69,7 @@ export default async function UserProfilePage({
           href="/feed"
           className="mb-4 inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-700"
         >
-          &larr; Back to feed
+          &larr; {t("backToFeed")}
         </Link>
 
         {/* Profile header */}
@@ -84,11 +97,14 @@ export default async function UserProfilePage({
                 <p className="mt-2 text-sm text-gray-700">{user.bio}</p>
               )}
               <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
-                <span>Member since {memberSince}</span>
-                <span>{posts.length} posts</span>
+                <span>{t("memberSince", { date: memberSince })}</span>
+                <span>{posts.length} {t("posts")}</span>
               </div>
               {user.email && (
                 <p className="mt-1 text-xs text-gray-500">{user.email}</p>
+              )}
+              {viewer && viewerId !== user.id && (
+                <MessageButton targetUserId={user.id} />
               )}
             </div>
           </div>
@@ -96,7 +112,7 @@ export default async function UserProfilePage({
 
         {/* User's posts */}
         <div className="mt-6 space-y-4">
-          <h2 className="text-sm font-semibold text-gray-700">Posts</h2>
+          <h2 className="text-sm font-semibold text-gray-700">{t("posts")}</h2>
           {posts.length > 0 ? (
             posts.map((post: Post) => (
               <PostCard
@@ -107,7 +123,7 @@ export default async function UserProfilePage({
             ))
           ) : (
             <div className="rounded-xl border border-gray-200 bg-white p-8 text-center">
-              <p className="text-sm text-gray-500">No posts yet.</p>
+              <p className="text-sm text-gray-500">{t("noPosts")}</p>
             </div>
           )}
         </div>

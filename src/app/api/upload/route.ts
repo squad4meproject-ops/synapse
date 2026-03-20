@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     // 1. Vérifier l'auth
@@ -26,9 +28,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid file type' }, { status: 400 });
     }
 
-    // Vérifier la taille (5 MB max)
-    if (file.size > 5 * 1024 * 1024) {
-      return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
+    // Vercel Hobby plan limite le body à 4.5MB — on limite à 4MB pour être safe
+    if (file.size > 4 * 1024 * 1024) {
+      return NextResponse.json({ error: 'File too large (max 4MB)' }, { status: 400 });
     }
 
     // 3. Convertir le File en Buffer (fix compatibilité Node.js / Supabase SDK)
@@ -57,6 +59,7 @@ export async function POST(request: NextRequest) {
       .from('post-images')
       .getPublicUrl(fileName);
 
+    console.log(`Image uploaded successfully: ${fileName} (${file.size} bytes)`);
     return NextResponse.json({ url: publicUrl });
   } catch (error) {
     console.error('Upload error:', error);

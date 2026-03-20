@@ -84,7 +84,9 @@
     "checkEmail": "Check your email",
     "confirmationSent": "We've sent you a confirmation link. Please check your inbox and click the link to activate your account.",
     "callbackError": "Authentication failed. Please try again.",
-    "profile": "Profile"
+    "profile": "Profile",
+    "savedPosts": "Saved Posts",
+    "messages": "Messages"
   },
   "profile": {
     "title": "My Profile",
@@ -125,7 +127,11 @@
     "savePreferences": "Save preferences",
     "savedPosts": "Saved Posts",
     "noSavedPosts": "No saved posts yet",
-    "noSavedPostsDesc": "Posts you save will appear here. Tap the bookmark icon on any post to save it."
+    "noSavedPostsDesc": "Posts you save will appear here. Tap the bookmark icon on any post to save it.",
+    "backToFeed": "Back to feed",
+    "postsCount": "Posts",
+    "commentsCount": "Comments",
+    "likesReceived": "Likes received"
   },
   "feed": {
     "title": "Community Feed",
@@ -200,5 +206,12 @@
     "tagline": "The Global AI Community Platform",
     "privacyPolicy": "Privacy Policy",
     "terms": "Terms of Service"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "No messages yet",
+    "noMessagesDesc": "Start a conversation by visiting someone's profile and clicking \"Message\".",
+    "typeMessage": "Type a message...",
+    "send": "Send"
   }
 }

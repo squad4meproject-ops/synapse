@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getBookmarkedPosts } from "@/lib/queries/posts";
 import { createClient } from "@/lib/supabase/server";
@@ -29,6 +29,7 @@ export default async function BookmarksPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "profile" });
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -56,7 +57,7 @@ export default async function BookmarksPage({
     <div className="min-h-screen bg-gray-50">
       <Container className="max-w-2xl py-6">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">Saved Posts</h1>
+          <h1 className="text-xl font-bold text-gray-900">{t("savedPosts")}</h1>
           <Link
             href="/feed"
             className="text-sm font-medium text-primary-600 hover:text-primary-700"
@@ -81,9 +82,9 @@ export default async function BookmarksPage({
             <svg className="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
             </svg>
-            <p className="mt-4 text-sm font-medium text-gray-900">No saved posts yet</p>
+            <p className="mt-4 text-sm font-medium text-gray-900">{t("noSavedPosts")}</p>
             <p className="mt-1 text-sm text-gray-500">
-              Posts you save will appear here. Tap the bookmark icon on any post to save it.
+              {t("noSavedPostsDesc")}
             </p>
           </div>
         )}

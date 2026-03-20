@@ -53,6 +53,7 @@ export default function ProfilePage() {
   const [defaultPostLocale, setDefaultPostLocale] = useState("en");
   const [profileVisible, setProfileVisible] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(false);
+  const [stats, setStats] = useState({ postsCount: 0, commentsCount: 0, likesReceived: 0 });
 
   useEffect(() => {
     async function load() {
@@ -88,6 +89,7 @@ export default function ProfilePage() {
     }
 
     load();
+    fetch('/api/account/stats').then(res => res.json()).then(setStats).catch(() => {});
   }, []);
 
   const handleSave = async (e: React.FormEvent) => {
@@ -194,6 +196,22 @@ export default function ProfilePage() {
         <div>
           <p className="text-lg font-medium">{displayName || profile.email}</p>
           <p className="text-sm text-gray-500">{profile.email}</p>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="mb-8 grid grid-cols-3 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+        <div className="text-center">
+          <p className="text-2xl font-bold text-gray-900">{stats.postsCount}</p>
+          <p className="text-xs text-gray-500">{t("postsCount")}</p>
+        </div>
+        <div className="text-center">
+          <p className="text-2xl font-bold text-gray-900">{stats.commentsCount}</p>
+          <p className="text-xs text-gray-500">{t("commentsCount")}</p>
+        </div>
+        <div className="text-center">
+          <p className="text-2xl font-bold text-red-500">{stats.likesReceived}</p>
+          <p className="text-xs text-gray-500">{t("likesReceived")}</p>
         </div>
       </div>
 
@@ -348,11 +366,11 @@ export default function ProfilePage() {
 
       {/* Preferences */}
       <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-gray-900">Preferences</h2>
+        <h2 className="text-lg font-semibold text-gray-900">{t("preferences")}</h2>
 
         {/* Default post language */}
         <div className="mt-4">
-          <label className="mb-1 block text-sm font-medium">Default post language</label>
+          <label className="mb-1 block text-sm font-medium">{t("defaultPostLanguage")}</label>
           <select
             value={defaultPostLocale}
             onChange={(e) => setDefaultPostLocale(e.target.value)}
@@ -362,14 +380,14 @@ export default function ProfilePage() {
             <option value="fr">Français</option>
             <option value="es">Español</option>
           </select>
-          <p className="mt-1 text-xs text-gray-500">Language used by default when creating new posts</p>
+          <p className="mt-1 text-xs text-gray-500">{t("defaultPostLanguageDesc")}</p>
         </div>
 
         {/* Profile visibility toggle */}
         <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
           <div>
-            <p className="text-sm font-medium">Public profile</p>
-            <p className="text-xs text-gray-500">Allow others to see your profile when they click your name</p>
+            <p className="text-sm font-medium">{t("publicProfile")}</p>
+            <p className="text-xs text-gray-500">{t("publicProfileDesc")}</p>
           </div>
           <button
             type="button"
@@ -391,8 +409,8 @@ export default function ProfilePage() {
         {/* Email notifications toggle */}
         <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
           <div>
-            <p className="text-sm font-medium">Email notifications</p>
-            <p className="text-xs text-gray-500">Get notified about replies and likes (coming soon)</p>
+            <p className="text-sm font-medium">{t("emailNotifications")}</p>
+            <p className="text-xs text-gray-500">{t("emailNotificationsDesc")}</p>
           </div>
           <button
             type="button"
@@ -416,7 +434,7 @@ export default function ProfilePage() {
           disabled={saving}
           className="mt-4 rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
-          {saving ? t("saving") : "Save preferences"}
+          {saving ? t("saving") : t("savePreferences")}
         </button>
       </div>
 

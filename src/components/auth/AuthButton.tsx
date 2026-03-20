@@ -119,7 +119,15 @@ export function AuthButton() {
             onClick={() => setMenuOpen(false)}
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
-            Saved Posts
+            {t("savedPosts")}
+          </Link>
+
+          <Link
+            href="/messages"
+            onClick={() => setMenuOpen(false)}
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            {t("messages")}
           </Link>
 
           <button

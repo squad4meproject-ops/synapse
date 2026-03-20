@@ -82,6 +82,7 @@ export function PostCard({
   const [saveLoading, setSaveLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [translating, setTranslating] = useState(false);
+  const [translateError, setTranslateError] = useState<string | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -169,9 +170,13 @@ export function PostCard({
       if (res.ok) {
         const data = await res.json();
         setTranslatedText(data.translated);
+      } else {
+        setTranslateError('Translation unavailable');
+        setTimeout(() => setTranslateError(null), 3000);
       }
     } catch {
-      // fail silently
+      setTranslateError('Translation unavailable');
+      setTimeout(() => setTranslateError(null), 3000);
     } finally {
       setTranslating(false);
     }
@@ -270,6 +275,9 @@ export function PostCard({
           >
             🌐 {translating ? "..." : translatedText ? t("post.translate", { lang: langNames[post.locale] || post.locale }) : t("post.translate", { lang: langNames[currentLocale] || currentLocale })}
           </button>
+        )}
+        {translateError && (
+          <span className="ml-2 text-xs text-red-500">{translateError}</span>
         )}
 
         {/* Prompt block */}

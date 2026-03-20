@@ -47,8 +47,18 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ translated: translated.trim() });
-  } catch (error) {
-    console.error('Translation error:', error);
-    return NextResponse.json({ error: 'Translation failed' }, { status: 500 });
+  } catch (error: unknown) {
+    const errMsg = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Translation error:', errMsg);
+
+    // Si l'API key est invalide ou pas de crédits, renvoyer un message clair
+    if (errMsg.includes('401') || errMsg.includes('authentication') || errMsg.includes('invalid')) {
+      return NextResponse.json({ error: 'Translation service unavailable (API key issue)' }, { status: 503 });
+    }
+    if (errMsg.includes('429') || errMsg.includes('rate')) {
+      return NextResponse.json({ error: 'Too many translation requests, try again later' }, { status: 429 });
+    }
+
+    return NextResponse.json({ error: `Translation failed: ${errMsg}` }, { status: 500 });
   }
 }
