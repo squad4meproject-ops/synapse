@@ -105,7 +105,7 @@ export function SearchBar() {
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => { if (results) setIsOpen(true); }}
           placeholder={t("placeholder")}
-          className="w-48 rounded-lg border border-gray-200 bg-gray-50 py-2 pl-10 pr-8 text-sm text-gray-900 placeholder-gray-400 transition-all focus:border-primary-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-300 lg:w-64"
+          className="w-48 rounded-lg border border-gray-200 bg-gray-50 py-2 pl-10 pr-8 text-sm text-gray-900 placeholder-gray-400 transition-all focus:border-primary-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-300 lg:w-64 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 dark:focus:bg-gray-800"
         />
         {query && (
           <button
@@ -121,7 +121,7 @@ export function SearchBar() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute top-full mt-1 w-full min-w-[320px] animate-fade-in rounded-xl border border-gray-200 bg-white shadow-card max-h-96 overflow-y-auto z-50">
+        <div className="absolute top-full mt-1 w-full min-w-[320px] animate-fade-in rounded-xl border border-gray-200 bg-white shadow-card max-h-96 overflow-y-auto z-50 dark:border-gray-700 dark:bg-gray-900">
           {loading ? (
             <div className="px-4 py-6 text-center">
               <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-primary-600 border-t-transparent" />

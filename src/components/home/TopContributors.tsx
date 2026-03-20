@@ -22,14 +22,14 @@ export async function TopContributors() {
   if (!contributors.length) return null;
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover">
-      <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900">
+    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover dark:border-gray-700 dark:bg-gray-900">
+      <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-gray-100">
         <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-yellow-100 text-xs">👑</span>
         Top Contributors
       </h3>
       <div className="mt-4 space-y-2">
         {contributors.map((user) => (
-          <div key={user.id} className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-gray-50">
+          <div key={user.id} className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
             {user.avatar_url ? (
               <img
                 src={user.avatar_url}
@@ -42,7 +42,7 @@ export async function TopContributors() {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-gray-900">
+              <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
                 {user.display_name || user.username || "Anonymous"}
               </p>
               {user.username && (

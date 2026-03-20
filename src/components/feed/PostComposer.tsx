@@ -31,8 +31,8 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
 
   if (!isLoggedIn) {
     return (
-      <div className="border-b border-gray-200 bg-white p-6 text-center">
-        <p className="text-gray-500">{t("composer.loginToPost")}</p>
+      <div className="border-b border-gray-200 bg-white p-6 text-center dark:border-gray-700 dark:bg-gray-900">
+        <p className="text-gray-500 dark:text-gray-400">{t("composer.loginToPost")}</p>
       </div>
     );
   }
@@ -141,7 +141,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
   };
 
   return (
-    <div className="border-b border-gray-200 bg-white p-4 sm:p-6">
+    <div className="border-b border-gray-200 bg-white p-4 sm:p-6 dark:border-gray-700 dark:bg-gray-900">
       {/* Category selector */}
       <div className="mb-3 flex flex-wrap gap-2">
         {categories.map((cat) => (
@@ -151,7 +151,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
             className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               category === cat.value
                 ? "bg-primary-100 text-primary-700 ring-1 ring-primary-300"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             <span>{cat.icon}</span>
@@ -173,7 +173,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         onChange={(e) => setContent(e.target.value)}
         placeholder={t("composer.placeholder")}
         rows={3}
-        className="w-full resize-none rounded-lg border border-gray-200 p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+        className="w-full resize-none rounded-lg border border-gray-200 p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
       />
 
       {/* Hidden file input */}

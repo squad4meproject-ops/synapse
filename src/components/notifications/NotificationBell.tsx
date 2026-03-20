@@ -144,10 +144,10 @@ export function NotificationBell() {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 animate-fade-in rounded-xl border border-gray-200 bg-white shadow-card sm:w-96">
+        <div className="absolute right-0 mt-2 w-80 animate-fade-in rounded-xl border border-gray-200 bg-white shadow-card sm:w-96 dark:border-gray-700 dark:bg-gray-900">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-            <h3 className="text-sm font-bold text-gray-900">{t("notifications")}</h3>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">{t("notifications")}</h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}

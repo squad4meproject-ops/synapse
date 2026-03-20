@@ -10,9 +10,9 @@ export function TrendingTools({ tools }: { tools: AiTool[] }) {
   if (!tools.length) return null;
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover">
+    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900">
+        <h3 className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-gray-100">
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-lg bg-primary-100 text-xs">🔥</span>
           {t("featuredTools")}
         </h3>
@@ -42,8 +42,8 @@ export function TrendingTools({ tools }: { tools: AiTool[] }) {
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-gray-900">{tool.name}</p>
-              <p className="truncate text-xs text-gray-500">{tool.description}</p>
+              <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">{tool.name}</p>
+              <p className="truncate text-xs text-gray-500 dark:text-gray-400">{tool.description}</p>
             </div>
           </Link>
         ))}

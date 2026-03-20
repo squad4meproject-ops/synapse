@@ -78,7 +78,7 @@ export default async function UserProfilePage({
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Container className="max-w-2xl py-6">
         {/* Back link */}
         <Link
@@ -187,31 +187,31 @@ export default async function UserProfilePage({
         </div>
 
         {/* Stats */}
-        <div className="mt-4 grid grid-cols-5 gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
+        <div className="mt-4 grid grid-cols-5 gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-card dark:border-gray-700 dark:bg-gray-800">
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{stats.postsCount}</p>
-            <p className="text-xs text-gray-500">{t("posts")}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.postsCount}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("posts")}</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{stats.commentsCount}</p>
-            <p className="text-xs text-gray-500">{t("commentsCount")}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.commentsCount}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("commentsCount")}</p>
           </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-red-500">{stats.likesReceived}</p>
-            <p className="text-xs text-gray-500">{t("likesReceived")}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("likesReceived")}</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{followStats.followersCount}</p>
-            <p className="text-xs text-gray-500">{t("followers")}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{followStats.followersCount}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("followers")}</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{followStats.followingCount}</p>
-            <p className="text-xs text-gray-500">{t("followingCount")}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{followStats.followingCount}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("followingCount")}</p>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="mt-6 flex gap-1 border-b border-gray-200">
+        <div className="mt-6 flex gap-1 border-b border-gray-200 dark:border-gray-700">
           <Link
             href={`/user/${username}?tab=posts`}
             className={`px-4 py-2.5 text-sm font-medium transition-colors ${

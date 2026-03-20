@@ -199,7 +199,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Stats */}
-      <div className="mb-8 grid grid-cols-3 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4">
+      <div className="mb-8 grid grid-cols-3 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="text-center">
           <p className="text-2xl font-bold text-gray-900">{stats.postsCount}</p>
           <p className="text-xs text-gray-500">{t("postsCount")}</p>
@@ -364,7 +364,7 @@ export default function ProfilePage() {
       </form>
 
       {/* Preferences */}
-      <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6">
+      <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
         <h2 className="text-lg font-semibold text-gray-900">{t("preferences")}</h2>
 
         {/* Default post language */}

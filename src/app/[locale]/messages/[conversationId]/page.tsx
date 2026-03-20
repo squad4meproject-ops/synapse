@@ -100,7 +100,7 @@ export default function ChatPage() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col" style={{ height: "calc(100vh - 64px)" }}>
       {/* Header */}
-      <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3">
+      <div className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-900">
         <Link href="/messages" className="rounded-full p-1 text-gray-500 hover:bg-gray-100">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -113,11 +113,11 @@ export default function ChatPage() {
             {otherName.charAt(0).toUpperCase()}
           </div>
         )}
-        <span className="font-semibold text-gray-900">{otherName}</span>
+        <span className="font-semibold text-gray-900 dark:text-gray-100">{otherName}</span>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto bg-gray-50 p-4">
+      <div className="flex-1 overflow-y-auto bg-gray-50 p-4 dark:bg-gray-950">
         <div className="space-y-3">
           {messages.map((msg) => {
             const isMine = msg.sender_id === myUserId;
@@ -127,7 +127,7 @@ export default function ChatPage() {
                   className={`max-w-[75%] rounded-2xl px-4 py-2 ${
                     isMine
                       ? "bg-primary-600 text-white"
-                      : "border border-gray-200 bg-white text-gray-900"
+                      : "border border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
                   }`}
                 >
                   <p className="whitespace-pre-wrap text-sm">{msg.content}</p>
@@ -143,7 +143,7 @@ export default function ChatPage() {
       </div>
 
       {/* Input */}
-      <div className="border-t border-gray-200 bg-white p-3">
+      <div className="border-t border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-900">
         <div className="flex gap-2">
           <input
             type="text"
@@ -151,7 +151,7 @@ export default function ChatPage() {
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
             placeholder={t("typeMessage")}
-            className="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+            className="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
           <button
             onClick={handleSend}

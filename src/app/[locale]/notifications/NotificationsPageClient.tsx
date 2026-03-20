@@ -150,7 +150,7 @@ export function NotificationsPageClient() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-xl font-bold text-gray-900">{t("title")}</h1>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t("title")}</h1>
           {unreadCount > 0 && (
             <span className="rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-bold text-primary-700">
               {unreadCount}
@@ -176,7 +176,7 @@ export function NotificationsPageClient() {
             className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors ${
               filter === f.key
                 ? "bg-primary-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             {f.label}
@@ -186,7 +186,7 @@ export function NotificationsPageClient() {
 
       {/* Notifications list */}
       {filtered.length > 0 ? (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-card">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-card dark:border-gray-700 dark:bg-gray-900">
           {filtered.map((notif, index) => {
             const actor = notif.actor;
             const initial = (actor?.display_name || actor?.username || "?").charAt(0).toUpperCase();

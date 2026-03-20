@@ -54,11 +54,11 @@ export default function MessagesPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-gray-900">{t("title")}</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">{t("title")}</h1>
       </div>
 
       {conversations.length > 0 ? (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
           {conversations.map((conv, index) => {
             const name = conv.otherUser?.display_name || conv.otherUser?.username || t("unknown");
             const avatar = conv.otherUser?.avatar_url;
@@ -84,12 +84,12 @@ export default function MessagesPage() {
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold text-gray-900">{name}</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{name}</span>
                     {conv.lastMessage && (
                       <span className="text-xs text-gray-400">{timeAgo(conv.lastMessage.created_at)}</span>
                     )}
                   </div>
-                  <p className="truncate text-sm text-gray-500">{preview}</p>
+                  <p className="truncate text-sm text-gray-500 dark:text-gray-400">{preview}</p>
                 </div>
                 {conv.unreadCount > 0 && (
                   <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-bold text-white">
@@ -101,7 +101,7 @@ export default function MessagesPage() {
           })}
         </div>
       ) : (
-        <div className="rounded-xl border border-gray-200 bg-white p-12 text-center">
+        <div className="rounded-xl border border-gray-200 bg-white p-12 text-center dark:border-gray-700 dark:bg-gray-900">
           <svg className="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
           </svg>
