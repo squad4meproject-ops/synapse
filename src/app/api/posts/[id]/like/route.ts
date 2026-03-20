@@ -15,7 +15,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Trouver l'ID utilisateur
+    // Trouver l'ID utilisateur interne
     const { data: userData } = await supabase
       .from('users')
       .select('id')
@@ -35,17 +35,25 @@ export async function POST(
       .maybeSingle() as { data: { id: string } | null };
 
     if (existingLike) {
-      // Unlike
+      // Unlike — supprimer le like
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (supabase.from('likes') as any).delete().eq('id', existingLike.id);
+      const { error: deleteError } = await (supabase.from('likes') as any).delete().eq('id', existingLike.id);
+      if (deleteError) {
+        console.error('Error deleting like:', deleteError);
+        return NextResponse.json({ error: 'Failed to unlike' }, { status: 500 });
+      }
       return NextResponse.json({ liked: false });
     } else {
-      // Like
+      // Like — créer le like
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (supabase.from('likes') as any).insert({
+      const { error: insertError } = await (supabase.from('likes') as any).insert({
         user_id: userData.id,
         post_id: postId,
       });
+      if (insertError) {
+        console.error('Error inserting like:', insertError);
+        return NextResponse.json({ error: 'Failed to like' }, { status: 500 });
+      }
       return NextResponse.json({ liked: true });
     }
   } catch (error) {

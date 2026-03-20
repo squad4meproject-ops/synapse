@@ -133,7 +133,8 @@
       "deleteConfirm": "Are you sure you want to delete this post?",
       "edit": "Edit",
       "report": "Report",
-      "viewMore": "View more"
+      "viewMore": "View more",
+      "translate": "Translate to {lang}"
     },
     "composer": {
       "placeholder": "What's on your mind about AI?",

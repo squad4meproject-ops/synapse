@@ -31,7 +31,7 @@ export function HomeFeed({
 
       {/* Posts */}
       {posts.length > 0 ? (
-        <div>
+        <div className="divide-y divide-gray-200">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

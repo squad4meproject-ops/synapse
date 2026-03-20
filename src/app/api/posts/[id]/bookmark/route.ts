@@ -34,14 +34,22 @@ export async function POST(
 
     if (existingBookmark) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (supabase.from('bookmarks') as any).delete().eq('id', existingBookmark.id);
+      const { error: deleteError } = await (supabase.from('bookmarks') as any).delete().eq('id', existingBookmark.id);
+      if (deleteError) {
+        console.error('Error deleting bookmark:', deleteError);
+        return NextResponse.json({ error: 'Failed to unsave' }, { status: 500 });
+      }
       return NextResponse.json({ saved: false });
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await (supabase.from('bookmarks') as any).insert({
+      const { error: insertError } = await (supabase.from('bookmarks') as any).insert({
         user_id: userData.id,
         post_id: postId,
       });
+      if (insertError) {
+        console.error('Error inserting bookmark:', insertError);
+        return NextResponse.json({ error: 'Failed to save' }, { status: 500 });
+      }
       return NextResponse.json({ saved: true });
     }
   } catch (error) {

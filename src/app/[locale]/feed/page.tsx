@@ -76,7 +76,7 @@ export default async function FeedPage({
 
           {/* Posts Feed */}
           {postsData.posts.length > 0 ? (
-            <div>
+            <div className="divide-y divide-gray-200">
               {postsData.posts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}

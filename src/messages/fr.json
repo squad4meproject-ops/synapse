@@ -133,7 +133,8 @@
       "deleteConfirm": "Êtes-vous sûr de vouloir supprimer ce post ?",
       "edit": "Modifier",
       "report": "Signaler",
-      "viewMore": "Voir plus"
+      "viewMore": "Voir plus",
+      "translate": "Traduire en {lang}"
     },
     "composer": {
       "placeholder": "Quoi de neuf dans le monde de l'IA ?",
