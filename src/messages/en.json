@@ -140,7 +140,12 @@
     "changeAvatar": "Change photo",
     "changeBanner": "Change banner",
     "uploading": "Uploading...",
-    "uploadError": "Upload failed"
+    "uploadError": "Upload failed",
+    "follow": "Follow",
+    "following": "Following",
+    "unfollow": "Unfollow",
+    "followers": "Followers",
+    "followingCount": "Following"
   },
   "feed": {
     "title": "Community Feed",

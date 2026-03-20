@@ -140,7 +140,12 @@
     "changeAvatar": "Changer la photo",
     "changeBanner": "Changer la bannière",
     "uploading": "Envoi en cours...",
-    "uploadError": "Échec de l'envoi"
+    "uploadError": "Échec de l'envoi",
+    "follow": "Suivre",
+    "following": "Suivi",
+    "unfollow": "Ne plus suivre",
+    "followers": "Abonnés",
+    "followingCount": "Abonnements"
   },
   "feed": {
     "title": "Fil d'actualité",

@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
-import { getUserByUsername, getUserPosts, getUserStats, getUserLikedPosts } from "@/lib/queries/users";
+import { getUserByUsername, getUserPosts, getUserStats, getUserLikedPosts, getFollowStats } from "@/lib/queries/users";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
 import { MessageButton } from "@/components/feed/MessageButton";
+import { FollowButton } from "@/components/profile/FollowButton";
 import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
 
@@ -60,10 +61,11 @@ export default async function UserProfilePage({
   const activeTab = search.tab || "posts";
 
   // Fetch data based on active tab
-  const [stats, postsData, likedData] = await Promise.all([
+  const [stats, postsData, likedData, followStats] = await Promise.all([
     getUserStats(user.id),
     activeTab === "posts" ? getUserPosts(user.id) : Promise.resolve({ posts: [], total: 0 }),
     activeTab === "likes" ? getUserLikedPosts(user.id) : Promise.resolve({ posts: [], total: 0 }),
+    getFollowStats(user.id, viewerId),
   ]);
 
   const displayPosts = activeTab === "posts" ? postsData.posts : likedData.posts;
@@ -151,16 +153,19 @@ export default async function UserProfilePage({
                 </div>
               )}
 
-              {/* Message button */}
+              {/* Action buttons */}
               {viewer && viewerId !== user.id && (
-                <MessageButton targetUserId={user.id} />
+                <div className="mt-3 flex items-center gap-2">
+                  <FollowButton userId={user.id} initialIsFollowing={followStats.isFollowing} />
+                  <MessageButton targetUserId={user.id} />
+                </div>
               )}
             </div>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="mt-4 grid grid-cols-3 gap-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
+        <div className="mt-4 grid grid-cols-5 gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-card">
           <div className="text-center">
             <p className="text-2xl font-bold text-gray-900">{stats.postsCount}</p>
             <p className="text-xs text-gray-500">{t("posts")}</p>
@@ -172,6 +177,14 @@ export default async function UserProfilePage({
           <div className="text-center">
             <p className="text-2xl font-bold text-red-500">{stats.likesReceived}</p>
             <p className="text-xs text-gray-500">{t("likesReceived")}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{followStats.followersCount}</p>
+            <p className="text-xs text-gray-500">{t("followers")}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{followStats.followingCount}</p>
+            <p className="text-xs text-gray-500">{t("followingCount")}</p>
           </div>
         </div>
 

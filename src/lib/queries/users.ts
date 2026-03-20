@@ -121,3 +121,29 @@ export async function getUserLikedPosts(userId: string, page = 1, limit = 20) {
   if (error) return { posts: [], total: 0 };
   return { posts: data || [], total: postIds.length };
 }
+
+export async function getFollowStats(userId: string, viewerId?: string) {
+  const supabase = await createClient();
+
+  const [followersResult, followingResult] = await Promise.all([
+    supabase.from('followers').select('id', { count: 'exact', head: true }).eq('following_id', userId),
+    supabase.from('followers').select('id', { count: 'exact', head: true }).eq('follower_id', userId),
+  ]);
+
+  let isFollowing = false;
+  if (viewerId && viewerId !== userId) {
+    const { data } = await supabase
+      .from('followers')
+      .select('id')
+      .eq('follower_id', viewerId)
+      .eq('following_id', userId)
+      .maybeSingle();
+    isFollowing = !!data;
+  }
+
+  return {
+    followersCount: followersResult.count || 0,
+    followingCount: followingResult.count || 0,
+    isFollowing,
+  };
+}

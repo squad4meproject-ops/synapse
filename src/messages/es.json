@@ -140,7 +140,12 @@
     "changeAvatar": "Cambiar foto",
     "changeBanner": "Cambiar banner",
     "uploading": "Subiendo...",
-    "uploadError": "Error al subir"
+    "uploadError": "Error al subir",
+    "follow": "Seguir",
+    "following": "Siguiendo",
+    "unfollow": "Dejar de seguir",
+    "followers": "Seguidores",
+    "followingCount": "Siguiendo"
   },
   "feed": {
     "title": "Feed de la comunidad",
