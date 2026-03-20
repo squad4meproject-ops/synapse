@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
 import { PostComposer } from "@/components/feed/PostComposer";
 import { CategoryFilter } from "@/components/feed/CategoryFilter";
+import { LoadMoreButton } from "@/components/feed/LoadMoreButton";
 import type { PostCategory } from "@/types/database";
 
 export async function generateMetadata({
@@ -78,8 +79,16 @@ export default async function FeedPage({
           {postsData.posts.length > 0 ? (
             <div className="space-y-4 p-4">
               {postsData.posts.map((post) => (
-                <PostCard key={post.id} post={post} isLoggedIn={!!user} />
+                <PostCard key={post.id} post={post} isLoggedIn={!!user} currentUserId={userId} />
               ))}
+              <LoadMoreButton
+                initialPage={page}
+                total={postsData.total}
+                limit={20}
+                category={category}
+                isLoggedIn={!!user}
+                currentUserId={userId}
+              />
             </div>
           ) : (
             <div className="px-6 py-16 text-center">

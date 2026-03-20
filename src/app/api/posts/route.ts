@@ -25,7 +25,9 @@ export async function POST(request: NextRequest) {
       .eq('auth_id', user.id)
       .single() as { data: { id: string } | null };
 
-    if (!userData) {
+    let authorId = userData?.id;
+
+    if (!authorId) {
       // Fallback: chercher par email
       const { data: userByEmail } = await supabase
         .from('users')
@@ -36,28 +38,13 @@ export async function POST(request: NextRequest) {
       if (!userByEmail) {
         return NextResponse.json({ error: 'User profile not found' }, { status: 404 });
       }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data: post, error } = await (supabase.from('posts') as any)
-        .insert({
-          author_id: userByEmail.id,
-          category,
-          content,
-          prompt_content: prompt_content || null,
-          link_url: link_url || null,
-          locale: locale || 'en',
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-      return NextResponse.json(post, { status: 201 });
+      authorId = userByEmail.id;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: post, error } = await (supabase.from('posts') as any)
       .insert({
-        author_id: userData.id,
+        author_id: authorId,
         category,
         content,
         prompt_content: prompt_content || null,
@@ -68,6 +55,21 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) throw error;
+
+    // Insérer les images si présentes
+    const { image_urls } = body;
+    if (image_urls && Array.isArray(image_urls) && image_urls.length > 0 && post) {
+      const imageInserts = image_urls.map((url: string, index: number) => ({
+        post_id: post.id,
+        image_url: url,
+        position: index,
+      }));
+
+      const { createServiceClient } = await import('@/lib/supabase/service');
+      const serviceClient = createServiceClient();
+      await serviceClient.from('post_images').insert(imageInserts);
+    }
+
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
     console.error('Error creating post:', error);

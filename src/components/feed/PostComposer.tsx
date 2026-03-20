@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import type { PostCategory } from "@/types/database";
@@ -23,6 +23,10 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
   const [linkUrl, setLinkUrl] = useState("");
   const [showLinkField, setShowLinkField] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [images, setImages] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isLoggedIn) {
     return (
@@ -32,11 +36,58 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
     );
   }
 
+  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const maxImages = 4;
+    const remaining = maxImages - images.length;
+    const newFiles = files.slice(0, remaining);
+
+    if (newFiles.length === 0) return;
+
+    setImages(prev => [...prev, ...newFiles]);
+
+    // Créer les previews
+    newFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setImagePreviews(prev => [...prev, ev.target?.result as string]);
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Reset l'input
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const removeImage = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+    setImagePreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async () => {
     if (!content.trim() || submitting) return;
     setSubmitting(true);
 
     try {
+      // Upload des images d'abord
+      let imageUrls: string[] = [];
+      if (images.length > 0) {
+        setUploading(true);
+        const uploadPromises = images.map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+          const res = await fetch('/api/upload', { method: 'POST', body: formData });
+          if (res.ok) {
+            const data = await res.json();
+            return data.url;
+          }
+          return null;
+        });
+        const results = await Promise.all(uploadPromises);
+        imageUrls = results.filter(Boolean) as string[];
+        setUploading(false);
+      }
+
       const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,6 +97,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           prompt_content: promptContent.trim() || null,
           link_url: linkUrl.trim() || null,
           locale,
+          image_urls: imageUrls.length > 0 ? imageUrls : undefined,
         }),
       });
 
@@ -55,12 +107,15 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         setLinkUrl("");
         setShowPromptField(false);
         setShowLinkField(false);
+        setImages([]);
+        setImagePreviews([]);
         router.refresh();
       }
     } catch {
       // silently fail
     } finally {
       setSubmitting(false);
+      setUploading(false);
     }
   };
 
@@ -93,6 +148,38 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
         className="w-full resize-none rounded-lg border border-gray-200 p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
       />
 
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/gif,image/webp"
+        multiple
+        onChange={handleImageSelect}
+        className="hidden"
+      />
+
+      {/* Image previews */}
+      {imagePreviews.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-2">
+          {imagePreviews.map((preview, index) => (
+            <div key={index} className="group relative">
+              <img
+                src={preview}
+                alt={`Preview ${index + 1}`}
+                className="h-20 w-20 rounded-lg object-cover"
+              />
+              <button
+                type="button"
+                onClick={() => removeImage(index)}
+                className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white opacity-0 shadow transition-opacity group-hover:opacity-100"
+              >
+                x
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Prompt field */}
       {showPromptField && (
         <textarea
@@ -118,6 +205,18 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
       {/* Action bar */}
       <div className="mt-3 flex items-center justify-between">
         <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={images.length >= 4}
+            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+              images.length > 0
+                ? "bg-primary-100 text-primary-700"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+            } disabled:opacity-50`}
+          >
+            📷 {t("composer.addImage")} {images.length > 0 ? `(${images.length}/4)` : ""}
+          </button>
           <button
             onClick={() => setShowPromptField(!showPromptField)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
@@ -145,7 +244,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           disabled={!content.trim() || submitting}
           className="rounded-lg bg-primary-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {submitting ? t("composer.publishing") : t("composer.publish")}
+          {submitting ? (uploading ? "Uploading..." : t("composer.publishing")) : t("composer.publish")}
         </button>
       </div>
     </div>

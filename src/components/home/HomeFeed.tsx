@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { PostCard } from "@/components/feed/PostCard";
 import { PostComposer } from "@/components/feed/PostComposer";
 import { CategoryFilter } from "@/components/feed/CategoryFilter";
+import { LoadMoreButton } from "@/components/feed/LoadMoreButton";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import type { Post } from "@/types/database";
@@ -12,10 +13,14 @@ export function HomeFeed({
   posts,
   locale,
   isLoggedIn,
+  currentUserId,
+  total = 0,
 }: {
   posts: Post[];
   locale: string;
   isLoggedIn: boolean;
+  currentUserId?: string;
+  total?: number;
 }) {
   const t = useTranslations("feed");
 
@@ -33,8 +38,15 @@ export function HomeFeed({
       {posts.length > 0 ? (
         <div className="space-y-4 p-4">
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} isLoggedIn={isLoggedIn} />
+            <PostCard key={post.id} post={post} isLoggedIn={isLoggedIn} currentUserId={currentUserId} />
           ))}
+          <LoadMoreButton
+            initialPage={1}
+            total={total}
+            limit={10}
+            isLoggedIn={isLoggedIn}
+            currentUserId={currentUserId}
+          />
         </div>
       ) : (
         <div className="px-6 py-12 text-center">

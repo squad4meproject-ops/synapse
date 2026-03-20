@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { CommentSection } from "./CommentSection";
+import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
 
 function timeAgo(dateString: string): string {
@@ -60,7 +61,17 @@ function BookmarkIcon({ filled }: { filled: boolean }) {
   );
 }
 
-export function PostCard({ post, isLoggedIn = false }: { post: Post; isLoggedIn?: boolean }) {
+export function PostCard({
+  post,
+  isLoggedIn = false,
+  currentUserId,
+  onDeleted,
+}: {
+  post: Post;
+  isLoggedIn?: boolean;
+  currentUserId?: string;
+  onDeleted?: () => void;
+}) {
   const t = useTranslations("feed");
   const currentLocale = useLocale();
   const [liked, setLiked] = useState(post.is_liked || false);
@@ -71,6 +82,26 @@ export function PostCard({ post, isLoggedIn = false }: { post: Post; isLoggedIn?
   const [saveLoading, setSaveLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [translating, setTranslating] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
+  const isOwner = currentUserId && post.author_id === currentUserId;
+
+  const handleDelete = async () => {
+    if (deleteLoading) return;
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/posts/${post.id}/delete`, { method: 'DELETE' });
+      if (res.ok) {
+        if (onDeleted) onDeleted();
+        else window.location.reload();
+      }
+    } catch {
+      // fail silently
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
 
   const author = post.author as Record<string, string | null> | undefined;
   const authorName = author?.display_name || author?.username || "Anonymous";
@@ -159,8 +190,18 @@ export function PostCard({ post, isLoggedIn = false }: { post: Post; isLoggedIn?
         )}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-gray-900">{authorName}</span>
-            {author?.username && <span className="text-sm text-gray-500">@{author.username}</span>}
+            {author?.username ? (
+              <Link href={`/user/${author.username}`} className="font-semibold text-gray-900 hover:underline">
+                {authorName}
+              </Link>
+            ) : (
+              <span className="font-semibold text-gray-900">{authorName}</span>
+            )}
+            {author?.username && (
+              <Link href={`/user/${author.username}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline">
+                @{author.username}
+              </Link>
+            )}
             <span className="text-gray-300">·</span>
             <span className="text-sm text-gray-500">{timeAgo(post.created_at)}</span>
           </div>
@@ -170,6 +211,37 @@ export function PostCard({ post, isLoggedIn = false }: { post: Post; isLoggedIn?
             <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium uppercase text-gray-500">{post.locale}</span>
           </div>
         </div>
+        {isOwner && (
+          <div className="relative ml-auto">
+            {!showDeleteConfirm ? (
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                aria-label="More options"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+              </button>
+            ) : (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleDelete}
+                  disabled={deleteLoading}
+                  className="rounded-md bg-red-600 px-3 py-1 text-xs font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                >
+                  {deleteLoading ? "..." : t("post.delete")}
+                </button>
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="rounded-md border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Content */}

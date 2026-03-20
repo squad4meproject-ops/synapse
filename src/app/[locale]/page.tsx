@@ -98,6 +98,8 @@ export default async function HomePage({
                 posts={postsData.posts}
                 locale={locale}
                 isLoggedIn={!!user}
+                currentUserId={userId}
+                total={postsData.total}
               />
             </main>
 
