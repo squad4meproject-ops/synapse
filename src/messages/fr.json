@@ -254,5 +254,15 @@
     "filterLikes": "J'aime",
     "filterComments": "Commentaires",
     "filterMessages": "Messages"
+  },
+  "search": {
+    "placeholder": "Rechercher...",
+    "noResults": "Aucun résultat pour \"{query}\"",
+    "users": "Utilisateurs",
+    "posts": "Publications",
+    "articles": "Articles",
+    "tools": "Outils",
+    "viewAll": "Voir tout",
+    "searching": "Recherche..."
   }
 }

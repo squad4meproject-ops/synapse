@@ -6,6 +6,7 @@ import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileNav } from "./MobileNav";
 import { Logo } from "@/components/ui/Logo";
 import { NotificationBellWrapper } from "@/components/notifications/NotificationBellWrapper";
+import { SearchBar } from "@/components/search/SearchBar";
 
 export function Header() {
   const t = useTranslations("navigation");
@@ -43,6 +44,7 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <SearchBar />
             <NotificationBellWrapper />
             <LocaleSwitcher />
             <AuthButton />
