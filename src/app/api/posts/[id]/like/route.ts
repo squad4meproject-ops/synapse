@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
+import { createNotification } from '@/lib/notifications/create';
 
 export async function POST(
   request: NextRequest,
@@ -67,6 +68,22 @@ export async function POST(
         console.error('Error inserting like:', insertError);
         return NextResponse.json({ error: 'Failed to like' }, { status: 500 });
       }
+      // Notifier l'auteur du post
+      const { data: post } = await service
+        .from('posts')
+        .select('author_id')
+        .eq('id', postId)
+        .single();
+
+      if (post) {
+        await createNotification({
+          userId: post.author_id,
+          actorId: userData.id,
+          type: 'like',
+          postId,
+        });
+      }
+
       return NextResponse.json({ liked: true });
     }
   } catch (error) {

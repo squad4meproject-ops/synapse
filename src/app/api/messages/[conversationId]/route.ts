@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
+import { createNotifications } from '@/lib/notifications/create';
 
 // GET — Messages d'une conversation
 export async function GET(
@@ -106,6 +107,24 @@ export async function POST(
       .update({ last_read_at: new Date().toISOString() })
       .eq('conversation_id', conversationId)
       .eq('user_id', me.id);
+
+    // Notifier les autres participants
+    const { data: otherParticipants } = await serviceClient
+      .from('conversation_participants')
+      .select('user_id')
+      .eq('conversation_id', conversationId)
+      .neq('user_id', me.id);
+
+    if (otherParticipants && otherParticipants.length > 0) {
+      await createNotifications(
+        otherParticipants.map((p: { user_id: string }) => ({
+          userId: p.user_id,
+          actorId: me.id,
+          type: 'message' as const,
+          conversationId,
+        }))
+      );
+    }
 
     return NextResponse.json(message, { status: 201 });
   } catch (error) {

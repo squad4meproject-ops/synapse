@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
+import { createNotification } from '@/lib/notifications/create';
 
 // GET /api/posts/[id]/comments — Récupérer les commentaires
 export async function GET(
@@ -79,6 +80,43 @@ export async function POST(
       console.error('Error creating comment:', error);
       return NextResponse.json({ error: 'Failed to comment' }, { status: 500 });
     }
+
+    // Notifier l'auteur du post
+    const { data: post } = await service
+      .from('posts')
+      .select('author_id')
+      .eq('id', postId)
+      .single();
+
+    if (post) {
+      await createNotification({
+        userId: post.author_id,
+        actorId: userData.id,
+        type: 'comment',
+        postId,
+        commentId: comment.id,
+      });
+    }
+
+    // Si c'est une réponse, notifier l'auteur du commentaire parent
+    if (parent_id) {
+      const { data: parentComment } = await service
+        .from('comments')
+        .select('author_id')
+        .eq('id', parent_id)
+        .single();
+
+      if (parentComment && (!post || parentComment.author_id !== post.author_id)) {
+        await createNotification({
+          userId: parentComment.author_id,
+          actorId: userData.id,
+          type: 'reply',
+          postId,
+          commentId: comment.id,
+        });
+      }
+    }
+
     return NextResponse.json(comment, { status: 201 });
   } catch (error) {
     console.error('Error creating comment:', error);

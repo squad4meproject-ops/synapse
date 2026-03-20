@@ -5,6 +5,7 @@ import { AuthButton } from "@/components/auth/AuthButton";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { MobileNav } from "./MobileNav";
 import { Logo } from "@/components/ui/Logo";
+import { NotificationBellWrapper } from "@/components/notifications/NotificationBellWrapper";
 
 export function Header() {
   const t = useTranslations("navigation");
@@ -42,6 +43,7 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <NotificationBellWrapper />
             <LocaleSwitcher />
             <AuthButton />
           </div>

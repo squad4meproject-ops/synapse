@@ -222,5 +222,31 @@
     "send": "Envoyer",
     "backToMessages": "Retour",
     "unknown": "Inconnu"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "markAllAsRead": "Tout marquer comme lu",
+    "noNotifications": "Aucune notification",
+    "viewAll": "Voir toutes les notifications",
+    "someone": "Quelqu'un",
+    "likedYourPost": "{name} a aimé votre post",
+    "commentedOnYourPost": "{name} a commenté votre post",
+    "repliedToYourComment": "{name} a répondu à votre commentaire",
+    "sentYouAMessage": "{name} vous a envoyé un message",
+    "startedFollowingYou": "{name} a commencé à vous suivre",
+    "newNotification": "Nouvelle notification",
+    "justNow": "À l'instant",
+    "minutesAgo": "Il y a {count} min",
+    "hoursAgo": "Il y a {count} h",
+    "daysAgo": "Il y a {count} j",
+    "title": "Toutes les notifications",
+    "empty": "Vous êtes à jour !",
+    "emptyDescription": "Aucune notification à afficher. Interagissez avec la communauté pour commencer à recevoir des notifications.",
+    "loadMore": "Charger plus",
+    "filterAll": "Toutes",
+    "filterUnread": "Non lues",
+    "filterLikes": "J'aime",
+    "filterComments": "Commentaires",
+    "filterMessages": "Messages"
   }
 }
