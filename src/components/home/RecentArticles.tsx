@@ -37,7 +37,7 @@ export function RecentArticles({
             <Link
               key={article.id}
               href={`/articles/${article.slug}`}
-              className="block rounded-xl p-2.5 transition-all hover:bg-accent-50/50"
+              className="block rounded-xl p-2.5 transition-all hover:bg-accent-50/50 dark:hover:bg-gray-800"
             >
               <p className="text-sm font-medium text-gray-900 line-clamp-2 dark:text-gray-100">{title}</p>
               <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">

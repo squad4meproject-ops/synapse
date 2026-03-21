@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { CommentSection } from "./CommentSection";
+import { TagDisplay } from "./TagDisplay";
 import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
 
@@ -242,24 +243,24 @@ export function PostCard({
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
             {author?.username ? (
-              <Link href={`/user/${author.username}`} className="font-semibold text-gray-900 hover:underline">
+              <Link href={`/user/${author.username}`} className="font-semibold text-gray-900 hover:underline dark:text-gray-100">
                 {authorName}
               </Link>
             ) : (
-              <span className="font-semibold text-gray-900">{authorName}</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100">{authorName}</span>
             )}
             {author?.username && (
-              <Link href={`/user/${author.username}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline">
+              <Link href={`/user/${author.username}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline dark:text-gray-400">
                 @{author.username}
               </Link>
             )}
-            <span className="text-gray-300">·</span>
-            <span className="text-sm text-gray-500">{timeAgo(post.created_at)}</span>
+            <span className="text-gray-300 dark:text-gray-600">·</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{timeAgo(post.created_at)}</span>
           </div>
           <div className="mt-0.5 flex items-center gap-2">
             <span className="text-xs">{categoryIcons[post.category]}</span>
             <span className="text-xs font-medium text-primary-600">{t(`categories.${post.category}`)}</span>
-            <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium uppercase text-gray-500">{post.locale}</span>
+            <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium uppercase text-gray-500 dark:bg-gray-700 dark:text-gray-400">{post.locale}</span>
           </div>
         </div>
         {isOwner && (
@@ -298,7 +299,7 @@ export function PostCard({
                 </button>
                 <button
                   onClick={() => setShowDeleteConfirm(false)}
-                  className="rounded-md border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
+                  className="rounded-md border border-gray-300 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
                   {t("post.cancel") || "Cancel"}
                 </button>
@@ -314,14 +315,14 @@ export function PostCard({
 
         {/* Translated text (inline) */}
         {translatedText && (
-          <div className="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3">
+          <div className="mt-2 rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-900 dark:bg-blue-900/30">
             <div className="mb-1 flex items-center justify-between">
-              <span className="text-[10px] font-semibold uppercase text-blue-600">
+              <span className="text-[10px] font-semibold uppercase text-blue-600 dark:text-blue-400">
                 🌐 {langNames[currentLocale] || currentLocale}
               </span>
               <button onClick={() => setTranslatedText(null)} className="text-[10px] text-blue-500 hover:underline">✕</button>
             </div>
-            <p className="whitespace-pre-wrap text-sm text-gray-800">{translatedText}</p>
+            <p className="whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-200">{translatedText}</p>
           </div>
         )}
 
@@ -330,7 +331,7 @@ export function PostCard({
           <button
             onClick={handleTranslate}
             disabled={translating}
-            className="mt-2 inline-flex items-center gap-1 rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-200 disabled:opacity-50"
+            className="mt-2 inline-flex items-center gap-1 rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-200 disabled:opacity-50 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-gray-600"
           >
             🌐 {translating ? "..." : translatedText ? t("post.translate", { lang: langNames[post.locale] || post.locale }) : t("post.translate", { lang: langNames[currentLocale] || currentLocale })}
           </button>
@@ -339,22 +340,25 @@ export function PostCard({
           <span className="ml-2 text-xs text-red-500">{translateError}</span>
         )}
 
+        {/* Tags */}
+        <TagDisplay tags={post.tags} />
+
         {/* Prompt block */}
         {post.prompt_content && (
-          <div className="mt-3 rounded-lg border border-primary-200 bg-primary-50 p-3">
+          <div className="mt-3 rounded-lg border border-primary-200 bg-primary-50 p-3 dark:border-primary-900/50 dark:bg-primary-900/20">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase text-primary-700">Prompt</span>
-              <button onClick={copyPrompt} className="rounded px-2 py-0.5 text-xs font-medium text-primary-600 transition-colors hover:bg-primary-100">
+              <span className="text-xs font-semibold uppercase text-primary-700 dark:text-primary-400">Prompt</span>
+              <button onClick={copyPrompt} className="rounded px-2 py-0.5 text-xs font-medium text-primary-600 transition-colors hover:bg-primary-100 dark:text-primary-400 dark:hover:bg-primary-900/30">
                 {t("post.copyPrompt")}
               </button>
             </div>
-            <pre className="overflow-x-auto whitespace-pre-wrap text-sm text-gray-800">{post.prompt_content}</pre>
+            <pre className="overflow-x-auto whitespace-pre-wrap text-sm text-gray-800 dark:text-gray-300">{post.prompt_content}</pre>
           </div>
         )}
 
         {/* Link preview */}
         {post.link_url && (
-          <a href={post.link_url} target="_blank" rel="noopener noreferrer" className="mt-3 block overflow-hidden rounded-lg border border-gray-200 transition-colors hover:bg-gray-50">
+          <a href={post.link_url} target="_blank" rel="noopener noreferrer" className="mt-3 block overflow-hidden rounded-lg border border-gray-200 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700/50">
             <div className="p-3">
               <p className="text-sm font-medium text-primary-600 hover:underline">{post.link_url}</p>
             </div>
@@ -363,7 +367,7 @@ export function PostCard({
 
         {/* Images */}
         {post.images && post.images.length > 0 && (
-          <div className={`mt-3 grid gap-1 overflow-hidden rounded-xl border border-gray-200 ${
+          <div className={`mt-3 grid gap-1 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 ${
             post.images.length === 1 ? "grid-cols-1" : "grid-cols-2"
           }`}>
             {post.images.slice(0, 4).map((image, idx) => (

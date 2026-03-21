@@ -156,7 +156,7 @@ export function AvatarUpload({
 
       {/* Error */}
       {error && (
-        <div className="mt-2 rounded-md bg-red-50 p-2 text-xs text-red-600">{error}</div>
+        <div className="mt-2 rounded-md bg-red-50 p-2 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">{error}</div>
       )}
     </div>
   );

@@ -223,6 +223,15 @@
       "fr": "Français",
       "en": "English",
       "es": "Español"
+    },
+    "feedToggle": {
+      "all": "Tout",
+      "following": "Abonnements"
+    },
+    "tags": {
+      "popular": "Tags populaires",
+      "noTags": "Pas encore de tags",
+      "postsTagged": "{count} posts"
     }
   },
   "legal": {
@@ -285,5 +294,25 @@
     "tools": "Outils",
     "viewAll": "Voir tout",
     "searching": "Recherche..."
+  },
+  "admin": {
+    "title": "Tableau de bord administrateur",
+    "stats": "Statistiques",
+    "totalUsers": "Utilisateurs totaux",
+    "totalPosts": "Publications totales",
+    "totalComments": "Commentaires totaux",
+    "posts": "Publications",
+    "users": "Utilisateurs",
+    "sponsored": "Sponsorisés",
+    "badges": "Badges",
+    "deletePost": "Supprimer",
+    "confirmDelete": "Confirmer la suppression ?",
+    "makeAdmin": "Rendre administrateur",
+    "removeAdmin": "Retirer administrateur",
+    "awardBadge": "Attribuer un badge",
+    "selectUser": "Sélectionner un utilisateur",
+    "selectBadge": "Sélectionner un badge",
+    "notAdmin": "Accès refusé",
+    "notAdminDesc": "Vous n'avez pas les droits administrateur."
   }
 }

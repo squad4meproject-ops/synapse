@@ -25,22 +25,22 @@ export function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Navigation</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <Link href="/" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {nav("home")}
                 </Link>
               </li>
               <li>
-                <Link href="/feed" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/feed" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {nav("community")}
                 </Link>
               </li>
               <li>
-                <Link href="/articles" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/articles" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {nav("articles")}
                 </Link>
               </li>
               <li>
-                <Link href="/tools" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/tools" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {nav("tools")}
                 </Link>
               </li>
@@ -51,12 +51,12 @@ export function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Legal</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <Link href="/legal" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/legal" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {t("privacyPolicy")}
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-sm text-gray-600 transition-colors hover:text-primary-600">
+                <Link href="/privacy" className="text-sm text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400">
                   {t("terms")}
                 </Link>
               </li>
@@ -67,13 +67,13 @@ export function Footer() {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Community</h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <span className="text-sm text-gray-600">GitHub</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">GitHub</span>
               </li>
               <li>
-                <span className="text-sm text-gray-600">Discord</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Discord</span>
               </li>
               <li>
-                <span className="text-sm text-gray-600">Twitter</span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">Twitter</span>
               </li>
             </ul>
           </div>

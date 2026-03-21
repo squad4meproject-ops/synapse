@@ -223,6 +223,15 @@
       "fr": "Français",
       "en": "English",
       "es": "Español"
+    },
+    "feedToggle": {
+      "all": "Todos",
+      "following": "Siguiendo"
+    },
+    "tags": {
+      "popular": "Tags populares",
+      "noTags": "Sin tags aún",
+      "postsTagged": "{count} posts"
     }
   },
   "legal": {
@@ -285,5 +294,25 @@
     "tools": "Herramientas",
     "viewAll": "Ver todo",
     "searching": "Buscando..."
+  },
+  "admin": {
+    "title": "Panel de administración",
+    "stats": "Estadísticas",
+    "totalUsers": "Usuarios totales",
+    "totalPosts": "Publicaciones totales",
+    "totalComments": "Comentarios totales",
+    "posts": "Publicaciones",
+    "users": "Usuarios",
+    "sponsored": "Patrocinados",
+    "badges": "Insignias",
+    "deletePost": "Eliminar",
+    "confirmDelete": "¿Confirmar eliminación?",
+    "makeAdmin": "Hacer administrador",
+    "removeAdmin": "Quitar administrador",
+    "awardBadge": "Otorgar insignia",
+    "selectUser": "Seleccionar usuario",
+    "selectBadge": "Seleccionar insignia",
+    "notAdmin": "Acceso denegado",
+    "notAdminDesc": "No tienes privilegios de administrador."
   }
 }

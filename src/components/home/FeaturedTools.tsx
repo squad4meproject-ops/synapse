@@ -14,7 +14,7 @@ export function FeaturedTools({ tools }: { tools: AiTool[] }) {
     <section className="py-16">
       <Container>
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+          <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl dark:text-gray-100">
             {t("featuredTools")}
           </h2>
           <Link

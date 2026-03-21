@@ -83,6 +83,82 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // 5. Extract hashtags and create tags (non-bloquant si erreur)
+    if (post) {
+      try {
+        const hashtagRegex = /#\w+/g;
+        const rawMatches = content.match(hashtagRegex) || [];
+        const uniqueMatches = Array.from(new Set(rawMatches)) as string[];
+        const hashtags = uniqueMatches.map(tag => tag.substring(1).toLowerCase());
+
+        if (hashtags.length > 0) {
+          // Create or get tags
+          const tags: { id: string; name: string; slug: string }[] = [];
+
+          for (const tagName of hashtags) {
+            const slug = tagName.toLowerCase().replace(/[^\w-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+
+            // Try to find existing tag
+            const { data: existingTag } = await serviceClient
+              .from('tags')
+              .select('*')
+              .eq('slug', slug)
+              .single();
+
+            if (existingTag) {
+              tags.push(existingTag as { id: string; name: string; slug: string });
+            } else {
+              // Create new tag
+              const { data: newTag, error: tagError } = await serviceClient
+                .from('tags')
+                .insert({
+                  name: tagName,
+                  slug,
+                  posts_count: 0,
+                })
+                .select()
+                .single();
+
+              if (!tagError && newTag) {
+                tags.push(newTag as { id: string; name: string; slug: string });
+              }
+            }
+          }
+
+          // Create post_tags entries
+          if (tags.length > 0) {
+            const postTagInserts = tags.map(tag => ({
+              post_id: post.id,
+              tag_id: tag.id,
+            }));
+
+            const { error: ptError } = await serviceClient.from('post_tags').insert(postTagInserts);
+
+            if (ptError) {
+              console.error('Error inserting post tags:', ptError);
+            } else {
+              // Update posts_count for each tag via RPC-style increment
+              for (const tag of tags) {
+                const { data: currentTag } = await serviceClient
+                  .from('tags')
+                  .select('posts_count')
+                  .eq('id', tag.id)
+                  .single();
+                if (currentTag) {
+                  await serviceClient
+                    .from('tags')
+                    .update({ posts_count: ((currentTag as { posts_count: number }).posts_count || 0) + 1 })
+                    .eq('id', tag.id);
+                }
+              }
+            }
+          }
+        }
+      } catch (tagErr) {
+        console.error('Error processing tags:', tagErr);
+      }
+    }
+
     // Check badges (fire-and-forget)
     checkAndAwardBadges(authorId).catch(() => {});
 

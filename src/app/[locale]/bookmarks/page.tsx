@@ -79,11 +79,11 @@ export default async function BookmarksPage({
           </div>
         ) : (
           <div className="rounded-xl border border-gray-200 bg-white p-12 text-center dark:border-gray-700 dark:bg-gray-900">
-            <svg className="mx-auto h-12 w-12 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <svg className="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
             </svg>
-            <p className="mt-4 text-sm font-medium text-gray-900">{t("noSavedPosts")}</p>
-            <p className="mt-1 text-sm text-gray-500">
+            <p className="mt-4 text-sm font-medium text-gray-900 dark:text-gray-100">{t("noSavedPosts")}</p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
               {t("noSavedPostsDesc")}
             </p>
           </div>

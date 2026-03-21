@@ -19,7 +19,7 @@ export function ArticleCard({
   return (
     <Card className="flex flex-col">
       {article.cover_image_url && (
-        <div className="mb-4 aspect-video overflow-hidden rounded-lg bg-gray-100">
+        <div className="mb-4 aspect-video overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
           <img
             src={article.cover_image_url}
             alt={translation.title}
@@ -28,7 +28,7 @@ export function ArticleCard({
         </div>
       )}
       <div className="flex flex-1 flex-col">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           <Link
             href={`/articles/${article.slug}`}
             className="hover:text-primary-600"
@@ -37,11 +37,11 @@ export function ArticleCard({
           </Link>
         </h3>
         {translation.excerpt && (
-          <p className="mt-2 flex-1 text-sm text-gray-600">
+          <p className="mt-2 flex-1 text-sm text-gray-600 dark:text-gray-400">
             {truncateText(translation.excerpt, 150)}
           </p>
         )}
-        <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+        <div className="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
           <span>
             {article.published_at && (
               <>

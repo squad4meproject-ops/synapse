@@ -223,6 +223,15 @@
       "fr": "Français",
       "en": "English",
       "es": "Español"
+    },
+    "feedToggle": {
+      "all": "All",
+      "following": "Following"
+    },
+    "tags": {
+      "popular": "Popular Tags",
+      "noTags": "No tags yet",
+      "postsTagged": "{count} posts"
     }
   },
   "legal": {
@@ -285,5 +294,25 @@
     "tools": "Tools",
     "viewAll": "View all",
     "searching": "Searching..."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "stats": "Statistics",
+    "totalUsers": "Total Users",
+    "totalPosts": "Total Posts",
+    "totalComments": "Total Comments",
+    "posts": "Posts",
+    "users": "Users",
+    "sponsored": "Sponsored",
+    "badges": "Badges",
+    "deletePost": "Delete",
+    "confirmDelete": "Confirm deletion?",
+    "makeAdmin": "Make admin",
+    "removeAdmin": "Remove admin",
+    "awardBadge": "Award badge",
+    "selectUser": "Select user",
+    "selectBadge": "Select badge",
+    "notAdmin": "Access denied",
+    "notAdminDesc": "You don't have admin privileges."
   }
 }

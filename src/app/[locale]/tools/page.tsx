@@ -49,10 +49,10 @@ export default async function ToolsPage({
   return (
     <Container className="py-12">
       <div className="mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-gray-100">
           {t("title")}
         </h1>
-        <p className="mt-2 text-lg text-gray-600">{t("description")}</p>
+        <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{t("description")}</p>
       </div>
 
       {categories.length > 0 && (
@@ -70,7 +70,7 @@ export default async function ToolsPage({
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">{t("noTools")}</p>
+        <p className="text-gray-500 dark:text-gray-400">{t("noTools")}</p>
       )}
     </Container>
   );

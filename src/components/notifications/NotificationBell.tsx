@@ -129,7 +129,7 @@ export function NotificationBell() {
       {/* Bell button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative rounded-lg p-2 text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-700"
+        className="relative rounded-lg p-2 text-gray-500 transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-primary-400"
         aria-label={t("notifications")}
       >
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -146,7 +146,7 @@ export function NotificationBell() {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-80 animate-fade-in rounded-xl border border-gray-200 bg-white shadow-card sm:w-96 dark:border-gray-700 dark:bg-gray-900">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-700">
             <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100">{t("notifications")}</h3>
             {unreadCount > 0 && (
               <button
@@ -170,8 +170,8 @@ export function NotificationBell() {
                   <button
                     key={notif.id}
                     onClick={() => handleClick(notif)}
-                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50 ${
-                      !notif.read ? "bg-primary-50/50" : ""
+                    className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800 ${
+                      !notif.read ? "bg-primary-50/50 dark:bg-primary-900/20" : ""
                     }`}
                   >
                     {/* Avatar */}
@@ -185,11 +185,11 @@ export function NotificationBell() {
 
                     {/* Content */}
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm text-gray-900">{getNotifText(notif)}</p>
+                      <p className="text-sm text-gray-900 dark:text-gray-100">{getNotifText(notif)}</p>
                       {notif.post_preview && (
-                        <p className="mt-0.5 truncate text-xs text-gray-500">{notif.post_preview}</p>
+                        <p className="mt-0.5 truncate text-xs text-gray-500 dark:text-gray-400">{notif.post_preview}</p>
                       )}
-                      <p className="mt-1 text-[10px] text-gray-400">{timeAgo(notif.created_at)}</p>
+                      <p className="mt-1 text-[10px] text-gray-400 dark:text-gray-500">{timeAgo(notif.created_at)}</p>
                     </div>
 
                     {/* Unread dot */}
@@ -201,19 +201,19 @@ export function NotificationBell() {
               })
             ) : (
               <div className="px-4 py-8 text-center">
-                <svg className="mx-auto h-8 w-8 text-gray-300" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg className="mx-auto h-8 w-8 text-gray-300 dark:text-gray-600" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                 </svg>
-                <p className="mt-2 text-xs text-gray-500">{t("noNotifications")}</p>
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{t("noNotifications")}</p>
               </div>
             )}
           </div>
 
           {/* Footer */}
-          <div className="border-t border-gray-100 p-2">
+          <div className="border-t border-gray-100 p-2 dark:border-gray-700">
             <button
               onClick={() => { setIsOpen(false); router.push("/notifications"); }}
-              className="block w-full rounded-lg px-3 py-2 text-center text-xs font-semibold text-primary-600 transition-colors hover:bg-primary-50"
+              className="block w-full rounded-lg px-3 py-2 text-center text-xs font-semibold text-primary-600 transition-colors hover:bg-primary-50 dark:hover:bg-gray-800"
             >
               {t("viewAll")}
             </button>

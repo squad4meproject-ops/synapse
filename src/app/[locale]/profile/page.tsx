@@ -194,23 +194,23 @@ export default function ProfilePage() {
         }}
       />
       <div className="mb-4">
-        <p className="text-lg font-medium">{displayName || profile.email}</p>
-        <p className="text-sm text-gray-500">{profile.email}</p>
+        <p className="text-lg font-medium dark:text-gray-100">{displayName || profile.email}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{profile.email}</p>
       </div>
 
       {/* Stats */}
       <div className="mb-8 grid grid-cols-3 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="text-center">
-          <p className="text-2xl font-bold text-gray-900">{stats.postsCount}</p>
-          <p className="text-xs text-gray-500">{t("postsCount")}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.postsCount}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t("postsCount")}</p>
         </div>
         <div className="text-center">
-          <p className="text-2xl font-bold text-gray-900">{stats.commentsCount}</p>
-          <p className="text-xs text-gray-500">{t("commentsCount")}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.commentsCount}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t("commentsCount")}</p>
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold text-red-500">{stats.likesReceived}</p>
-          <p className="text-xs text-gray-500">{t("likesReceived")}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t("likesReceived")}</p>
         </div>
       </div>
 
@@ -219,8 +219,8 @@ export default function ProfilePage() {
         <div
           className={`mb-6 rounded-md p-3 text-sm ${
             message.type === "success"
-              ? "bg-green-50 text-green-700"
-              : "bg-red-50 text-red-600"
+              ? "bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+              : "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400"
           }`}
         >
           {message.text}
@@ -230,7 +230,7 @@ export default function ProfilePage() {
       {/* Edit form */}
       <form onSubmit={handleSave} className="space-y-5">
         <div>
-          <label htmlFor="displayName" className="mb-1 block text-sm font-medium">
+          <label htmlFor="displayName" className="mb-1 block text-sm font-medium dark:text-gray-200">
             {t("displayName")}
           </label>
           <input
@@ -239,12 +239,12 @@ export default function ProfilePage() {
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
             required
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
         <div>
-          <label htmlFor="username" className="mb-1 block text-sm font-medium">
+          <label htmlFor="username" className="mb-1 block text-sm font-medium dark:text-gray-200">
             {t("username")}
           </label>
           <input
@@ -253,15 +253,15 @@ export default function ProfilePage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder={t("usernamePlaceholder")}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
         {/* Show email toggle */}
-        <div className="flex items-center justify-between rounded-md border border-gray-200 p-4">
+        <div className="flex items-center justify-between rounded-md border border-gray-200 p-4 dark:border-gray-700">
           <div>
-            <p className="text-sm font-medium">{t("showEmail")}</p>
-            <p className="text-xs text-gray-500">{t("showEmailDescription")}</p>
+            <p className="text-sm font-medium dark:text-gray-200">{t("showEmail")}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("showEmailDescription")}</p>
           </div>
           <button
             type="button"
@@ -269,7 +269,7 @@ export default function ProfilePage() {
             aria-checked={showEmail}
             onClick={() => setShowEmail(!showEmail)}
             className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-              showEmail ? "bg-blue-600" : "bg-gray-200"
+              showEmail ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-600"
             }`}
           >
             <span
@@ -281,7 +281,7 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <label htmlFor="email" className="mb-1 block text-sm font-medium">
+          <label htmlFor="email" className="mb-1 block text-sm font-medium dark:text-gray-200">
             {t("email")}
           </label>
           <input
@@ -289,12 +289,12 @@ export default function ProfilePage() {
             type="email"
             value={profile.email}
             disabled
-            className="w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-500"
+            className="w-full rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
           />
         </div>
 
         <div>
-          <label htmlFor="bio" className="mb-1 block text-sm font-medium">
+          <label htmlFor="bio" className="mb-1 block text-sm font-medium dark:text-gray-200">
             {t("bio")}
           </label>
           <textarea
@@ -303,7 +303,7 @@ export default function ProfilePage() {
             onChange={(e) => setBio(e.target.value)}
             rows={4}
             placeholder={t("bioPlaceholder")}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
@@ -314,14 +314,14 @@ export default function ProfilePage() {
             <button
               type="button"
               onClick={addSocialLink}
-              className="flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-200"
+              className="flex items-center gap-1 rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             >
               <span className="text-lg leading-none">+</span> {t("addLink")}
             </button>
           </div>
 
           {socialLinks.length === 0 && (
-            <p className="text-sm text-gray-400">{t("noLinks")}</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500">{t("noLinks")}</p>
           )}
 
           <div className="space-y-3">
@@ -332,19 +332,19 @@ export default function ProfilePage() {
                   value={link.label}
                   onChange={(e) => updateSocialLink(index, "label", e.target.value)}
                   placeholder={t("linkLabelPlaceholder")}
-                  className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-1/3 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                 />
                 <input
                   type="url"
                   value={link.url}
                   onChange={(e) => updateSocialLink(index, "url", e.target.value)}
                   placeholder={t("linkUrlPlaceholder")}
-                  className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
                 />
                 <button
                   type="button"
                   onClick={() => removeSocialLink(index)}
-                  className="rounded-md px-2 py-2 text-gray-400 hover:bg-red-50 hover:text-red-500"
+                  className="rounded-md px-2 py-2 text-gray-400 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/30"
                   aria-label="Remove link"
                 >
                   x
@@ -365,11 +365,11 @@ export default function ProfilePage() {
 
       {/* Preferences */}
       <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-        <h2 className="text-lg font-semibold text-gray-900">{t("preferences")}</h2>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{t("preferences")}</h2>
 
         {/* Default post language */}
         <div className="mt-4">
-          <label className="mb-1 block text-sm font-medium">{t("defaultPostLanguage")}</label>
+          <label className="mb-1 block text-sm font-medium dark:text-gray-200">{t("defaultPostLanguage")}</label>
           <select
             value={defaultPostLocale}
             onChange={(e) => setDefaultPostLocale(e.target.value)}
@@ -379,14 +379,14 @@ export default function ProfilePage() {
             <option value="fr">Français</option>
             <option value="es">Español</option>
           </select>
-          <p className="mt-1 text-xs text-gray-500">{t("defaultPostLanguageDesc")}</p>
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("defaultPostLanguageDesc")}</p>
         </div>
 
         {/* Profile visibility toggle */}
-        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
+        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4 dark:border-gray-700">
           <div>
-            <p className="text-sm font-medium">{t("publicProfile")}</p>
-            <p className="text-xs text-gray-500">{t("publicProfileDesc")}</p>
+            <p className="text-sm font-medium dark:text-gray-200">{t("publicProfile")}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("publicProfileDesc")}</p>
           </div>
           <button
             type="button"
@@ -394,7 +394,7 @@ export default function ProfilePage() {
             aria-checked={profileVisible}
             onClick={() => setProfileVisible(!profileVisible)}
             className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-              profileVisible ? "bg-blue-600" : "bg-gray-200"
+              profileVisible ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-600"
             }`}
           >
             <span
@@ -406,10 +406,10 @@ export default function ProfilePage() {
         </div>
 
         {/* Email notifications toggle */}
-        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4">
+        <div className="mt-4 flex items-center justify-between rounded-md border border-gray-200 p-4 dark:border-gray-700">
           <div>
-            <p className="text-sm font-medium">{t("emailNotifications")}</p>
-            <p className="text-xs text-gray-500">{t("emailNotificationsDesc")}</p>
+            <p className="text-sm font-medium dark:text-gray-200">{t("emailNotifications")}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{t("emailNotificationsDesc")}</p>
           </div>
           <button
             type="button"
@@ -417,7 +417,7 @@ export default function ProfilePage() {
             aria-checked={emailNotifications}
             onClick={() => setEmailNotifications(!emailNotifications)}
             className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors ${
-              emailNotifications ? "bg-blue-600" : "bg-gray-200"
+              emailNotifications ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-600"
             }`}
           >
             <span
@@ -438,9 +438,9 @@ export default function ProfilePage() {
       </div>
 
       {/* Danger Zone */}
-      <div className="mt-12 rounded-lg border-2 border-red-200 bg-red-50 p-6">
-        <h2 className="text-lg font-semibold text-red-700">{t("deleteAccount")}</h2>
-        <p className="mt-2 text-sm text-red-600">{t("deleteAccountWarning")}</p>
+      <div className="mt-12 rounded-lg border-2 border-red-200 bg-red-50 p-6 dark:border-red-800 dark:bg-red-900/20">
+        <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">{t("deleteAccount")}</h2>
+        <p className="mt-2 text-sm text-red-600 dark:text-red-400">{t("deleteAccountWarning")}</p>
 
         {!showDeleteConfirm ? (
           <button
@@ -452,7 +452,7 @@ export default function ProfilePage() {
           </button>
         ) : (
           <div className="mt-4 space-y-3">
-            <p className="text-sm font-medium text-red-700">{t("deleteAccountConfirm")}</p>
+            <p className="text-sm font-medium text-red-700 dark:text-red-400">{t("deleteAccountConfirm")}</p>
             <input
               type="text"
               value={deleteConfirmText}
@@ -472,7 +472,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={() => { setShowDeleteConfirm(false); setDeleteConfirmText(""); }}
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
               >
                 {t("cancelAction")}
               </button>

@@ -110,7 +110,7 @@ export function SearchBar() {
         {query && (
           <button
             onClick={handleClear}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -137,7 +137,7 @@ export function SearchBar() {
                     <button
                       key={user.id}
                       onClick={() => navigate(`/user/${user.username || user.id}`)}
-                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-gray-50"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       {user.avatar_url ? (
                         <img src={user.avatar_url} alt="" className="h-8 w-8 rounded-full object-cover" />
@@ -147,8 +147,8 @@ export function SearchBar() {
                         </div>
                       )}
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900">{user.display_name || user.username}</p>
-                        {user.username && <p className="truncate text-xs text-gray-500">@{user.username}</p>}
+                        <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">{user.display_name || user.username}</p>
+                        {user.username && <p className="truncate text-xs text-gray-500 dark:text-gray-400">@{user.username}</p>}
                       </div>
                     </button>
                   ))}
@@ -163,10 +163,10 @@ export function SearchBar() {
                     <button
                       key={post.id}
                       onClick={() => navigate("/feed")}
-                      className="block w-full px-4 py-2 text-left transition-colors hover:bg-gray-50"
+                      className="block w-full px-4 py-2 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <p className="truncate text-sm text-gray-900">{post.content.slice(0, 80)}</p>
-                      <p className="text-xs text-gray-400">
+                      <p className="truncate text-sm text-gray-900 dark:text-gray-100">{post.content.slice(0, 80)}</p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500">
                         {post.author?.display_name || post.author?.username || "Anonymous"}
                       </p>
                     </button>
@@ -182,10 +182,10 @@ export function SearchBar() {
                     <button
                       key={article.id}
                       onClick={() => navigate(`/articles/${article.slug}`)}
-                      className="block w-full px-4 py-2 text-left transition-colors hover:bg-gray-50"
+                      className="block w-full px-4 py-2 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <p className="truncate text-sm font-medium text-gray-900">{article.title}</p>
-                      {article.excerpt && <p className="truncate text-xs text-gray-500">{article.excerpt}</p>}
+                      <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">{article.title}</p>
+                      {article.excerpt && <p className="truncate text-xs text-gray-500 dark:text-gray-400">{article.excerpt}</p>}
                     </button>
                   ))}
                 </div>
@@ -199,18 +199,18 @@ export function SearchBar() {
                     <button
                       key={tool.id}
                       onClick={() => navigate(`/tools/${tool.slug}`)}
-                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-gray-50"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       {tool.logo_url ? (
                         <img src={tool.logo_url} alt="" className="h-7 w-7 rounded-lg object-contain" />
                       ) : (
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-xs font-bold text-primary-700">
+                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary-100 text-xs font-bold text-primary-700 dark:bg-primary-900/30 dark:text-primary-400">
                           {tool.name.charAt(0)}
                         </div>
                       )}
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-gray-900">{tool.name}</p>
-                        {tool.description && <p className="truncate text-xs text-gray-500">{tool.description}</p>}
+                        <p className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">{tool.name}</p>
+                        {tool.description && <p className="truncate text-xs text-gray-500 dark:text-gray-400">{tool.description}</p>}
                       </div>
                     </button>
                   ))}

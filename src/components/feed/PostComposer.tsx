@@ -150,7 +150,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
             onClick={() => setCategory(cat.value)}
             className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
               category === cat.value
-                ? "bg-primary-100 text-primary-700 ring-1 ring-primary-300"
+                ? "bg-primary-100 text-primary-700 ring-1 ring-primary-300 dark:bg-primary-900/30 dark:text-primary-400 dark:ring-primary-700"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
@@ -162,7 +162,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
 
       {/* Error message */}
       {error && (
-        <div className="mb-3 rounded-md bg-red-50 p-2 text-xs text-red-600">
+        <div className="mb-3 rounded-md bg-red-50 p-2 text-xs text-red-600 dark:bg-red-900/30 dark:text-red-400">
           {error}
         </div>
       )}
@@ -215,7 +215,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           onChange={(e) => setPromptContent(e.target.value)}
           placeholder={t("composer.promptPlaceholder")}
           rows={3}
-          className="mt-2 w-full resize-none rounded-lg border border-primary-200 bg-primary-50 p-3 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-2 w-full resize-none rounded-lg border border-primary-200 bg-primary-50 p-3 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-primary-900/50 dark:bg-primary-900/20 dark:text-gray-100 dark:placeholder-gray-500"
         />
       )}
 
@@ -226,7 +226,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           value={linkUrl}
           onChange={(e) => setLinkUrl(e.target.value)}
           placeholder={t("composer.linkPlaceholder")}
-          className="mt-2 w-full rounded-lg border border-gray-200 p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+          className="mt-2 w-full rounded-lg border border-gray-200 p-3 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
         />
       )}
 
@@ -239,8 +239,8 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
             disabled={images.length >= 4}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               images.length > 0
-                ? "bg-primary-100 text-primary-700"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             } disabled:opacity-50`}
           >
             📷 {t("composer.addImage")} {images.length > 0 ? `(${images.length}/4)` : ""}
@@ -249,8 +249,8 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
             onClick={() => setShowPromptField(!showPromptField)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               showPromptField
-                ? "bg-primary-100 text-primary-700"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             💡 {t("composer.addPrompt")}
@@ -259,8 +259,8 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
             onClick={() => setShowLinkField(!showLinkField)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               showLinkField
-                ? "bg-primary-100 text-primary-700"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
             }`}
           >
             🔗 {t("composer.addLink")}

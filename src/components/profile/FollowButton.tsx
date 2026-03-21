@@ -41,8 +41,8 @@ export function FollowButton({
         disabled={loading}
         className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-all disabled:opacity-50 ${
           hovering
-            ? "border border-red-300 bg-red-50 text-red-600"
-            : "border border-primary-300 bg-primary-50 text-primary-700"
+            ? "border border-red-300 bg-red-50 text-red-600 dark:border-red-700 dark:bg-red-900/30 dark:text-red-400"
+            : "border border-primary-300 bg-primary-50 text-primary-700 dark:border-primary-700 dark:bg-primary-900/30 dark:text-primary-400"
         }`}
       >
         {loading ? "..." : hovering ? t("unfollow") : t("following")}

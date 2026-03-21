@@ -28,7 +28,7 @@ export function TrendingTools({ tools }: { tools: AiTool[] }) {
           <Link
             key={tool.id}
             href={`/tools/${tool.slug}`}
-            className="flex items-center gap-3 rounded-xl p-2.5 transition-all hover:bg-primary-50/50"
+            className="flex items-center gap-3 rounded-xl p-2.5 transition-all hover:bg-primary-50/50 dark:hover:bg-gray-800"
           >
             {tool.logo_url ? (
               <img

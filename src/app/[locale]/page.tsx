@@ -10,6 +10,7 @@ import { HomeFeed } from "@/components/home/HomeFeed";
 import { TrendingTools } from "@/components/home/TrendingTools";
 import { RecentArticles } from "@/components/home/RecentArticles";
 import { TopContributors } from "@/components/home/TopContributors";
+import { PopularTags } from "@/components/feed/PopularTags";
 import { Container } from "@/components/ui/Container";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL } from "@/lib/constants";
@@ -106,6 +107,9 @@ export default async function HomePage({
             {/* Sidebar */}
             <aside className="w-full space-y-6 lg:w-80 lg:flex-shrink-0">
               <TrendingTools tools={tools} />
+              <Suspense fallback={null}>
+                <PopularTags />
+              </Suspense>
               <RecentArticles articles={articles} locale={locale} />
               <Suspense fallback={null}>
                 <TopContributors />

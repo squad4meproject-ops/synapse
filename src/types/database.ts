@@ -20,6 +20,7 @@ export interface Database {
           role: string;
           auth_id: string | null;
           is_premium: boolean;
+          is_admin: boolean;
           preferences: Json;
           created_at: string;
         };
@@ -33,6 +34,7 @@ export interface Database {
           role?: string;
           auth_id?: string | null;
           is_premium?: boolean;
+          is_admin?: boolean;
           preferences?: Json;
           created_at?: string;
         };
@@ -46,6 +48,7 @@ export interface Database {
           role?: string;
           auth_id?: string | null;
           is_premium?: boolean;
+          is_admin?: boolean;
           preferences?: Json;
           created_at?: string;
         };
@@ -310,6 +313,49 @@ export interface Database {
           created_at?: string;
         };
       };
+      tags: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          posts_count: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          posts_count?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          slug?: string;
+          posts_count?: number;
+          created_at?: string;
+        };
+      };
+      post_tags: {
+        Row: {
+          id: string;
+          post_id: string;
+          tag_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          tag_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          post_id?: string;
+          tag_id?: string;
+          created_at?: string;
+        };
+      };
       tool_translations: {
         Row: {
           id: string;
@@ -348,6 +394,21 @@ export interface Database {
 
 export type PostCategory = 'creation' | 'prompt' | 'question' | 'discussion' | 'tool_review';
 
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+  posts_count: number;
+  created_at: string;
+}
+
+export interface PostTag {
+  id: string;
+  post_id: string;
+  tag_id: string;
+  created_at: string;
+}
+
 export interface Post {
   id: string;
   author_id: string;
@@ -376,6 +437,7 @@ export interface Post {
   author?: User;
   images?: PostImage[];
   tool?: AITool;
+  tags?: Tag[];
   // Current user state (computed in queries)
   is_liked?: boolean;
   is_saved?: boolean;

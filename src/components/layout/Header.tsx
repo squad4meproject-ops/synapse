@@ -8,6 +8,7 @@ import { Logo } from "@/components/ui/Logo";
 import { NotificationBellWrapper } from "@/components/notifications/NotificationBellWrapper";
 import { SearchBar } from "@/components/search/SearchBar";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { AdminLink } from "@/components/admin/AdminLink";
 
 export function Header() {
   const t = useTranslations("navigation");
@@ -48,6 +49,7 @@ export function Header() {
             <SearchBar />
             <ThemeToggle />
             <NotificationBellWrapper />
+            <AdminLink />
             <LocaleSwitcher />
             <AuthButton />
           </div>

@@ -31,7 +31,7 @@ export function ToolCard({
           </div>
         )}
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100">
             <Link href={`/tools/${tool.slug}`} className="hover:text-primary-600">
               {tool.name}
             </Link>
@@ -44,7 +44,7 @@ export function ToolCard({
           </div>
         </div>
       </div>
-      <p className="mt-3 flex-1 text-sm text-gray-600">{tool.description}</p>
+      <p className="mt-3 flex-1 text-sm text-gray-600 dark:text-gray-400">{tool.description}</p>
     </Card>
   );
 }

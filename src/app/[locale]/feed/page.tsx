@@ -2,14 +2,17 @@ import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { generatePageMetadata } from "@/lib/seo";
 import { getPosts } from "@/lib/queries/posts";
+import { getPostsByTag } from "@/lib/queries/tags";
 import { createClient } from "@/lib/supabase/server";
 import { Container } from "@/components/ui/Container";
 import { PostCard } from "@/components/feed/PostCard";
 import { PostComposer } from "@/components/feed/PostComposer";
 import { CategoryFilter } from "@/components/feed/CategoryFilter";
+import { FeedToggle } from "@/components/feed/FeedToggle";
 import { LanguageFilter } from "@/components/feed/LanguageFilter";
 import { LoadMoreButton } from "@/components/feed/LoadMoreButton";
 import { TrendingPosts } from "@/components/feed/TrendingPosts";
+import { PopularTags } from "@/components/feed/PopularTags";
 import type { PostCategory } from "@/types/database";
 
 export async function generateMetadata({
@@ -33,7 +36,7 @@ export default async function FeedPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ category?: string; page?: string; lang?: string }>;
+  searchParams: Promise<{ category?: string; page?: string; lang?: string; feed?: string; tag?: string }>;
 }) {
   const { locale } = await params;
   const search = await searchParams;
@@ -41,6 +44,7 @@ export default async function FeedPage({
 
   const t = await getTranslations({ locale, namespace: "feed" });
   const lang = search.lang;
+  const feedType = search.feed || "all";
 
   // Check if user is logged in
   const supabase = await createClient();
@@ -58,10 +62,18 @@ export default async function FeedPage({
 
   const category = search.category as PostCategory | undefined;
   const page = parseInt(search.page || "1", 10);
+  const followingOnly = feedType === "following";
+  const tagSlug = search.tag;
 
   let postsData = { posts: [] as Awaited<ReturnType<typeof getPosts>>["posts"], total: 0 };
   try {
-    postsData = await getPosts({ page, category, locale: lang, userId });
+    if (tagSlug) {
+      // Filter by tag
+      const tagResult = await getPostsByTag({ tagSlug, page, limit: 20, userId });
+      postsData = { posts: tagResult.posts, total: tagResult.total };
+    } else {
+      postsData = await getPosts({ page, category, locale: lang, userId, followingOnly, followerId: followingOnly ? userId : undefined });
+    }
   } catch {
     // fail gracefully
   }
@@ -75,6 +87,11 @@ export default async function FeedPage({
             <div className="overflow-hidden bg-white shadow sm:rounded-xl dark:bg-gray-900">
               {/* Composer */}
               <PostComposer locale={locale} isLoggedIn={!!user} />
+
+              {/* Feed Toggle */}
+              <Suspense fallback={null}>
+                <FeedToggle />
+              </Suspense>
 
               {/* Category Filter */}
               <Suspense fallback={null}>
@@ -115,6 +132,9 @@ export default async function FeedPage({
 
           {/* Sidebar */}
           <aside className="w-full space-y-6 lg:w-80 lg:flex-shrink-0">
+            <Suspense fallback={null}>
+              <PopularTags />
+            </Suspense>
             <TrendingPosts />
           </aside>
         </div>

@@ -11,6 +11,9 @@ export async function GET(
 ) {
   try {
     const { id: postId } = await params;
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
     const service = createServiceClient();
 
     const { data, error } = await service
@@ -23,7 +26,34 @@ export async function GET(
       .order('created_at', { ascending: true });
 
     if (error) throw error;
-    return NextResponse.json(data || []);
+
+    // Add like status for logged-in users
+    if (user) {
+      const { data: userData } = await service
+        .from('users')
+        .select('id')
+        .eq('auth_id', user.id)
+        .single();
+
+      if (userData) {
+        const { data: userLikes } = await service
+          .from('likes')
+          .select('comment_id')
+          .eq('user_id', userData.id)
+          .in('comment_id', (data || []).map(c => c.id));
+
+        const likedCommentIds = new Set((userLikes || []).map(l => l.comment_id));
+
+        return NextResponse.json(
+          (data || []).map(comment => ({
+            ...comment,
+            is_liked: likedCommentIds.has(comment.id),
+          }))
+        );
+      }
+    }
+
+    return NextResponse.json((data || []).map(c => ({ ...c, is_liked: false })));
   } catch (error) {
     console.error('Error fetching comments:', error);
     return NextResponse.json([], { status: 500 });
