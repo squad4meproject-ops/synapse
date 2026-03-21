@@ -1,19 +1,5 @@
 import { Link } from "@/i18n/routing";
-
-interface Space {
-  id: string;
-  slug: string;
-  name_en: string;
-  name_fr: string;
-  name_es: string;
-  description_en: string | null;
-  description_fr: string | null;
-  description_es: string | null;
-  icon: string;
-  color: string;
-  members_count: number;
-  posts_count: number;
-}
+import type { Space } from "@/lib/queries/spaces";
 
 export function SpaceCard({ space, locale }: { space: Space; locale: string }) {
   const name = locale === "fr" ? space.name_fr : locale === "es" ? space.name_es : space.name_en;

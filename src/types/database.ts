@@ -388,6 +388,79 @@ export interface Database {
           description?: string;
         };
       };
+      spaces: {
+        Row: {
+          id: string;
+          slug: string;
+          name_en: string;
+          name_fr: string;
+          name_es: string;
+          description_en: string | null;
+          description_fr: string | null;
+          description_es: string | null;
+          icon: string;
+          color: string;
+          cover_image_url: string | null;
+          members_count: number;
+          posts_count: number;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          name_en: string;
+          name_fr: string;
+          name_es: string;
+          description_en?: string | null;
+          description_fr?: string | null;
+          description_es?: string | null;
+          icon?: string;
+          color?: string;
+          cover_image_url?: string | null;
+          members_count?: number;
+          posts_count?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          slug?: string;
+          name_en?: string;
+          name_fr?: string;
+          name_es?: string;
+          description_en?: string | null;
+          description_fr?: string | null;
+          description_es?: string | null;
+          icon?: string;
+          color?: string;
+          cover_image_url?: string | null;
+          members_count?: number;
+          posts_count?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+      };
+      space_members: {
+        Row: {
+          id: string;
+          space_id: string;
+          user_id: string;
+          joined_at: string;
+        };
+        Insert: {
+          id?: string;
+          space_id: string;
+          user_id: string;
+          joined_at?: string;
+        };
+        Update: {
+          id?: string;
+          space_id?: string;
+          user_id?: string;
+          joined_at?: string;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

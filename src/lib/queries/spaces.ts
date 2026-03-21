@@ -1,7 +1,26 @@
+import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 
-export async function getSpaces() {
-  const supabase = createServiceClient();
+export interface Space {
+  id: string;
+  slug: string;
+  name_en: string;
+  name_fr: string;
+  name_es: string;
+  description_en: string | null;
+  description_fr: string | null;
+  description_es: string | null;
+  icon: string;
+  color: string;
+  cover_image_url: string | null;
+  members_count: number;
+  posts_count: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+export async function getSpaces(): Promise<Space[]> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("spaces")
     .select("*")
@@ -12,11 +31,11 @@ export async function getSpaces() {
     console.error("Error fetching spaces:", error);
     return [];
   }
-  return data || [];
+  return (data as unknown as Space[]) || [];
 }
 
-export async function getSpaceBySlug(slug: string) {
-  const supabase = createServiceClient();
+export async function getSpaceBySlug(slug: string): Promise<Space | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("spaces")
     .select("*")
@@ -24,10 +43,10 @@ export async function getSpaceBySlug(slug: string) {
     .single();
 
   if (error) return null;
-  return data;
+  return data as unknown as Space;
 }
 
-export async function getUserSpaces(userId: string) {
+export async function getUserSpaces(userId: string): Promise<Space[]> {
   const supabase = createServiceClient();
   const { data } = await supabase
     .from("space_members")

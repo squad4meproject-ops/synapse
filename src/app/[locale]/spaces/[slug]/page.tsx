@@ -33,7 +33,7 @@ export default async function SpaceDetailPage({
     userId = internalUser?.id;
     if (userId) {
       const { count } = await supabase
-        .from("space_members")
+        .from("space_members" as never)
         .select("id", { count: "exact", head: true })
         .eq("space_id", space.id)
         .eq("user_id", userId);
