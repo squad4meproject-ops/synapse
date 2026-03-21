@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 
 interface SearchResults {
   posts: { id: string; content: string; author: { display_name: string | null; username: string | null } | null; created_at: string }[];
