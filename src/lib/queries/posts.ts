@@ -10,16 +10,30 @@ export async function getPosts({
   category,
   locale,
   userId, // pour calculer is_liked et is_saved
+  followingOnly = false,
+  followerId,
 }: {
   page?: number;
   limit?: number;
   category?: PostCategory;
   locale?: string;
   userId?: string;
+  followingOnly?: boolean;
+  followerId?: string;
 } = {}): Promise<{ posts: Post[]; total: number }> {
   try {
     const supabase = await createClient();
     const offset = (page - 1) * limit;
+
+    // If followingOnly, first get the list of followed user IDs
+    let followedUserIds: string[] = [];
+    if (followingOnly && followerId) {
+      const { data: followersData } = await supabase
+        .from('followers')
+        .select('following_id')
+        .eq('follower_id', followerId);
+      followedUserIds = (followersData || []).map(f => (f as { following_id: string }).following_id);
+    }
 
     let query = supabase
       .from('posts')
@@ -27,7 +41,8 @@ export async function getPosts({
         *,
         author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
         images:post_images(id, image_url, position, alt_text),
-        tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url)
+        tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url),
+        tags:post_tags(tag:tags(id, name, slug))
       `, { count: 'exact' })
       .order('is_pinned', { ascending: false })
       .order('created_at', { ascending: false })
@@ -41,11 +56,29 @@ export async function getPosts({
       query = query.eq('locale', locale);
     }
 
+    // Filter by followed users if needed
+    if (followingOnly && followedUserIds.length > 0) {
+      query = query.in('author_id', followedUserIds);
+    } else if (followingOnly && followedUserIds.length === 0) {
+      // User follows nobody, return empty
+      return { posts: [], total: 0 };
+    }
+
     const { data, error, count } = await query;
 
     if (error) throw error;
 
-    let posts = (data || []) as Post[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let posts = (data || []).map(post => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const p = post as any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const tags = (p.tags || []).map((pt: any) => pt.tag).filter((t: any) => t);
+      return {
+        ...p,
+        tags,
+      } as Post;
+    });
 
     // Si un user est connecté, vérifier ses likes et bookmarks
     if (userId && posts.length > 0) {
@@ -95,7 +128,8 @@ export async function getPostById(postId: string, userId?: string): Promise<Post
         *,
         author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
         images:post_images(id, image_url, position, alt_text),
-        tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url)
+        tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url),
+        tags:post_tags(tag:tags(id, name, slug))
       `)
       .eq('id', postId)
       .single();
@@ -103,7 +137,15 @@ export async function getPostById(postId: string, userId?: string): Promise<Post
     if (error) throw error;
     if (!data) return null;
 
-    let post = data as Post;
+    // Flatten tags from post_tags structure
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const p = data as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const tags = (p.tags || []).map((pt: any) => pt.tag).filter((t: any) => t);
+    let post = {
+      ...p,
+      tags,
+    } as Post;
 
     if (userId) {
       const [likeResult, bookmarkResult] = await Promise.all([
@@ -216,7 +258,8 @@ export async function getBookmarkedPosts(userId: string, page = 1, limit = 20) {
       .select(`
         *,
         author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
-        images:post_images(id, image_url, position, alt_text)
+        images:post_images(id, image_url, position, alt_text),
+        tags:post_tags(tag:tags(id, name, slug))
       `, { count: 'exact' })
       .in('id', postIds)
       .order('created_at', { ascending: false });
@@ -224,14 +267,20 @@ export async function getBookmarkedPosts(userId: string, page = 1, limit = 20) {
     if (error) throw error;
 
     // Marquer tous comme saved puisque c'est la page bookmarks
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const posts = (data || []).map(p => {
-      const post = p as Post;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const post = p as any;
+      // Flatten tags from post_tags structure
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const tags = (post.tags || []).map((pt: any) => pt.tag).filter((t: any) => t);
       return {
         ...post,
+        tags,
         is_saved: true,
-        images: (post.images || []).sort((a, b) => a.position - b.position),
-      };
-    }) as Post[];
+        images: (post.images || []).sort((a: { position: number }, b: { position: number }) => a.position - b.position),
+      } as Post;
+    });
 
     // Vérifier les likes
     if (posts.length > 0) {
