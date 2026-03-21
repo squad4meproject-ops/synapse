@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { createBrowserClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
@@ -55,7 +55,7 @@ export default function ProfilePage() {
   const [defaultPostLocale, setDefaultPostLocale] = useState("en");
   const [profileVisible, setProfileVisible] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(false);
-  const [stats, setStats] = useState({ postsCount: 0, commentsCount: 0, likesReceived: 0 });
+  const [stats, setStats] = useState({ postsCount: 0, commentsCount: 0, likesReceived: 0, followersCount: 0, followingCount: 0 });
 
   useEffect(() => {
     async function load() {
@@ -199,7 +199,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Stats */}
-      <div className="mb-8 grid grid-cols-3 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="mb-8 grid grid-cols-5 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
         <div className="text-center">
           <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.postsCount}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">{t("postsCount")}</p>
@@ -211,6 +211,14 @@ export default function ProfilePage() {
         <div className="text-center">
           <p className="text-2xl font-bold text-red-500">{stats.likesReceived}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">{t("likesReceived")}</p>
+        </div>
+        <div className="text-center">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.followersCount}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t("followers")}</p>
+        </div>
+        <div className="text-center">
+          <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.followingCount}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t("followingCount")}</p>
         </div>
       </div>
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/routing";
 import type { User } from "@supabase/supabase-js";

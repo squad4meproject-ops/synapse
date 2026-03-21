@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/routing";
 import type { PostCategory } from "@/types/database";
 
 const categories: { value: PostCategory; icon: string }[] = [
