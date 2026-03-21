@@ -27,6 +27,12 @@ yarn-error.log*
 
 # credentials / secrets
 Identifiants/
+API Key/
+Secret client GitHub .txt
+PROMPT_REPRISE.md
+PROMPT_REPRISE_V2.md
+PROMPT_REPRISE_V3.md
+PROMPT_REPRISE_V4.md
 
 # vercel
 .vercel

@@ -33,7 +33,7 @@ export function LocaleSwitcher() {
     <select
       value={locale}
       onChange={onChange}
-      className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+      className="rounded-md border border-gray-300 bg-white px-2 py-1 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200"
       aria-label="Select language"
     >
       {Object.entries(localeLabels).map(([value, label]) => (

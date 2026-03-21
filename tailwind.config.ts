@@ -1,8 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  // darkMode désactivé — light mode uniquement
-  // darkMode: "class",
+  darkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {

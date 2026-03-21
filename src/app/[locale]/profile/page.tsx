@@ -179,7 +179,7 @@ export default function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="mb-8 text-3xl font-bold">{t("title")}</h1>
+      <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">{t("title")}</h1>
 
       {/* Avatar & Banner Upload */}
       <AvatarUpload
@@ -310,7 +310,7 @@ export default function ProfilePage() {
         {/* Social links */}
         <div>
           <div className="mb-3 flex items-center justify-between">
-            <label className="text-sm font-medium">{t("socialLinks")}</label>
+            <label className="text-sm font-medium dark:text-gray-200">{t("socialLinks")}</label>
             <button
               type="button"
               onClick={addSocialLink}
@@ -373,7 +373,7 @@ export default function ProfilePage() {
           <select
             value={defaultPostLocale}
             onChange={(e) => setDefaultPostLocale(e.target.value)}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
           >
             <option value="en">English</option>
             <option value="fr">Français</option>

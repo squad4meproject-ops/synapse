@@ -25,7 +25,7 @@ export function MobileNav() {
         <AuthButton />
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-700"
+          className="inline-flex items-center justify-center rounded-lg p-2 text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary-400"
           aria-label="Toggle menu"
           aria-expanded={isOpen}
         >
@@ -42,20 +42,20 @@ export function MobileNav() {
       </div>
 
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full z-50 animate-fade-in border-b border-gray-200 bg-white/95 shadow-soft backdrop-blur-lg">
+        <div className="absolute left-0 right-0 top-full z-50 animate-fade-in border-b border-gray-200 bg-white/95 shadow-soft backdrop-blur-lg dark:border-gray-700 dark:bg-gray-900/95">
           <nav className="flex flex-col space-y-1 px-4 py-3">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700"
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-primary-400"
               >
                 <span className="text-lg">{link.icon}</span>
                 {link.label}
               </Link>
             ))}
-            <div className="border-t border-gray-200 pt-3 mt-2">
+            <div className="border-t border-gray-200 pt-3 mt-2 dark:border-gray-700">
               <div className="px-3 py-2">
                 <LocaleSwitcher />
               </div>

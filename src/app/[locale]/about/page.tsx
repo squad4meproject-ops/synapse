@@ -60,25 +60,25 @@ export default async function AboutPage({
   return (
     <Container className="py-12">
       <div className="mx-auto max-w-3xl text-center">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
           {t("title")}
         </h1>
-        <p className="mt-4 text-lg text-gray-600">{t("description")}</p>
+        <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">{t("description")}</p>
       </div>
 
       <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3">
         {values.map((value) => (
           <div
             key={value.title}
-            className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm"
+            className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800"
           >
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-100 text-primary-600">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
               {value.icon}
             </div>
-            <h3 className="mt-4 text-lg font-semibold text-gray-900">
+            <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
               {value.title}
             </h3>
-            <p className="mt-2 text-sm text-gray-600">{value.description}</p>
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{value.description}</p>
           </div>
         ))}
       </div>
