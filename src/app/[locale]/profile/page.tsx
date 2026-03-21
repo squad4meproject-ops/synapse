@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { createBrowserClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
 import { AvatarUpload } from "@/components/profile/AvatarUpload";
+import { XpBar } from "@/components/xp/XpBar";
 
 interface SocialLink {
   label: string;
@@ -56,6 +57,10 @@ export default function ProfilePage() {
   const [profileVisible, setProfileVisible] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(false);
   const [stats, setStats] = useState({ postsCount: 0, commentsCount: 0, likesReceived: 0, followersCount: 0, followingCount: 0 });
+  const [xpData, setXpData] = useState<{
+    xp: number; level: number; levelTitle: string;
+    levelInfo: { xpProgress: number; xpNeeded: number; xpForNext: number | null };
+  } | null>(null);
 
   useEffect(() => {
     async function load() {
@@ -92,6 +97,7 @@ export default function ProfilePage() {
 
     load();
     fetch('/api/account/stats').then(res => res.json()).then(setStats).catch(() => {});
+    fetch('/api/xp').then(res => res.json()).then(setXpData).catch(() => {});
   }, []);
 
   const handleSave = async (e: React.FormEvent) => {
@@ -221,6 +227,18 @@ export default function ProfilePage() {
           <p className="text-xs text-gray-500 dark:text-gray-400">{t("followingCount")}</p>
         </div>
       </div>
+
+      {/* XP Bar */}
+      {xpData && (
+        <XpBar
+          xp={xpData.xp}
+          level={xpData.level}
+          levelTitle={xpData.levelTitle}
+          xpProgress={xpData.levelInfo.xpProgress}
+          xpNeeded={xpData.levelInfo.xpNeeded}
+          xpForNext={xpData.levelInfo.xpForNext}
+        />
+      )}
 
       {/* Messages */}
       {message && (

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createNotification } from '@/lib/notifications/create';
+import { awardXP } from '@/lib/xp';
 
 // POST /api/users/[userId]/follow — toggle follow/unfollow
 export async function POST(
@@ -78,6 +79,9 @@ export async function POST(
         actorId: me.id,
         type: 'follow',
       });
+
+      // Award XP to the followed user (fire-and-forget)
+      awardXP(targetUserId, "new_follower").catch(() => {});
 
       return NextResponse.json({ following: true });
     }

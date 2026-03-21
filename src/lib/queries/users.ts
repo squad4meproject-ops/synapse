@@ -30,6 +30,9 @@ interface PublicProfile {
   is_premium: boolean;
   banner_url: string | null;
   social_links: SocialLink[];
+  xp: number;
+  level: number;
+  level_title: string | null;
 }
 
 export async function getUserByUsername(username: string): Promise<PublicProfile | null> {
@@ -37,7 +40,7 @@ export async function getUserByUsername(username: string): Promise<PublicProfile
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data, error } = await (supabase.from('users') as any)
-    .select('id, display_name, username, avatar_url, banner_url, bio, created_at, show_email, email, is_premium, social_links')
+    .select('id, display_name, username, avatar_url, banner_url, bio, created_at, show_email, email, is_premium, social_links, xp, level, level_title')
     .eq('username', username)
     .single();
 
@@ -61,7 +64,7 @@ export async function getUserPosts(userId: string, page = 1, limit = 20) {
   const { data, error, count } = await (supabase.from('posts') as any)
     .select(`
       *,
-      author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+      author:users!posts_author_id_fkey(id, display_name, username, avatar_url, level),
       images:post_images(id, image_url, position, alt_text)
     `, { count: 'exact' })
     .eq('author_id', userId)
@@ -113,7 +116,7 @@ export async function getUserLikedPosts(userId: string, page = 1, limit = 20) {
   const { data, error } = await (supabase.from('posts') as any)
     .select(`
       *,
-      author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+      author:users!posts_author_id_fkey(id, display_name, username, avatar_url, level),
       images:post_images(id, image_url, position, alt_text)
     `)
     .in('id', postIds);

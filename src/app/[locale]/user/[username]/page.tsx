@@ -9,6 +9,7 @@ import { MessageButton } from "@/components/feed/MessageButton";
 import { FollowButton } from "@/components/profile/FollowButton";
 import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
+import { LevelBadge } from "@/components/xp/LevelBadge";
 
 export async function generateMetadata({
   params,
@@ -118,6 +119,7 @@ export default async function UserProfilePage({
                 <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
                   {user.display_name || username}
                 </h1>
+                {user.level && <LevelBadge level={user.level} size="md" />}
                 {user.is_premium && (
                   <span className="rounded-full bg-yellow-100 px-2 py-0.5 text-[10px] font-bold text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">
                     Premium
@@ -187,7 +189,7 @@ export default async function UserProfilePage({
         </div>
 
         {/* Stats */}
-        <div className="mt-4 grid grid-cols-5 gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-card dark:border-gray-700 dark:bg-gray-800">
+        <div className="mt-4 grid grid-cols-6 gap-2 rounded-2xl border border-gray-100 bg-white p-4 shadow-card dark:border-gray-700 dark:bg-gray-800">
           <div className="text-center">
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.postsCount}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">{t("posts")}</p>
@@ -207,6 +209,10 @@ export default async function UserProfilePage({
           <div className="text-center">
             <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{followStats.followingCount}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">{t("followingCount")}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-primary-600">{user.xp || 0}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">XP</p>
           </div>
         </div>
 

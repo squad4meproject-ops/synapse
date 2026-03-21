@@ -5,7 +5,8 @@
     "tools": "Outils IA",
     "about": "À propos",
     "community": "Communauté",
-    "messages": "Messages"
+    "messages": "Messages",
+    "spaces": "Espaces"
   },
   "home": {
     "title": "Synapse",
@@ -314,5 +315,22 @@
     "selectBadge": "Sélectionner un badge",
     "notAdmin": "Accès refusé",
     "notAdminDesc": "Vous n'avez pas les droits administrateur."
+  },
+  "xp": {
+    "total": "au total",
+    "toNextLevel": "pour le prochain niveau",
+    "level": "Niveau",
+    "xpGained": "XP gagnés",
+    "levelUp": "Niveau supérieur !"
+  },
+  "spaces": {
+    "title": "Espaces",
+    "description": "Rejoignez des communautés thématiques pour échanger avec des passionnés d'IA.",
+    "members": "membres",
+    "join": "Rejoindre",
+    "leave": "Quitter",
+    "allSpaces": "Tous les espaces",
+    "noPosts": "Aucun post dans cet espace pour l'instant. Soyez le premier à partager !",
+    "joined": "Rejoint"
   }
 }

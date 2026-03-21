@@ -6,6 +6,7 @@ import { CommentSection } from "./CommentSection";
 import { TagDisplay } from "./TagDisplay";
 import { Link } from "@/i18n/routing";
 import type { Post } from "@/types/database";
+import { LevelBadge } from "@/components/xp/LevelBadge";
 
 function timeAgo(dateString: string): string {
   const now = new Date();
@@ -249,6 +250,7 @@ export function PostCard({
             ) : (
               <span className="font-semibold text-gray-900 dark:text-gray-100">{authorName}</span>
             )}
+            {post.author?.level && <LevelBadge level={post.author.level} />}
             {author?.username && (
               <Link href={`/user/${author.username}`} className="text-sm text-gray-500 hover:text-primary-600 hover:underline dark:text-gray-400">
                 @{author.username}

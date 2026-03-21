@@ -13,6 +13,7 @@ export function MobileNav() {
   const links = [
     { href: "/", label: t("home"), icon: "🏠" },
     { href: "/feed", label: t("community"), icon: "💬" },
+    { href: "/spaces", label: t("spaces"), icon: "🏠" },
     { href: "/articles", label: t("articles"), icon: "📰" },
     { href: "/tools", label: t("tools"), icon: "🛠️" },
     { href: "/messages", label: t("messages"), icon: "✉️" },

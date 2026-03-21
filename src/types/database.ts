@@ -22,6 +22,9 @@ export interface Database {
           is_premium: boolean;
           is_admin: boolean;
           preferences: Json;
+          xp: number;
+          level: number;
+          level_title: string | null;
           created_at: string;
         };
         Insert: {
@@ -36,6 +39,9 @@ export interface Database {
           is_premium?: boolean;
           is_admin?: boolean;
           preferences?: Json;
+          xp?: number;
+          level?: number;
+          level_title?: string | null;
           created_at?: string;
         };
         Update: {
@@ -50,6 +56,9 @@ export interface Database {
           is_premium?: boolean;
           is_admin?: boolean;
           preferences?: Json;
+          xp?: number;
+          level?: number;
+          level_title?: string | null;
           created_at?: string;
         };
       };

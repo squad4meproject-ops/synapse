@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { checkAndAwardBadges } from '@/lib/badges/check';
+import { awardXP } from '@/lib/xp';
 
 // POST /api/posts — Créer un nouveau post
 export async function POST(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { category, content, prompt_content, link_url, locale, image_urls } = body;
+    const { category, content, prompt_content, link_url, locale, image_urls, space_id } = body;
 
     if (!content || !category) {
       return NextResponse.json({ error: 'Content and category are required' }, { status: 400 });
@@ -57,6 +58,7 @@ export async function POST(request: NextRequest) {
         prompt_content: prompt_content || null,
         link_url: link_url || null,
         locale: locale || 'en',
+        space_id: space_id || null,
       })
       .select()
       .single();
@@ -158,6 +160,9 @@ export async function POST(request: NextRequest) {
         console.error('Error processing tags:', tagErr);
       }
     }
+
+    // Award XP for posting (fire-and-forget)
+    awardXP(authorId, "post", post.id).catch(() => {});
 
     // Check badges (fire-and-forget)
     checkAndAwardBadges(authorId).catch(() => {});

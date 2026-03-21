@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createNotification } from '@/lib/notifications/create';
 import { checkAndAwardBadges } from '@/lib/badges/check';
+import { awardXP } from '@/lib/xp';
 
 // GET /api/posts/[id]/comments — Récupérer les commentaires
 export async function GET(
@@ -147,6 +148,9 @@ export async function POST(
         });
       }
     }
+
+    // Award XP for commenting (fire-and-forget)
+    awardXP(userData.id, "comment", comment.id).catch(() => {});
 
     // Check badges for commenter (fire-and-forget)
     checkAndAwardBadges(userData.id).catch(() => {});

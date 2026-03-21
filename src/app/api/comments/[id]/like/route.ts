@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { createNotification } from '@/lib/notifications/create';
 import { checkAndAwardBadges } from '@/lib/badges/check';
+import { awardXP } from '@/lib/xp';
 
 export async function POST(
   request: NextRequest,
@@ -106,6 +107,11 @@ export async function POST(
           postId: comment.post_id,
           commentId,
         });
+
+        // Award XP to comment author for receiving a like (fire-and-forget)
+        if (comment.author_id !== userData.id) {
+          awardXP(comment.author_id, "like_received_comment", commentId).catch(() => {});
+        }
 
         // Check badges for comment author (fire-and-forget)
         checkAndAwardBadges(comment.author_id).catch(() => {});

@@ -5,7 +5,8 @@
     "tools": "AI Tools",
     "about": "About",
     "community": "Community",
-    "messages": "Messages"
+    "messages": "Messages",
+    "spaces": "Spaces"
   },
   "home": {
     "title": "Synapse",
@@ -314,5 +315,22 @@
     "selectBadge": "Select badge",
     "notAdmin": "Access denied",
     "notAdminDesc": "You don't have admin privileges."
+  },
+  "xp": {
+    "total": "total",
+    "toNextLevel": "to next level",
+    "level": "Level",
+    "xpGained": "XP gained",
+    "levelUp": "Level up!"
+  },
+  "spaces": {
+    "title": "Spaces",
+    "description": "Join themed communities to connect with like-minded AI enthusiasts.",
+    "members": "members",
+    "join": "Join",
+    "leave": "Leave",
+    "allSpaces": "All Spaces",
+    "noPosts": "No posts in this space yet. Be the first to share!",
+    "joined": "Joined"
   }
 }

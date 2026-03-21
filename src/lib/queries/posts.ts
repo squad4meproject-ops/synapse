@@ -39,7 +39,7 @@ export async function getPosts({
       .from('posts')
       .select(`
         *,
-        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url, level),
         images:post_images(id, image_url, position, alt_text),
         tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url),
         tags:post_tags(tag:tags(id, name, slug))
@@ -126,7 +126,7 @@ export async function getPostById(postId: string, userId?: string): Promise<Post
       .from('posts')
       .select(`
         *,
-        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url, level),
         images:post_images(id, image_url, position, alt_text),
         tool:ai_tools!posts_tool_id_fkey(id, name, slug, logo_url),
         tags:post_tags(tag:tags(id, name, slug))
@@ -257,7 +257,7 @@ export async function getBookmarkedPosts(userId: string, page = 1, limit = 20) {
       .from('posts')
       .select(`
         *,
-        author:users!posts_author_id_fkey(id, display_name, username, avatar_url),
+        author:users!posts_author_id_fkey(id, display_name, username, avatar_url, level),
         images:post_images(id, image_url, position, alt_text),
         tags:post_tags(tag:tags(id, name, slug))
       `, { count: 'exact' })

@@ -13,7 +13,7 @@ const categories: { value: PostCategory; icon: string }[] = [
   { value: "tool_review", icon: "⭐" },
 ];
 
-export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedIn: boolean }) {
+export function PostComposer({ locale, isLoggedIn, spaceId }: { locale: string; isLoggedIn: boolean; spaceId?: string }) {
   const t = useTranslations("feed");
   const router = useRouter();
   const [content, setContent] = useState("");
@@ -112,6 +112,7 @@ export function PostComposer({ locale, isLoggedIn }: { locale: string; isLoggedI
           link_url: linkUrl.trim() || null,
           locale,
           image_urls: imageUrls.length > 0 ? imageUrls : undefined,
+          space_id: spaceId || undefined,
         }),
       });
 
