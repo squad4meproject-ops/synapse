@@ -83,7 +83,7 @@ export function AuthButton() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="flex items-center gap-2 rounded-full ring-2 ring-transparent transition-all hover:ring-primary-200 focus:outline-none focus:ring-primary-300"
+        className="flex-shrink-0 flex items-center gap-2 rounded-full ring-2 ring-transparent transition-all hover:ring-primary-200 focus:outline-none focus:ring-primary-300"
       >
         {avatarUrl ? (
           <img

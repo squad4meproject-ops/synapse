@@ -8,7 +8,10 @@ export async function getSpaces() {
     .eq("is_active", true)
     .order("members_count", { ascending: false });
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error fetching spaces:", error);
+    return [];
+  }
   return data || [];
 }
 
